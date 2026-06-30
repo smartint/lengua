@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programación Didáctica — Lengua 6º Primaria</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7f9fc; --surface:#ffffff; --surface-alt:#eef2fb;
+    --accent:#5b8dee; --accent2:#ff8a5c; --accent3:#4caf82; --accent-light:#d6e4ff;
+    --text:#1e2a3a; --text-muted:#6b7a99; --border:#dde3f0;
+    --success:#4caf82; --error:#e57373; --shadow:0 2px 12px rgba(0,0,0,0.08);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:'Open Sans',sans-serif; line-height:1.55;}
+  h1,h2,h3,h4{font-family:'Poppins',sans-serif; margin:0 0 10px;}
+  header.hero{
+    background:linear-gradient(135deg,var(--accent),#7aabf7 55%,var(--accent2));
+    color:#fff; padding:30px 20px 26px; text-align:center;
+  }
+  header.hero h1{font-size:1.7rem; font-weight:800;}
+  header.hero p{margin:6px auto 0; max-width:640px; opacity:0.95; font-size:0.92rem;}
+  .container{max-width:1100px; margin:0 auto; padding:22px 16px 70px;}
+
+  .toolbar{
+    display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;
+    background:var(--surface); border:1px solid var(--border); border-radius:16px;
+    box-shadow:var(--shadow); padding:14px 18px; margin-bottom:20px; position:sticky; top:10px; z-index:20;
+  }
+  .toolbar .global-fields{display:flex; flex-wrap:wrap; gap:14px; align-items:center;}
+  .field-inline{display:flex; flex-direction:column; gap:2px;}
+  .field-inline label{font-size:0.72rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; letter-spacing:.03em;}
+  .field-inline input{
+    border:2px solid var(--border); border-radius:10px; padding:6px 10px; font-family:'Open Sans';
+    font-size:0.88rem; min-width:140px;
+  }
+  .field-inline input.wide{ min-width:280px; }
+  .btn{
+    border:none; border-radius:10px; padding:9px 16px; font-family:'Poppins',sans-serif;
+    font-weight:600; font-size:0.84rem; cursor:pointer; transition:filter .15s, transform .15s;
+  }
+  .btn:hover{filter:brightness(1.08);}
+  .btn:active{transform:scale(0.97);}
+  .btn-primary{background:var(--accent); color:#fff;}
+  .btn-secondary{background:var(--surface-alt); color:var(--text); border:2px solid var(--border);}
+  .btn-danger{background:#fff0f0; color:var(--error); border:2px solid #f3c9c9;}
+  .toolbar-actions{display:flex; gap:8px; flex-wrap:wrap;}
+
+  .save-status{font-size:0.8rem; color:var(--accent3); font-weight:700; min-width:120px; opacity:0; transition:opacity .3s;}
+  .save-status.show{opacity:1;}
+
+  nav.nav-tabs{
+    display:flex; gap:8px; overflow-x:auto; padding:4px 2px 10px; margin-bottom:18px;
+  }
+  .tab-btn{
+    flex:0 0 auto; background:var(--surface); border:2px solid var(--border);
+    color:var(--text-muted); padding:9px 14px; border-radius:14px;
+    font-family:'Poppins',sans-serif; font-weight:600; font-size:0.82rem;
+    cursor:pointer; transition:all 0.2s; white-space:nowrap;
+  }
+  .tab-btn:hover{border-color:var(--accent);}
+  .tab-btn.active{background:var(--accent); color:#fff; border-color:var(--accent); box-shadow:var(--shadow);}
+
+  .section{display:none; animation:fadeIn 0.25s ease;}
+  .section.active{display:block;}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+  .grid-2{display:grid; grid-template-columns:1.2fr 1fr; gap:20px;}
+  @media (max-width:880px){ .grid-2{grid-template-columns:1fr;} }
+
+  .card{
+    background:var(--surface); border-radius:18px; box-shadow:var(--shadow);
+    padding:22px; border:1px solid var(--border); margin-bottom:20px;
+  }
+  .card h2{display:flex; align-items:center; gap:8px; font-size:1.1rem; color:var(--accent);}
+  .card.curriculum h2{color:var(--accent3);}
+  .badge-anexo{
+    font-size:0.66rem; background:var(--accent-light); color:#2a4d8f; padding:2px 9px;
+    border-radius:20px; font-weight:700; letter-spacing:.02em; margin-left:auto;
+  }
+
+  .form-row{margin-bottom:14px;}
+  .form-row label{
+    display:block; font-size:0.76rem; font-weight:700; color:var(--text-muted);
+    text-transform:uppercase; letter-spacing:.03em; margin-bottom:5px;
+  }
+  .form-row input[type=text], .form-row input[type=number], .form-row textarea{
+    width:100%; border:2px solid var(--border); border-radius:10px; padding:9px 12px;
+    font-family:'Open Sans'; font-size:0.92rem; color:var(--text); background:var(--surface-alt);
+    transition:border-color .15s;
+  }
+  .form-row input:focus, .form-row textarea:focus{outline:none; border-color:var(--accent); background:#fff;}
+  .form-row textarea{resize:vertical; min-height:64px;}
+  .two-col{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+
+  .list-editor .list-item{
+    display:flex; gap:8px; align-items:flex-start; margin-bottom:8px;
+  }
+  .list-editor .list-item textarea{flex:1; min-height:42px;}
+  .list-editor .remove-item{
+    background:#fff0f0; color:var(--error); border:2px solid #f3c9c9; border-radius:8px;
+    width:32px; height:32px; flex:0 0 auto; cursor:pointer; font-weight:700;
+  }
+  .add-item-btn{
+    background:var(--accent-light); color:#2a4d8f; border:2px dashed #b6cdfb;
+    border-radius:10px; padding:8px 14px; font-family:'Poppins'; font-weight:600;
+    font-size:0.82rem; cursor:pointer; width:100%;
+  }
+
+  .resource-editor .resource-item{
+    display:grid; grid-template-columns:1fr 1.3fr auto; gap:8px; align-items:center; margin-bottom:8px;
+  }
+  .resource-editor .resource-item input{
+    border:2px solid var(--border); border-radius:9px; padding:8px 10px;
+    font-family:'Open Sans'; font-size:0.86rem; background:var(--surface-alt);
+  }
+  .resource-editor .resource-item input:focus{outline:none; border-color:var(--accent); background:#fff;}
+  .resource-editor .resource-item a.resource-link{
+    grid-column:1 / -1; font-size:0.78rem; color:var(--accent); text-decoration:none; word-break:break-all;
+  }
+  .resource-editor .resource-item a.resource-link:hover{text-decoration:underline;}
+  @media (max-width:560px){ .resource-editor .resource-item{grid-template-columns:1fr;} }
+
+  .curriculum-block{
+    background:var(--surface-alt); border-left:4px solid var(--accent3);
+    border-radius:10px; padding:12px 14px; margin-top:12px;
+  }
+  .curriculum-block h4{margin:0 0 4px; font-size:0.88rem; color:var(--accent3);}
+  .curriculum-block .codes{font-size:0.7rem; color:var(--text-muted); margin-top:6px; font-weight:700;}
+  .curriculum-block p{margin:0; font-size:0.86rem;}
+  .curriculum-note{
+    font-size:0.74rem; color:var(--text-muted); font-style:italic; margin-top:10px;
+    border-top:1px dashed var(--border); padding-top:8px;
+  }
+
+  .saberes-tag{
+    display:inline-block; background:#eaf7ef; color:#2c7a52; border:1px solid #bfe6cc;
+    border-radius:8px; padding:2px 8px; font-size:0.7rem; font-weight:700; margin-right:6px;
+  }
+
+  footer{text-align:center; color:var(--text-muted); font-size:0.78rem; padding:20px;}
+
+  /* ---- Tabla resumen ---- */
+  .tabla-wrap{
+    background:var(--surface); border-radius:18px; box-shadow:var(--shadow);
+    border:1px solid var(--border); overflow:hidden; margin-bottom:8px;
+  }
+  .tabla-header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 22px 14px; border-bottom:1px solid var(--border);
+  }
+  .tabla-header h2{margin:0; font-size:1.1rem; color:var(--accent);}
+  .tabla-meta{font-size:0.8rem; color:var(--text-muted);}
+  .tabla-resumen{width:100%; border-collapse:collapse; font-size:0.82rem;}
+  .tabla-resumen th{
+    background:var(--accent); color:#fff; padding:10px 12px; text-align:left;
+    font-family:'Poppins',sans-serif; font-weight:600; font-size:0.78rem;
+    white-space:nowrap;
+  }
+  .tabla-resumen th:first-child{ border-radius:0; }
+  .tabla-resumen td{
+    padding:9px 12px; border-bottom:1px solid var(--border);
+    vertical-align:top; line-height:1.45;
+  }
+  .tabla-resumen tr:last-child td{ border-bottom:none; }
+  .tabla-resumen tr:nth-child(even) td{ background:#f9fafd; }
+  .tabla-resumen tr:hover td{ background:var(--accent-light); }
+  .td-num{ font-weight:700; color:var(--accent); white-space:nowrap; }
+  .td-titulo{ font-weight:600; }
+  .td-trim{
+    white-space:nowrap; font-size:0.76rem; color:var(--text-muted); font-weight:600;
+  }
+  .criterio-pill{
+    display:inline-block; background:var(--accent-light); color:#2a4d8f;
+    border:1px solid #b6cdfb; border-radius:6px; padding:2px 7px;
+    font-size:0.73rem; font-weight:700; margin:2px 2px 2px 0; white-space:nowrap;
+  }
+  .saber-pill{
+    display:inline-block; background:#eaf7ef; color:#1f6b46;
+    border:1px solid #bfe6cc; border-radius:6px; padding:2px 7px;
+    font-size:0.73rem; font-weight:600; margin:2px 2px 2px 0;
+  }
+  .td-fechas{ font-size:0.76rem; color:var(--text-muted); white-space:nowrap; }
+  .btn-print-tabla{
+    background:var(--accent); color:#fff; border:none; border-radius:10px;
+    padding:8px 16px; font-family:'Poppins',sans-serif; font-weight:600;
+    font-size:0.82rem; cursor:pointer;
+  }
+
+  @media print{
+    .toolbar, nav.nav-tabs, #btn-print-tabla-btn{ display:none !important; }
+    .section{ display:block !important; page-break-after:always; }
+    .tabla-wrap{ box-shadow:none; border:1px solid #ccc; border-radius:0; }
+    .tabla-resumen{ font-size:0.75rem; }
+    body{ background:#fff; }
+    @page{ margin:1.5cm; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>📘 Programación Didáctica — Lengua Castellana y Literatura</h1>
+  <p>6º de Educación Primaria (Tercer Ciclo) · 12 Situaciones de Aprendizaje editables · Elementos curriculares según Anexo 2</p>
+</header>
+
+<div class="container">
+
+  <div class="toolbar">
+    <div class="global-fields">
+      <div class="field-inline">
+        <label for="curso-academico">Curso académico</label>
+        <input type="text" id="curso-academico" value="2026/2027">
+      </div>
+      <div class="field-inline">
+        <label for="centro">Centro educativo</label>
+        <input type="text" id="centro" placeholder="Nombre del centro" value="CEIP Santa Bárbara">
+      </div>
+      <div class="field-inline">
+        <label for="nivel">Nivel / Materia</label>
+        <input type="text" id="nivel" class="wide" value="6º Primaria — Lengua Castellana y Literatura">
+      </div>
+    </div>
+    <div class="toolbar-actions">
+      <span class="save-status" id="save-status">✓ Guardado</span>
+      <button class="btn btn-primary" id="btn-save">💾 Guardar cambios</button>
+      <button class="btn btn-secondary" id="btn-export">⬇️ Exportar JSON</button>
+      <button class="btn btn-primary" id="btn-export-html" style="background:#7c3aed;">🌐 Exportar HTML</button>
+      <button class="btn btn-secondary" id="btn-tabla">📊 Tabla resumen</button>
+      <button class="btn btn-secondary" id="btn-print">🖨️ Imprimir / PDF</button>
+      <button class="btn btn-danger" id="btn-reset">↺ Restablecer SA</button>
+    </div>
+  </div>
+
+  <div id="tabla-resumen" style="display:none; margin-bottom:24px;"></div>
+
+  <nav class="nav-tabs" id="nav-tabs"></nav>
+
+  <div id="sections-container"></div>
+
+</div>
+
+<footer>Los criterios de evaluación y saberes básicos se reproducen literalmente del currículo oficial (Anexo 2) y no son editables. El resto de campos (temporalización, metodología, agrupamiento, productos e instrumentos) son completamente editables y se guardan en este navegador.</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ---------- ANEXO 2: ELEMENTOS CURRICULARES OFICIALES (no editables) ----------
+  const CRITERIOS = {
+    "1.1": { texto: "Identificar las lenguas de España y distintas variedades dialectales del español, reconociendo especialmente características propias del español de Canarias y estableciendo comparaciones y relaciones con otras variedades y otros dialectos, tanto peninsulares como de la América hispanohablante, detectando prejuicios y estereotipos lingüísticos frecuentes y entendiendo la vinculación existente entre el acervo histórico y cultural y el desarrollo lingüístico de cada lengua y cada dialecto, con la finalidad de valorar y respetar la pluralidad lingüística del entorno y del mundo como una fuente de riqueza cultural.", codigos:"CCL1, CCL5, CP2, CP3, CC1, CC2, CCEC1, CCEC2", competencia:"1. Reconocer la diversidad lingüística del mundo..." },
+    "2.1": { texto: "Comprender el sentido de textos orales y multimodales, reconociendo las ideas principales y los mensajes explícitos e implícitos de manera individual y cooperativa, realizando una valoración crítica sobre el contenido e identificando elementos no verbales y formales para responder a diferentes necesidades comunicativas.", codigos:"CCL2, CP2, STEM1, CD3, CPSAA3, CC3", competencia:"2. Comprender e interpretar textos orales y multimodales..." },
+    "3.1": { texto: "Producir textos orales y multimodales, utilizando tanto el vocabulario apropiado al contexto como recursos verbales y no verbales, y respetando los rasgos del español de Canarias, para transmitir información de manera autónoma, coherente y fluida, ajustándose a la intencionalidad comunicativa.", codigos:"CCL1, CCL3, CCL5, CP2, STEM1, CC2, CE1", competencia:"3. Producir textos orales y multimodales..." },
+    "3.2": { texto: "Participar en interacciones orales espontáneas o planificadas utilizando métodos y estrategias acordes a cada situación comunicativa, respetando las normas de la cortesía lingüística y desarrollando estrategias de escucha activa y de cooperación conversacional para satisfacer diferentes necesidades comunicativas.", codigos:"CCL1, CCL3, CCL5, CP2, STEM1, CD2, CD3, CPSAA1, CC2", competencia:"3. Producir textos orales y multimodales..." },
+    "4.1": { texto: "Leer textos escritos y multimodales de manera silenciosa o en voz alta, identificando el sentido global y la información relevante, utilizando estrategias de comprensión antes, durante y después de la lectura y realizando inferencias para superar la interpretación literal en la comprensión lectora.", codigos:"CCL2, CCL3, CP2, STEM1, CD1, CPSAA5", competencia:"4. Comprender e interpretar textos escritos y multimodales..." },
+    "4.2": { texto: "Analizar y valorar el contenido y aspectos no verbales y formales elementales de textos escritos y multimodales, evaluando su calidad, su fiabilidad y su idoneidad en función del propósito de lectura, con el fin de formar personas competentes y autónomas en la lectura.", codigos:"CCL2, CCL3, CCL5, CP2, STEM1, CD1, CPSAA4, CPSAA5", competencia:"4. Comprender e interpretar textos escritos y multimodales..." },
+    "5.1": { texto: "Producir textos escritos y multimodales coherentes, de manera creativa y en distintos soportes, conociendo los riesgos de la difusión del contenido en entornos digitales, seleccionando el modelo discursivo que mejor responda a cada situación comunicativa, aplicando las normas gramaticales y ortográficas con la debida observación a los rasgos del español de Canarias, y utilizando estrategias de planificación, redacción, revisión y edición, con el objetivo de transmitir información y comunicar conocimientos, pensamientos, experiencias y emociones.", codigos:"CCL1, CCL3, CCL5, STEM1, CD2, CD3, CPSAA4, CPSAA5, CC2", competencia:"5. Producir textos escritos y multimodales..." },
+    "6.1": { texto: "Compartir, utilizando diferentes lenguajes, los resultados de un proceso pautado de búsqueda de información sobre diferentes temas de interés personal o ecosocial, realizado de manera individual y cooperativa, que implique la localización, la selección y el contraste de información procedente de distintas fuentes, incluidas las digitales, evaluando su fiabilidad y pertinencia, recreando la información de manera creativa, reconociendo y evitando los riesgos de la manipulación y la desinformación, y adoptando un punto de vista crítico, así como respetuoso con la propiedad intelectual para construir su propio conocimiento.", codigos:"CCL3, CD1, CD2, CD3, CD4, CPSAA5, CC2, CE3", competencia:"6. Buscar, seleccionar y contrastar información..." },
+    "7.1": { texto: "Leer textos de diversa índole, usando estrategias que favorezcan una selección ajustada a sus gustos, intereses y necesidades con criterio propio, para progresar en la construcción y enriquecimiento de su identidad lectora.", codigos:"CCL4, CPSAA1, CCEC1, CCEC2", competencia:"7. Leer de manera autónoma obras diversas..." },
+    "7.2": { texto: "Compartir la experiencia de lectura, a través de diferentes técnicas y soportes, aprovechando los recursos que tiene a su alcance y participando en comunidades lectoras en el ámbito escolar o social para disfrutar de la dimensión social de la lectura.", codigos:"CCL1, CCL4, CD3, CPSAA1, CC3, CCEC1, CCEC2, CCEC3", competencia:"7. Leer de manera autónoma obras diversas..." },
+    "8.1": { texto: "Escuchar y leer textos literarios, que abarquen diversidad de autores y autoras, con la debida atención a muestras de la literatura canaria, relacionándolos, de manera autónoma, en función de los temas y de aspectos elementales de cada género literario para interpretarlos, valorarlos y relacionarlos con otras manifestaciones artísticas o culturales en la búsqueda del reconocimiento de la lectura literaria como fuente de placer.", codigos:"CCL2, CCL4, CCEC1, CCEC2, CCEC3, CCEC4", competencia:"8. Leer, interpretar y analizar obras o fragmentos literarios..." },
+    "8.2": { texto: "Producir, de manera autónoma, textos individuales o colectivos, con intención literaria, reelaborando con creatividad los modelos dados en distintos soportes y complementándolos con otros lenguajes artísticos, con la finalidad de mejorar la capacidad expresiva a través de recursos literarios.", codigos:"CCL1, CCL2, CCL4, CCEC1, CCEC2, CCEC3, CCEC4", competencia:"8. Leer, interpretar y analizar obras o fragmentos literarios..." },
+    "9.1": { texto: "Establecer generalizaciones sobre aspectos del funcionamiento de la lengua, con la debida atención al español de Canarias, generando hipótesis y buscando contraejemplos, a partir de la observación, comparación y manipulación de palabras, enunciados y textos, para producir o comprender textos en contextos significativos de manera individual o colectiva.", codigos:"CCL1, CCL2, CP2, STEM1, STEM2, CPSAA5", competencia:"9. Reflexionar de forma guiada sobre el lenguaje..." },
+    "9.2": { texto: "Revisar y mejorar los textos propios y ajenos, identificando fortalezas y debilidades, y subsanando algunos problemas de comprensión lectora y oral, profundizando en la reflexión metalingüística, usando la terminología adecuada y apoyándose en los recursos a su alcance para mejorar el uso de la lengua y comunicarse de manera eficaz y competencial.", codigos:"CCL1, CCL2, CP2, STEM1, STEM2, CPSAA4, CPSAA5", competencia:"9. Reflexionar de forma guiada sobre el lenguaje..." },
+    "10.1": { texto: "Planificar y utilizar estrategias, de manera autónoma, para la deliberación argumentada y la gestión dialogada de conflictos, rechazando los usos lingüísticos discriminatorios y los abusos de poder a través de la palabra, reflexionando de manera cooperativa sobre distintos aspectos verbales y no verbales que rigen la comunicación, teniendo en cuenta la perspectiva de género y las diferencias culturales para contribuir a una sociedad respetuosa.", codigos:"CCL1, CCL5, CP3, CD3, CPSAA3, CC1, CC2, CC3", competencia:"10. Poner las propias prácticas comunicativas al servicio de la convivencia democrática..." }
+  };
+
+  const SABERES_BLOQUES = {
+    "I": "Las lenguas y sus hablantes",
+    "II": "Comunicación",
+    "III": "Educación literaria",
+    "IV": "Reflexión sobre la lengua y sus usos"
+  };
+
+  // ---------- DATOS POR DEFECTO DE LAS 12 SITUACIONES DE APRENDIZAJE ----------
+  const DEFAULT_SAS = [
+    { id:"sa1", titulo:"Conectamos en red con respeto", trimestre:"1ª Evaluación", fechas:"Septiembre - Octubre (Inicio de curso y Erasmus Days a mediados de octubre)", planes:"Plan Digital de Centro (PDC) y PROA+ (Tutorías afectivas)", criterios:["10.1","3.2"], saberes:[{bloque:"I", texto:"Uso de un lenguaje no discriminatorio."},{bloque:"II", texto:"Interacción oral adecuada a través de escucha activa y cortesía."}], productos:["10.1.1. Decálogo de Convivencia y Cortesía Digital","3.2.2. Diario Digital de Escucha Activa"], instrumentos:["10.1.1. Decálogo de Convivencia y Cortesía Digital","3.2.2. Diario Digital de Escucha Activa"], numSesiones:8, numHoras:8, fechaInicio:"", fechaFin:"", recursos:[], metodologia:"Aprendizaje cooperativo y modelo de las Fases de David Merrill (Activación, Demostración, Aplicación, Integración). Dinámicas: Tela de Araña, 4 Esquinas, Rompecabezas (Jigsaw), La Pecera, Folio Giratorio.", agrupamiento:"Gran grupo, parejas y grupos cooperativos heterogéneos de 4 alumnos/as." },
+    { id:"sa2", titulo:"Investigadores de nuestra Biblioteca", trimestre:"1ª Evaluación", fechas:"24 de octubre (Día Internacional de la Biblioteca Escolar)", planes:"Red InnovAS (Eje 3: Comunicación Lingüística y Bibliotecas / Plan Lector Digital)", criterios:["7.1","6.1","7.2"], saberes:[{bloque:"II", texto:"Afianzamiento de la alfabetización mediática e informacional."},{bloque:"III", texto:"Uso autónomo de la biblioteca escolar."}], productos:["7.1.1. Pasaporte o Diario de Lectura Individual","6.1.1. Dosier de Investigación Digital","7.2.2. Mural Colectivo de Recomendaciones Literarias"], instrumentos:["7.1.1. Pasaporte o Diario de Lectura Individual","6.1.1. Dosier de Investigación Digital","7.2.2. Mural Colectivo de Recomendaciones Literarias"], numSesiones:8, numHoras:8, fechaInicio:"", fechaFin:"", recursos:[], metodologia:"Aprendizaje basado en investigación guiada (alfabetización informacional) y trabajo por proyectos en la biblioteca escolar.", agrupamiento:"Trabajo individual y pequeños grupos de investigación." },
+    { id:"sa3", titulo:"Voces y miradas por la igualdad", trimestre:"1ª Evaluación", fechas:"20 de noviembre (Día de la Infancia) y 25 de noviembre (Eliminación de la Violencia contra la Mujer)", planes:"Red InnovAS (Eje 1: Promoción de la Salud y Educación Emocional)", criterios:["2.1","4.1","10.1"], saberes:[{bloque:"II", texto:"Comprensión de textos orales e interpretación del sentido global."},{bloque:"II", texto:"Interacción oral en resolución dialogada de conflictos."}], productos:["2.1.1. Guía de Análisis Audiovisual (Vídeo/Documental)","10.1.2. Role-playing (Simulación) de Mediación de Conflictos","4.1.2. Ficha Digital de Inferencias Lectoras"], instrumentos:["2.1.1. Guía de Análisis Audiovisual (Vídeo/Documental)","10.1.2. Role-playing (Simulación) de Mediación de Conflictos","4.1.2. Ficha Digital de Inferencias Lectoras"], numSesiones:8, numHoras:8, fechaInicio:"", fechaFin:"", recursos:[], metodologia:"Cinefórum, role-playing y análisis crítico de medios audiovisuales para la resolución dialogada de conflictos.", agrupamiento:"Gran grupo y pequeños grupos para el role-playing." },
+    { id:"sa4", titulo:"Nuestros Derechos en Acción", trimestre:"1ª Evaluación", fechas:"Principios de diciembre (Día de la Constitución / Día del Enseñante y Estudiante) y 10 de diciembre (Día de los Derechos Humanos)", planes:"PROA+ (AP 104: Estimulación e Inclusión mediante Aprendizaje Basado en Proyectos)", criterios:["3.1","5.1"], saberes:[{bloque:"II", texto:"Producción de textos orales y multimodales."},{bloque:"II", texto:"Producción autónoma de textos escritos con coherencia."}], productos:["3.1.2. Campaña de Difusión Escolar","5.1.2. Portafolio del Proceso de Escritura"], instrumentos:["3.1.2. Campaña de Difusión Escolar","5.1.2. Portafolio del Proceso de Escritura"], numSesiones:8, numHoras:8, fechaInicio:"", fechaFin:"", recursos:[], metodologia:"Aprendizaje Basado en Proyectos (ABP) orientado a una campaña de difusión escolar real.", agrupamiento:"Grupos cooperativos de trabajo por proyecto." },
+    { id:"sa5", titulo:"Palabras de Paz", trimestre:"2ª Evaluación", fechas:"30 de enero (Día Escolar de la No Violencia y la Paz)", planes:"PROA+ (Línea E1: Asegurar condiciones de educabilidad / Tutorías)", criterios:["2.1","3.2"], saberes:[{bloque:"II", texto:"Comprensión de textos orales y valoración crítica."},{bloque:"II", texto:"Interacción escrita empática."}], productos:["2.1.2. Debate Guiado con Rúbrica de Valoración Crítica","3.2.1. Mesa Redonda (Podcast o Formato Radio)"], instrumentos:["2.1.2. Debate Guiado con Rúbrica de Valoración Crítica","3.2.1. Mesa Redonda (Podcast o Formato Radio)"], numSesiones:8, numHoras:8, fechaInicio:"", fechaFin:"", recursos:[], metodologia:"Debate guiado y producción de un formato radiofónico/podcast como mesa redonda.", agrupamiento:"Grupos pequeños para el podcast; gran grupo para el debate." },
+    { id:"sa6", titulo:"Ciencia en Portada", trimestre:"2ª Evaluación", fechas:"11 de febrero (Día Internacional de la Mujer y la Niña en la Ciencia)", planes:"Red InnovAS (Eje 3: Radio Escolar \"Onda Alisios\")", criterios:["4.2","5.1"], saberes:[{bloque:"II", texto:"Comprensión lectora y valoración crítica autónoma."},{bloque:"II", texto:"Producción autónoma de textos escritos."}], productos:["4.2.2. Cuestionario de Verificación y Fiabilidad de Fuentes","5.1.1. Artículo para Blog de Aula"], instrumentos:["4.2.2. Cuestionario de Verificación y Fiabilidad de Fuentes","5.1.1. Artículo para Blog de Aula"], numSesiones:8, numHoras:8, fechaInicio:"", fechaFin:"", recursos:[], metodologia:"Alfabetización mediática e informacional: contraste y verificación de fuentes, redacción periodística.", agrupamiento:"Trabajo individual y parejas de redacción." },
+    { id:"sa7", titulo:"Carnaval e Identidad: Nuestro Acento", trimestre:"2ª Evaluación", fechas:"Febrero / Marzo (Fiestas de Carnaval)", planes:"Red Canaria-InnovAS (Eje 4: Patrimonio Social, Cultural e Histórico Canario)", criterios:["1.1","9.1"], saberes:[{bloque:"I", texto:"Identificación de la diversidad etnocultural, español de Canarias y América."},{bloque:"IV", texto:"Establecimiento de generalizaciones sobre aspectos lingüísticos."}], productos:["1.1.1. Podcast de Variedades Dialectales","9.1.1. Cuaderno/Laboratorio de Indagación Gramatical"], instrumentos:["1.1.1. Podcast de Variedades Dialectales","9.1.1. Cuaderno/Laboratorio de Indagación Gramatical"], numSesiones:8, numHoras:8, fechaInicio:"", fechaFin:"", recursos:[], metodologia:"Indagación gramatical inductiva y producción sonora (podcast) sobre el español de Canarias.", agrupamiento:"Pequeños grupos para el podcast; individual para el cuaderno de indagación." },
+    { id:"sa8", titulo:"Versos de agua y colores", trimestre:"2ª Evaluación", fechas:"8 de marzo (Mujer), 21 de marzo (Poesía y Discriminación Racial) y 22 de marzo (Día del Agua)", planes:"Red InnovAS (Eje 2: Educación Ambiental y Sostenibilidad)", criterios:["8.2","4.1"], saberes:[{bloque:"III", texto:"Creación de textos de intención literaria."},{bloque:"II", texto:"Comprensión lectora con inferencias."}], productos:["8.2.2. Dramatización o Recital Poético Multimodal","4.1.1. Mapa Mental u Organizador Gráfico Post-lectura"], instrumentos:["8.2.2. Dramatización o Recital Poético Multimodal","4.1.1. Mapa Mental u Organizador Gráfico Post-lectura"], numSesiones:8, numHoras:8, fechaInicio:"", fechaFin:"", recursos:[], metodologia:"Educación literaria creativa: creación poética e interpretación/dramatización multimodal.", agrupamiento:"Individual para la creación; grupos para la dramatización." },
+    { id:"sa9", titulo:"El Club de la Diversidad y la Salud", trimestre:"3ª Evaluación", fechas:"2 de abril (Autismo), 7 de abril (Salud) y 23 de abril (Día del Libro)", planes:"Red InnovAS (Eje 1: Desayunos Saludables y Sostenibles)", criterios:["7.2","8.2"], saberes:[{bloque:"III", texto:"Estrategias para interpretación compartida a través de conversaciones."},{bloque:"III", texto:"Creación literaria creativa."}], productos:["7.2.1. Sesión de Videoconferencia o Club de Lectura","8.2.1. Antología Literaria Ilustrada (Creación Propia)"], instrumentos:["7.2.1. Sesión de Videoconferencia o Club de Lectura","8.2.1. Antología Literaria Ilustrada (Creación Propia)"], numSesiones:8, numHoras:8, fechaInicio:"", fechaFin:"", recursos:[], metodologia:"Club de lectura (comunidad lectora) y creación de antología literaria ilustrada propia.", agrupamiento:"Gran grupo para el club de lectura; individual para la antología." },
+    { id:"sa10", titulo:"Conexiones: Europa y mi Familia", trimestre:"3ª Evaluación", fechas:"9 de mayo (Europa), 15 de mayo (Familias), 17 de mayo (Contra la LGTBIfobia)", planes:"Programa AICLE/CLIL (Internacionalización) e InnovAS (Familia y Participación)", criterios:["8.1","4.2"], saberes:[{bloque:"III", texto:"Relación entre textos leídos y otras manifestaciones artísticas."},{bloque:"II", texto:"Elementos gráficos y paratextuales."}], productos:["8.1.2. Portafolio de Conexiones Artísticas","4.2.1. Reseña Crítica Multimodal"], instrumentos:["8.1.2. Portafolio de Conexiones Artísticas","4.2.1. Reseña Crítica Multimodal"], numSesiones:8, numHoras:8, fechaInicio:"", fechaFin:"", recursos:[], metodologia:"Enfoque AICLE/CLIL conectando literatura, familia e identidad europea; elaboración de portafolio y reseña multimodal.", agrupamiento:"Individual con puesta en común en gran grupo." },
+    { id:"sa11", titulo:"Raíces de Canarias", trimestre:"3ª Evaluación", fechas:"30 de mayo (Día de Canarias)", planes:"Red InnovAS (Patrimonio Cultural Canario)", criterios:["1.1","8.1"], saberes:[{bloque:"I", texto:"Biografía lingüística y mapa del entorno."},{bloque:"III", texto:"Literatura canaria."}], productos:["1.1.2. Mural Interactivo Cultural","8.1.1. Guía de Análisis Literario (Enfoque Canario)"], instrumentos:["1.1.2. Mural Interactivo Cultural","8.1.1. Guía de Análisis Literario (Enfoque Canario)"], numSesiones:8, numHoras:8, fechaInicio:"", fechaFin:"", recursos:[], metodologia:"Indagación sobre patrimonio lingüístico y literario canario; elaboración de mural interactivo colaborativo.", agrupamiento:"Grupos cooperativos para el mural; individual para la guía de análisis." },
+    { id:"sa12", titulo:"Patio Vivo, Mundo Sostenible", trimestre:"3ª Evaluación", fechas:"5 de junio (Día Mundial del Medio Ambiente)", planes:"Red InnovAS (Proyecto \"Patio Vivo\") y Plan Digital de Centro", criterios:["6.1","3.1","9.2"], saberes:[{bloque:"II", texto:"Alfabetización mediática y comunicación de información."},{bloque:"IV", texto:"Aplicación de mecanismos de coherencia y revisión de textos."}], productos:["6.1.2. Infografía Divulgativa","3.1.1. Presentación Oral en Vídeo (Exposición)","9.2.1. Taller de Edición y Coevaluación Textual"], instrumentos:["6.1.2. Infografía Divulgativa","3.1.1. Presentación Oral en Vídeo (Exposición)","9.2.1. Taller de Edición y Coevaluación Textual"], numSesiones:8, numHoras:8, fechaInicio:"", fechaFin:"", recursos:[], metodologia:"Aprendizaje-Servicio (Patio Vivo) con producción de infografía divulgativa, vídeo expositivo y coevaluación textual.", agrupamiento:"Grupos cooperativos de proyecto y coevaluación entre iguales." }
+  ];
+
+  // ---------- ESTADO Y PERSISTENCIA ----------
+  const STORAGE_KEY = "prog_did_lengua6_state_v1";
+  const GLOBAL_KEY = "prog_did_lengua6_global_v1";
+
+  function loadState(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) return JSON.parse(raw);
+    }catch(e){}
+    return JSON.parse(JSON.stringify(DEFAULT_SAS));
+  }
+  function loadGlobal(){
+    try{
+      const raw = localStorage.getItem(GLOBAL_KEY);
+      if (raw) return JSON.parse(raw);
+    }catch(e){}
+    return { curso:"2026/2027", centro:"CEIP Santa Bárbara", nivel:"6º Primaria — Lengua Castellana y Literatura" };
+  }
+
+  let state = loadState();
+  let globalData = loadGlobal();
+  let activeId = state[0].id;
+
+  // ---------- RENDER ----------
+  const navTabs = document.getElementById('nav-tabs');
+  const sectionsContainer = document.getElementById('sections-container');
+
+  function renderTabs(){
+    navTabs.innerHTML = '';
+    state.forEach((sa, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'tab-btn' + (sa.id === activeId ? ' active' : '');
+      btn.dataset.id = sa.id;
+      btn.textContent = `SA${i+1} ${sa.titulo}`;
+      btn.addEventListener('click', () => { activeId = sa.id; renderTabs(); renderSections(); });
+      navTabs.appendChild(btn);
+    });
+  }
+
+  function criterioBlock(id){
+    const c = CRITERIOS[id];
+    if (!c) return '';
+    return `
+      <div class="curriculum-block">
+        <h4>Criterio ${id}</h4>
+        <p>${c.texto}</p>
+        <div class="codes">Competencias clave: ${c.codigos}</div>
+      </div>`;
+  }
+
+  function saberBlock(s){
+    return `
+      <div class="curriculum-block">
+        <h4><span class="saberes-tag">Bloque ${s.bloque}</span> ${SABERES_BLOQUES[s.bloque] || ''}</h4>
+        <p>${s.texto}</p>
+      </div>`;
+  }
+
+  function listEditor(saId, fieldName, items, label, icon){
+    const rows = items.map((val, idx) => `
+      <div class="list-item" data-field="${fieldName}" data-idx="${idx}">
+        <textarea data-sa="${saId}" data-field="${fieldName}" data-idx="${idx}">${val}</textarea>
+        <button type="button" class="remove-item" data-sa="${saId}" data-field="${fieldName}" data-idx="${idx}" aria-label="Eliminar elemento">✕</button>
+      </div>`).join('');
+    return `
+      <div class="form-row">
+        <label>${icon} ${label}</label>
+        <div class="list-editor" data-list="${fieldName}" data-sa="${saId}">
+          ${rows}
+        </div>
+        <button type="button" class="add-item-btn" data-sa="${saId}" data-field="${fieldName}">+ Añadir ${label.toLowerCase()}</button>
+      </div>`;
+  }
+
+  function resourceEditor(saId, items){
+    const rows = items.map((res, idx) => {
+      const safeUrl = escapeAttr(res.url || '');
+      const safeName = escapeAttr(res.nombre || '');
+      const hasUrl = !!(res.url || '').trim();
+      return `
+      <div class="resource-item" data-idx="${idx}">
+        <input type="text" placeholder="Nombre del recurso" data-sa="${saId}" data-field="recursos" data-idx="${idx}" data-sub="nombre" value="${safeName}">
+        <input type="url" placeholder="https://..." data-sa="${saId}" data-field="recursos" data-idx="${idx}" data-sub="url" value="${safeUrl}">
+        <button type="button" class="remove-item" data-sa="${saId}" data-field="recursos" data-idx="${idx}" aria-label="Eliminar recurso">✕</button>
+        <a class="resource-link" href="${safeUrl}" target="_blank" rel="noopener noreferrer" style="${hasUrl ? '' : 'display:none;'}">🔗 ${safeName || safeUrl}</a>
+      </div>`;
+    }).join('');
+    return `
+      <div class="resource-editor" data-list="recursos" data-sa="${saId}">
+        ${rows || '<p style="color:var(--text-muted); font-size:0.86rem; margin:0 0 10px;">Aún no se han añadido recursos.</p>'}
+      </div>
+      <button type="button" class="add-item-btn" data-sa="${saId}" data-field="recursos" data-kind="resource">+ Añadir recurso (URL)</button>`;
+  }
+
+  function renderSections(){
+    sectionsContainer.innerHTML = '';
+    const sa = state.find(s => s.id === activeId);
+
+    const section = document.createElement('div');
+    section.className = 'section active';
+    section.id = sa.id;
+
+    section.innerHTML = `
+      <div class="grid-2">
+        <div>
+          <div class="card">
+            <h2>✏️ ${sa.titulo} <span class="badge-anexo">Editable</span></h2>
+
+            <div class="form-row">
+              <label>Título de la Situación de Aprendizaje</label>
+              <input type="text" data-sa="${sa.id}" data-field="titulo" value="${escapeAttr(sa.titulo)}">
+            </div>
+
+            <div class="two-col">
+              <div class="form-row">
+                <label>Evaluación / Trimestre</label>
+                <input type="text" data-sa="${sa.id}" data-field="trimestre" value="${escapeAttr(sa.trimestre)}">
+              </div>
+              <div class="form-row">
+                <label>Fechas y efemérides</label>
+                <input type="text" data-sa="${sa.id}" data-field="fechas" value="${escapeAttr(sa.fechas)}">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label>Planes y programas vinculados</label>
+              <input type="text" data-sa="${sa.id}" data-field="planes" value="${escapeAttr(sa.planes)}">
+            </div>
+
+            <div class="two-col">
+              <div class="form-row">
+                <label>Nº de sesiones</label>
+                <input type="number" min="1" data-sa="${sa.id}" data-field="numSesiones" value="${sa.numSesiones}">
+              </div>
+              <div class="form-row">
+                <label>Nº de horas lectivas</label>
+                <input type="number" min="1" data-sa="${sa.id}" data-field="numHoras" value="${sa.numHoras}">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label>📅 Temporalización</label>
+              <div class="two-col">
+                <div>
+                  <label style="font-weight:400; text-transform:none; font-size:0.74rem;">Fecha de inicio</label>
+                  <input type="date" data-sa="${sa.id}" data-field="fechaInicio" value="${escapeAttr(sa.fechaInicio || '')}">
+                </div>
+                <div>
+                  <label style="font-weight:400; text-transform:none; font-size:0.74rem;">Fecha de finalización</label>
+                  <input type="date" data-sa="${sa.id}" data-field="fechaFin" value="${escapeAttr(sa.fechaFin || '')}">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label>Metodología</label>
+              <textarea data-sa="${sa.id}" data-field="metodologia">${sa.metodologia}</textarea>
+            </div>
+
+            <div class="form-row">
+              <label>Agrupamiento del alumnado</label>
+              <textarea data-sa="${sa.id}" data-field="agrupamiento">${sa.agrupamiento}</textarea>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>🏆 Productos finales <span class="badge-anexo">Editable</span></h2>
+            ${listEditor(sa.id, 'productos', sa.productos, 'Producto', '🏆')}
+          </div>
+
+          <div class="card">
+            <h2>📋 Instrumentos de evaluación <span class="badge-anexo">Editable</span></h2>
+            ${listEditor(sa.id, 'instrumentos', sa.instrumentos, 'Instrumento', '📋')}
+          </div>
+
+          <div class="card">
+            <h2>🔗 Recursos y enlaces <span class="badge-anexo">Editable</span></h2>
+            ${resourceEditor(sa.id, sa.recursos || [])}
+          </div>
+        </div>
+
+        <div>
+          <div class="card curriculum">
+            <h2>📖 Elementos curriculares <span class="badge-anexo" style="background:#d9f2e3;color:#1f6b46;">Anexo 2 — No editable</span></h2>
+            <h4 style="margin-top:4px;">Criterios de evaluación</h4>
+            ${sa.criterios.map(criterioBlock).join('')}
+            <h4 style="margin-top:18px;">Saberes básicos</h4>
+            ${sa.saberes.map(saberBlock).join('')}
+            <div class="curriculum-note">Texto literal extraído del currículo oficial de Lengua Castellana y Literatura — Tercer Ciclo de Educación Primaria (Anexo 2). No es editable para preservar la fidelidad normativa.</div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    sectionsContainer.appendChild(section);
+    attachFieldListeners(section);
+  }
+
+  function escapeAttr(str){
+    return String(str).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+  }
+
+  function attachFieldListeners(root){
+    root.querySelectorAll('input[data-field], textarea[data-field]').forEach(el => {
+      const evt = el.dataset.sub ? 'input' : 'input';
+      el.addEventListener(evt, (e) => {
+        const saId = e.target.dataset.sa;
+        const field = e.target.dataset.field;
+        const idx = e.target.dataset.idx;
+        const sub = e.target.dataset.sub;
+        const sa = state.find(s => s.id === saId);
+        if (!sa) return;
+        if (sub !== undefined && Array.isArray(sa[field])) {
+          sa[field][parseInt(idx)][sub] = e.target.value;
+          const item = e.target.closest('.resource-item');
+          const linkEl = item ? item.querySelector('.resource-link') : null;
+          if (linkEl) {
+            const entry = sa[field][parseInt(idx)];
+            const url = (entry.url || '').trim();
+            const nombre = (entry.nombre || '').trim();
+            if (url) {
+              linkEl.href = url;
+              linkEl.textContent = '🔗 ' + (nombre || url);
+              linkEl.style.display = '';
+            } else {
+              linkEl.style.display = 'none';
+            }
+          }
+        } else if (idx !== undefined && Array.isArray(sa[field])) {
+          sa[field][parseInt(idx)] = e.target.value;
+        } else if (field === 'numSesiones' || field === 'numHoras') {
+          sa[field] = parseInt(e.target.value) || 0;
+        } else {
+          sa[field] = e.target.value;
+        }
+        if (field === 'titulo') renderTabs();
+      });
+    });
+
+    root.querySelectorAll('.remove-item').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const saId = e.currentTarget.dataset.sa;
+        const field = e.currentTarget.dataset.field;
+        const idx = parseInt(e.currentTarget.dataset.idx);
+        const sa = state.find(s => s.id === saId);
+        if (!sa || !Array.isArray(sa[field])) return;
+        sa[field].splice(idx, 1);
+        renderSections();
+      });
+    });
+
+    root.querySelectorAll('.add-item-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const saId = e.currentTarget.dataset.sa;
+        const field = e.currentTarget.dataset.field;
+        const kind = e.currentTarget.dataset.kind;
+        const sa = state.find(s => s.id === saId);
+        if (!sa || !Array.isArray(sa[field])) return;
+        sa[field].push(kind === 'resource' ? { nombre:'', url:'' } : '');
+        renderSections();
+      });
+    });
+  }
+
+  // ---------- TOOLBAR GLOBAL ----------
+  const cursoInput = document.getElementById('curso-academico');
+  const centroInput = document.getElementById('centro');
+  const nivelInput = document.getElementById('nivel');
+  cursoInput.value = globalData.curso;
+  centroInput.value = globalData.centro;
+  nivelInput.value = globalData.nivel;
+
+  [cursoInput, centroInput, nivelInput].forEach(inp => {
+    inp.addEventListener('input', () => {
+      globalData = { curso: cursoInput.value, centro: centroInput.value, nivel: nivelInput.value };
+    });
+  });
+
+  const saveStatus = document.getElementById('save-status');
+  function flashSaved(){
+    saveStatus.classList.add('show');
+    setTimeout(() => saveStatus.classList.remove('show'), 1800);
+  }
+
+  document.getElementById('btn-save').addEventListener('click', () => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    localStorage.setItem(GLOBAL_KEY, JSON.stringify(globalData));
+    flashSaved();
+  });
+
+  document.getElementById('btn-export-html').addEventListener('click', () => {
+    const src = document.documentElement.outerHTML;
+    const newState = JSON.stringify(state, null, 2);
+    const newGlobal = JSON.stringify(globalData);
+
+    // Replace DEFAULT_SAS array with current state
+    let out = src.replace(
+      /const DEFAULT_SAS = \[[\s\S]*?\](?=\s*;)/,
+      `const DEFAULT_SAS = ${newState}`
+    );
+    // Replace loadGlobal default return with current global data
+    out = out.replace(
+      /return \{ curso:"[^"]*", centro:"[^"]*", nivel:"[^"]*" \};/,
+      `return ${newGlobal};`
+    );
+    // Make loadState always use defaults (baked-in data), ignore localStorage
+    out = out.replace(
+      /function loadState\(\)\{[\s\S]*?return JSON\.parse\(JSON\.stringify\(DEFAULT_SAS\)\);\s*\}/,
+      `function loadState(){ return JSON.parse(JSON.stringify(DEFAULT_SAS)); }`
+    );
+    out = out.replace(
+      /function loadGlobal\(\)\{[\s\S]*?return \{[^}]*\};\s*\}/,
+      `function loadGlobal(){ return ${newGlobal}; }`
+    );
+
+    const blob = new Blob([out], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'programacion_didactica_lengua6_exportada.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  document.getElementById('btn-export').addEventListener('click', () => {
+    const payload = { global: globalData, situacionesAprendizaje: state };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'programacion_didactica_lengua6.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  // ---------- TABLA RESUMEN ----------
+  const tablaContainer = document.getElementById('tabla-resumen');
+  let tablaVisible = false;
+
+  function renderTabla(){
+    const g = globalData;
+    const filas = state.map((sa, i) => {
+      const criteriosPills = sa.criterios.map(c =>
+        `<span class="criterio-pill" title="${CRITERIOS[c] ? CRITERIOS[c].texto.substring(0,120)+'…' : ''}">${c}</span>`
+      ).join('');
+      const saberesPills = sa.saberes.map(s =>
+        `<span class="saber-pill">Bloque ${s.bloque} — ${s.texto}</span>`
+      ).join('');
+      const fechas = (sa.fechaInicio || sa.fechaFin)
+        ? `${sa.fechaInicio || '—'} → ${sa.fechaFin || '—'}`
+        : '—';
+      return `
+        <tr>
+          <td class="td-num">SA${i+1}</td>
+          <td class="td-titulo">${sa.titulo}</td>
+          <td class="td-trim">${sa.trimestre}</td>
+          <td class="td-fechas">${fechas}</td>
+          <td>${sa.numSesiones} ses. / ${sa.numHoras} h</td>
+          <td>${criteriosPills}</td>
+          <td>${saberesPills}</td>
+        </tr>`;
+    }).join('');
+
+    tablaContainer.innerHTML = `
+      <div class="tabla-wrap">
+        <div class="tabla-header">
+          <div>
+            <h2>📊 Resumen de Situaciones de Aprendizaje</h2>
+            <div class="tabla-meta">${g.centro} · ${g.nivel} · Curso ${g.curso}</div>
+          </div>
+          <button class="btn-print-tabla" id="btn-print-tabla-btn">🖨️ Imprimir tabla</button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="tabla-resumen">
+            <thead>
+              <tr>
+                <th>Nº</th>
+                <th>Situación de Aprendizaje</th>
+                <th>Evaluación</th>
+                <th>Temporalización</th>
+                <th>Sesiones / Horas</th>
+                <th>Criterios de evaluación</th>
+                <th>Saberes básicos</th>
+              </tr>
+            </thead>
+            <tbody>${filas}</tbody>
+          </table>
+        </div>
+      </div>`;
+
+    document.getElementById('btn-print-tabla-btn').addEventListener('click', () => {
+      const contenido = tablaContainer.innerHTML;
+      const win = window.open('', '_blank', 'width=1100,height=700');
+      win.document.write(`<!DOCTYPE html><html lang="es"><head>
+        <meta charset="UTF-8">
+        <title>Tabla resumen — ${g.nivel}</title>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+        <style>
+          *{box-sizing:border-box;} body{margin:2cm; font-family:'Open Sans',sans-serif; font-size:0.8rem; color:#1e2a3a;}
+          h2{font-family:'Poppins',sans-serif; font-size:1rem; margin:0 0 4px;}
+          .tabla-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}
+          .tabla-meta{font-size:0.74rem;color:#6b7a99;}
+          .btn-print-tabla{display:none;}
+          table{width:100%;border-collapse:collapse;font-size:0.75rem;}
+          th{background:#5b8dee;color:#fff;padding:8px 10px;text-align:left;font-family:'Poppins',sans-serif;font-weight:600;font-size:0.72rem;}
+          td{padding:7px 10px;border-bottom:1px solid #dde3f0;vertical-align:top;line-height:1.4;}
+          tr:nth-child(even) td{background:#f9fafd;}
+          .criterio-pill{display:inline-block;background:#d6e4ff;color:#2a4d8f;border:1px solid #b6cdfb;border-radius:4px;padding:1px 6px;font-size:0.7rem;font-weight:700;margin:1px;}
+          .saber-pill{display:inline-block;background:#eaf7ef;color:#1f6b46;border:1px solid #bfe6cc;border-radius:4px;padding:1px 6px;font-size:0.7rem;margin:1px;}
+          .td-num{font-weight:700;color:#5b8dee;white-space:nowrap;}
+          .td-titulo{font-weight:600;}
+          .td-trim{white-space:nowrap;font-size:0.72rem;color:#6b7a99;font-weight:600;}
+          .td-fechas{font-size:0.72rem;color:#6b7a99;white-space:nowrap;}
+          @page{margin:1.5cm;} @media print{body{margin:0;}}
+        </style>
+      </head><body>${contenido}<script>window.onload=()=>window.print();<\/script></body></html>`);
+      win.document.close();
+    });
+  }
+
+  document.getElementById('btn-tabla').addEventListener('click', () => {
+    tablaVisible = !tablaVisible;
+    if (tablaVisible) {
+      renderTabla();
+      tablaContainer.style.display = 'block';
+      document.getElementById('btn-tabla').textContent = '✕ Cerrar tabla';
+      tablaContainer.scrollIntoView({ behavior:'smooth', block:'start' });
+    } else {
+      tablaContainer.style.display = 'none';
+      tablaContainer.innerHTML = '';
+      document.getElementById('btn-tabla').textContent = '📊 Tabla resumen';
+    }
+  });
+
+  document.getElementById('btn-print').addEventListener('click', () => {
+    window.print();
+  });
+
+  document.getElementById('btn-reset').addEventListener('click', () => {
+    const sa = state.find(s => s.id === activeId);
+    const idx = state.findIndex(s => s.id === activeId);
+    const defaultSa = JSON.parse(JSON.stringify(DEFAULT_SAS[idx]));
+    state[idx] = defaultSa;
+    renderTabs();
+    renderSections();
+  });
+
+  // ---------- INIT ----------
+  renderTabs();
+  renderSections();
+});
+</script>
+
+</body>
+</html>
