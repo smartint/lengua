@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 8 · Lengua 6.º Primaria</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f4f5fc;
+  --surface: #ffffff;
+  --surface-alt: #e8eaf6;
+  --accent: #3949ab;      /* Índigo vibrante */
+  --accent2: #ff9800;     /* Naranja juego */
+  --accent3: #5e35b1;     /* Violeta profundo */
+  --accent4: #00acc1;     /* Turquesa */
+  --accent-light: #e8eaf6;/* Índigo muy claro */
+  --text: #1a237e;
+  --text-muted: #5c6bc0;
+  --border: #c5cae9;
+  --success: #43a047;
+  --error: #e53935;
+  --shadow: 0 4px 16px rgba(57, 73, 171, 0.12);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+header {
+  background: linear-gradient(135deg, #3949ab 0%, #5e35b1 100%);
+  color: white;
+  padding: 20px 28px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 4px 20px rgba(57, 73, 171, 0.3);
+  border-bottom: 4px solid var(--accent2);
+}
+.header-icon { font-size: 2.6rem; }
+.header-text h1 { font-family: 'Nunito', sans-serif; font-size: 1.55rem; font-weight: 800; line-height: 1.2; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+.header-text p { font-size: 0.9rem; opacity: 0.95; margin-top: 2px; }
+.global-score-wrap {
+  margin-left: auto;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 12px;
+  padding: 8px 16px;
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+}
+.global-score-wrap .label { font-size: 0.75rem; opacity: 0.9; color: #ffe082; font-weight: 700; }
+#global-score { font-size: 1.35rem; font-weight: 800; }
+
+/* ── NAV ── */
+nav {
+  background: var(--surface);
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  overflow-x: auto;
+  padding: 0 12px;
+  gap: 4px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+nav::-webkit-scrollbar { display: none; }
+.tab-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 12px 16px;
+  min-height: 54px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tab-btn:hover { color: var(--accent); background-color: var(--surface-alt); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); background-color: var(--surface-alt); }
+.tab-btn .check { color: var(--success); font-size: 0.8rem; }
+
+/* ── MAIN ── */
+main { max-width: 900px; margin: 0 auto; padding: 28px 20px 60px; }
+
+/* ── SECTIONS ── */
+.section { display: none; animation: fadeIn 0.35s ease-out; }
+.section.active { display: block; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+.section-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-title span { font-size: 1.8rem; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 22px 24px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+  border-left: 5px solid var(--accent);
+}
+.card.orange { border-left-color: var(--accent2); }
+.card.purple { border-left-color: var(--accent3); }
+.card.cyan { border-left-color: var(--accent4); }
+.card h3 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+.card p { font-size: 0.95rem; line-height: 1.65; color: var(--text); margin-bottom: 8px; }
+.card ul { padding-left: 20px; margin-bottom: 8px; }
+.card li { font-size: 0.95rem; line-height: 1.7; }
+
+.concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 18px; }
+.concept-card {
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
+  border-top: 4px solid var(--accent);
+}
+.concept-card.orange { border-top-color: var(--accent2); }
+.concept-card.purple { border-top-color: var(--accent3); }
+.concept-card.cyan { border-top-color: var(--accent4); }
+.concept-card .icon { font-size: 2rem; margin-bottom: 8px; }
+.concept-card h4 { font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 6px; }
+.concept-card p { font-size: 0.9rem; line-height: 1.55; color: var(--text-muted); }
+
+.highlight-box {
+  background: var(--accent-light);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  border-left: 4px solid var(--accent);
+}
+.highlight-box.orange { background: #fff3e0; border-left-color: var(--accent2); }
+.highlight-box.purple { background: #ede7f6; border-left-color: var(--accent3); }
+.highlight-box.cyan { background: #e0f7fa; border-left-color: var(--accent4); }
+
+.example-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0;
+}
+.tag {
+  background: var(--surface-alt);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.tag.indigo { background: var(--accent-light); border-color: #9fa8da; color: #283593; }
+.tag.orange { background: #fff3e0; border-color: #ffcc80; color: #ef6c00; }
+.tag.purple { background: #ede7f6; border-color: #b39ddb; color: #4527a0; }
+
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9rem; }
+th { background: var(--surface-alt); padding: 10px 14px; text-align: left; font-family: 'Nunito', sans-serif; font-weight: 800; border-bottom: 2px solid var(--border); color: var(--accent); }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+tr:last-child td { border-bottom: none; }
+
+/* ── QUIZ ── */
+.quiz-wrap {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 26px;
+  margin-top: 26px;
+  box-shadow: var(--shadow);
+  border-top: 5px solid var(--accent2);
+}
+.quiz-wrap h3 {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 1.15rem;
+  margin-bottom: 18px;
+  color: #ef6c00;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.quiz-progress { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;}
+.quiz-question { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 16px; line-height: 1.5; color: var(--text); }
+.quiz-option {
+  display: block;
+  width: 100%;
+  padding: 14px 18px;
+  margin: 8px 0;
+  background: #f8f9fa;
+  border: 2px solid #cfd8dc;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-family: 'Open Sans', sans-serif;
+  transition: all 0.2s ease;
+  min-height: 52px; 
+}
+.quiz-option:hover:not(:disabled) { background: #fff3e0; border-color: #ffcc80; transform: translateY(-1px); }
+.quiz-option.correct { background: #e8f5e9; border-color: #43a047; color: #1b5e20; font-weight: 700; }
+.quiz-option.wrong   { background: #ffebee; border-color: #e53935; color: #b71c1c; }
+.quiz-feedback { margin-top: 12px; font-weight: 700; min-height: 24px; font-size: 0.95rem; }
+.quiz-feedback.correct { color: #2e7d32; }
+.quiz-feedback.wrong   { color: #c62828; }
+.quiz-result { text-align: center; padding: 24px 0 12px; }
+.result-score { font-family: 'Nunito', sans-serif; font-size: 3rem; font-weight: 800; color: var(--accent2); }
+.result-pct { font-size: 1.15rem; color: var(--text-muted); margin: 6px 0 14px; font-weight: 600; }
+.result-msg { font-size: 1.05rem; font-weight: 700; margin-bottom: 20px; }
+.btn-retry {
+  background: var(--accent2);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 28px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+  min-height: 50px;
+  box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+}
+.btn-retry:hover { opacity: 0.9; transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-icon">🎲</div>
+  <div class="header-text">
+    <h1>Tema 8 · Lengua 6.º Primaria</h1>
+    <p>Las diversiones · Las instrucciones y Malamandra</p>
+  </div>
+  <div class="global-score-wrap">
+    <div class="label">Puntuación global</div>
+    <div id="global-score">–</div>
+  </div>
+</header>
+
+<nav id="main-nav">
+  <button class="tab-btn active" data-section="s1">📜 Las instrucciones</button>
+  <button class="tab-btn" data-section="s2">📖 Lectura: Malamandra</button>
+  <button class="tab-btn" data-section="s3">🔤 Vocabulario del Ocio</button>
+  <button class="tab-btn" data-section="s4">✏️ Uso de la Y</button>
+  <button class="tab-btn" data-section="s5">📝 El Sujeto</button>
+  <button class="tab-btn" data-section="s6">🌟 Repaso final</button>
+</nav>
+
+<main>
+
+<!-- ══════════════════════════════════════ S1 LAS INSTRUCCIONES ══════════════════════════════════════ -->
+<section id="s1" class="section active">
+  <div class="section-title"><span>📜</span> Leer para informarte: Las instrucciones</div>
+
+  <div class="highlight-box">
+    <strong>Las instrucciones</strong> son textos que pretenden explicar los <strong>pasos que se deben seguir</strong> para realizar con éxito una tarea. Por ejemplo: las reglas de un juego, cómo montar un mueble o cómo fabricar un objeto manual.
+  </div>
+
+  <div class="card orange">
+    <h3>Características principales</h3>
+    <ul>
+      <li><strong>Orden claro:</strong> Los pasos suelen estar numerados u ordenados con palabras como <em>primero, después, a continuación, por último</em>.</li>
+      <li><strong>Verbos precisos:</strong> Se utilizan formas verbales que indican acción directa.</li>
+      <li><strong>Apoyo visual:</strong> A veces, las instrucciones se presentan acompañadas de imágenes o dibujos que aclaran el contenido del texto.</li>
+    </ul>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="icon">➡️</div>
+      <h4>El Imperativo</h4>
+      <p>Es la forma verbal más común para dar órdenes o instrucciones directas.<br><em>Ej: <strong>Recorta</strong> el papel, <strong>pega</strong> los bordes, <strong>pinta</strong> los vasos.</em></p>
+    </div>
+    <div class="concept-card cyan">
+      <div class="icon">♾️</div>
+      <h4>El Infinitivo</h4>
+      <p>A veces las instrucciones se dan usando verbos terminados en -ar, -er, -ir.<br><em>Ej: <strong>Recortar</strong> el papel, <strong>pegar</strong> los bordes.</em></p>
+    </div>
+    <div class="concept-card purple">
+      <div class="icon">👤</div>
+      <h4>Formas con "se"</h4>
+      <p>También se usan oraciones impersonales con la partícula "se".<br><em>Ej: <strong>Se recorta</strong> el papel, <strong>se pegan</strong> los bordes.</em></p>
+    </div>
+  </div>
+
+  <div id="quiz-s1" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S2 LECTURA: MALAMANDRA ══════════════════════════════════════ -->
+<section id="s2" class="section">
+  <div class="section-title"><span>📖</span> Texto Narrativo: Malamandra</div>
+
+  <div class="card purple">
+    <h3>El Hotel Gran Nautilus</h3>
+    <p>En este tema hemos leído un misterioso y emocionante texto titulado <strong>Malamandra</strong>. La historia está contada por su protagonista: <strong>Herbert Lemon</strong> (al que casi todos llaman <strong>Herbie</strong>).</p>
+    <p>Herbie tiene un trabajo muy peculiar: es el encargado de la oficina de <strong>Objetos Perdidos</strong> en el misterioso <em>Hotel Gran Nautilus</em>.</p>
+  </div>
+
+  <div class="highlight-box purple">
+    El relato nos sumerge en una atmósfera fantástica, donde el narrador se dirige directamente a nosotros (los lectores) advirtiéndonos sobre pisadas resbaladizas y misterios ocultos en la playa, despertando nuestro interés por saber si existen seres extraordinarios.
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card purple">
+      <div class="icon">🔍</div>
+      <h4>El Protagonista</h4>
+      <p>Herbert Lemon ("Herbie"). Recupera objetos perdidos y nos cuenta la historia en primera persona.</p>
+    </div>
+    <div class="concept-card orange">
+      <div class="icon">👾</div>
+      <h4>Malamandra</h4>
+      <p>Una criatura o ser extraordinario de fantasía que da título a la lectura. Une dos palabras (mala + salamandra) para sugerir misterio.</p>
+    </div>
+  </div>
+
+  <div id="quiz-s2" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S3 VOCABULARIO ══════════════════════════════════════ -->
+<section id="s3" class="section">
+  <div class="section-title"><span>🔤</span> Vocabulario: Las diversiones y el ocio</div>
+
+  <div class="highlight-box orange">
+    ¿Qué significa estar <strong>ociosa</strong>? Significa estar sin hacer nada, libre de obligaciones o trabajo. El <strong>ocio</strong> y el <strong>entretenimiento</strong> son fundamentales para divertirnos y descansar.
+  </div>
+
+  <div class="card">
+    <h3>Tipos de juegos y pasatiempos</h3>
+    <p>En nuestro tiempo de ocio podemos realizar muchas actividades diferentes. Un <strong>pasatiempo</strong> (palabra formada por <em>pasar + tiempo</em>) es un juego o actividad mental para entretenerse.</p>
+    
+    <div style="margin-top: 15px;">
+      <strong>Ejemplos de Pasatiempos:</strong>
+      <div class="example-row">
+        <span class="tag orange">Crucigrama</span>
+        <span class="tag orange">Sopa de letras</span>
+        <span class="tag orange">Autodefinido</span>
+        <span class="tag orange">Jeroglífico</span>
+      </div>
+    </div>
+    
+    <div style="margin-top: 15px;">
+      <strong>Juegos de mesa populares:</strong>
+      <div class="example-row">
+        <span class="tag indigo">Ajedrez</span>
+        <span class="tag indigo">Parchís</span>
+        <span class="tag indigo">Oca</span>
+        <span class="tag indigo">Damas</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="quiz-s3" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S4 ORTOGRAFÍA ══════════════════════════════════════ -->
+<section id="s4" class="section">
+  <div class="section-title"><span>✏️</span> Ortografía: El uso de la Y</div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="icon">🔡</div>
+      <h4>Final de palabra</h4>
+      <p>Se escriben con Y las palabras que terminan en los diptongos <strong>-ay, -ey, -oy, -uy</strong>.<br><em>Ejemplos: hoy, muy, rey, ley, jersey.</em><br><small>(¡Cuidado! Hay excepciones como <em>fui</em>).</small></p>
+    </div>
+    <div class="concept-card cyan">
+      <div class="icon">➕</div>
+      <h4>El plural en -es</h4>
+      <p>Los plurales de esas palabras que terminan en Y, cambian al añadir <strong>-es</strong> manteniendo la Y (como consonante).<br><em>Ejemplos: reyes, leyes, bueyes.</em></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Reglas en los verbos y sílabas especiales</h3>
+    <ul>
+      <li><strong>Sílabas con -yec-:</strong> Se escriben con Y las palabras que contienen la sílaba <em>yec</em>.<br><em>Ejemplos: pro<strong>yec</strong>to, in<strong>yec</strong>ción, tra<strong>yec</strong>to.</em></li>
+      <li><strong>Verbos sin ll ni y en el infinitivo:</strong> Cuando un verbo no tiene ni "ll" ni "y" en su forma básica (infinitivo), al conjugarlo y sonar con ese sonido, se escribe <strong>siempre con Y</strong>.<br>
+      <em>Ejemplos:</em>
+        <ul>
+          <li>caer ➔ ca<strong>y</strong>ó, ca<strong>y</strong>eron</li>
+          <li>leer ➔ le<strong>y</strong>ó, le<strong>y</strong>endo</li>
+          <li>huir ➔ hu<strong>y</strong>eron</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div id="quiz-s4" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S5 GRAMÁTICA ══════════════════════════════════════ -->
+<section id="s5" class="section">
+  <div class="section-title"><span>📝</span> Gramática: El Sujeto</div>
+
+  <div class="highlight-box cyan">
+    Toda oración bimembre se divide en dos partes fundamentales: el <strong>Sujeto</strong> y el <strong>Predicado</strong>.
+    El Sujeto es la persona, animal o cosa que realiza la acción o de la que se dice algo.
+  </div>
+
+  <div class="card">
+    <h3>¿Cómo encontrar el Sujeto?</h3>
+    <p>El sujeto concuerda siempre en <strong>número y persona</strong> con el verbo. Para encontrarlo de forma fácil, sigue este truco:</p>
+    <ol>
+      <li>Busca el <strong>Verbo</strong> de la oración.</li>
+      <li>Pregúntale al verbo: <em>¿Quién?</em> o <em>¿Quiénes?</em> realizan la acción.</li>
+      <li>Cambia el número del verbo (de singular a plural o viceversa). La palabra que se vea obligada a cambiar para que la frase tenga sentido, ¡ese es el sujeto!</li>
+    </ol>
+    <p style="margin-top: 10px;"><em>Ejemplo: "Los niños juegan al parchís." ¿Quiénes juegan? -> <strong>Los niños</strong> (Sujeto).</em></p>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card orange">
+      <div class="icon">🎯</div>
+      <h4>El Núcleo del Sujeto</h4>
+      <p>La palabra más importante del sujeto es el <strong>Núcleo (N)</strong>. Suele ser un <strong>Sustantivo</strong> o un <strong>Pronombre personal</strong> (yo, tú, él...).</p>
+    </div>
+    <div class="concept-card purple">
+      <div class="icon">👻</div>
+      <h4>Sujeto Elíptico (Omitido)</h4>
+      <p>A veces el sujeto no está escrito en la oración, pero se sobreentiende por la terminación del verbo.<br><em>Ej: "Fuimos al cine" -> Sujeto elíptico: (Nosotros/as).</em></p>
+    </div>
+  </div>
+
+  <div id="quiz-s5" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S6 REPASO FINAL ══════════════════════════════════════ -->
+<section id="s6" class="section">
+  <div class="section-title"><span>🌟</span> Repaso final: Demuestra tus conocimientos</div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="icon">📜</div>
+      <h4>Instrucciones</h4>
+      <p>Explican pasos. Usan imperativo (pega), infinitivo (pegar) o formas con se (se pega).</p>
+    </div>
+    <div class="concept-card purple">
+      <div class="icon">📖</div>
+      <h4>Malamandra</h4>
+      <p>Herbie trabaja en Objetos Perdidos del Hotel Gran Nautilus. Relato de misterio y fantasía.</p>
+    </div>
+    <div class="concept-card orange">
+      <div class="icon">✏️</div>
+      <h4>Uso de la Y</h4>
+      <p>Final en -ey, -oy. Sílaba -yec-. Verbos como leer (leyó) o caer (cayó).</p>
+    </div>
+    <div class="concept-card cyan">
+      <div class="icon">📝</div>
+      <h4>El Sujeto</h4>
+      <p>Concuerda con el verbo. Puede ser un sustantivo o pronombre. Puede estar elíptico.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>¡El gran reto del Tema 8!</strong> A continuación encontrarás preguntas mezcladas de todas las secciones. Demuestra todo lo que has aprendido.
+  </div>
+
+  <div id="quiz-s6" class="quiz-wrap">
+    <h3>🏆 Quiz de repaso general</h3>
+  </div>
+</section>
+
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* ── DATOS DE LOS QUIZZES ── */
+  const QUESTIONS = {
+    s1: [
+      { text: '¿Qué pretenden los textos de instrucciones?', options: ['Contarnos una historia fantástica o de terror', 'Explicar los pasos que se deben seguir para realizar con éxito una tarea', 'Informarnos de las noticias más recientes', 'Convencernos de una idea o tesis'], correct: 1 },
+      { text: '¿Qué tipo de formas verbales se utilizan a menudo en las instrucciones (como "recorta" o "pega")?', options: ['El tiempo futuro', 'El pretérito imperfecto', 'El modo imperativo', 'El modo subjuntivo'], correct: 2 },
+      { text: '¿De qué otra forma se pueden escribir las instrucciones verbalmente?', options: ['Utilizando solo sustantivos', 'Con verbos en infinitivo (recortar, pegar) o formas con "se" (se recorta)', 'No se usan verbos en las instrucciones', 'Con interjecciones como ¡Ah! y ¡Uy!'], correct: 1 },
+      { text: 'En el texto "Consigue cuatro vasos, llena uno de arroz, y únelos", las palabras "consigue", "llena" y "únelos" están en...', options: ['Infinitivo', 'Imperativo', 'Forma impersonal', 'Pasado'], correct: 1 }
+    ],
+    s2: [
+      { text: '¿Quién es el narrador y protagonista del relato "Malamandra"?', options: ['Un monstruo marino', 'Greta Thunberg', 'Herbert Lemon (Herbie)', 'Un turista de vacaciones'], correct: 2 },
+      { text: '¿Cuál es el trabajo de Herbert Lemon?', options: ['Es el recepcionista de un museo', 'Es el encargado de la oficina de Objetos Perdidos', 'Es el cocinero del hotel', 'Es un socorrista en la playa'], correct: 1 },
+      { text: '¿Cómo se llama el hotel donde ocurre la historia?', options: ['Hotel Gran Nautilus', 'Hotel de las Maracas', 'Hotel Malamandra', 'Hotel de la Playa'], correct: 0 },
+      { text: '¿Qué pretende el narrador cuando se dirige directamente a nosotros con frases como "¿Qué ves? ¿De verdad?"', options: ['Enseñarnos a montar unas maracas', 'Aburrirnos', 'Hacer que la historia sea más emocionante y atrapar nuestro interés', 'Vender un producto'], correct: 2 }
+    ],
+    s3: [
+      { text: '¿Qué significa que una persona está "ociosa"?', options: ['Que está muy ocupada y estresada', 'Que está sin hacer nada, libre de obligaciones', 'Que le duele la cabeza', 'Que es muy inteligente'], correct: 1 },
+      { text: '¿Cuál de las siguientes actividades es un "pasatiempo"?', options: ['Estudiar matemáticas', 'Hacer un crucigrama o una sopa de letras', 'Fregar los platos', 'Dormir por la noche'], correct: 1 },
+      { text: 'La palabra "pasatiempo" es una palabra compuesta formada por...', options: ['pasa + tiempo', 'pasado + tiempo', 'pa + satiempo', 'pasaje + tiempo'], correct: 0 },
+      { text: '¿Cuál de estos NO es un típico juego de mesa?', options: ['El parchís', 'El ajedrez', 'El escondite', 'Las damas'], correct: 2 }
+    ],
+    s4: [
+      { text: 'Las palabras ley, rey, hoy y muy se escriben con Y porque...', options: ['Terminan en los diptongos -ay, -ey, -oy, -uy', 'Tienen la sílaba -yec-', 'Son verbos', 'Es una excepción de la letra ll'], correct: 0 },
+      { text: '¿Cuál es el plural correcto de la palabra "rey"?', options: ['Reis', 'Reyes', 'Relles', 'Reies'], correct: 1 },
+      { text: 'Se escriben con Y las palabras que contienen la sílaba "yec". ¿Cuál de estas palabras es correcta?', options: ['Traiecto', 'Trallecto', 'Trayecto', 'Traheto'], correct: 2 },
+      { text: 'El verbo "caer" no tiene LL ni Y en su infinitivo. ¿Cómo se escribe en pasado cuando suenan esas letras?', options: ['Calló', 'Cayó', 'Caió', 'Cahió'], correct: 1 },
+      { text: 'Elige la oración que está correctamente escrita:', options: ['El niño lelló todo el libro ayer.', 'El buei come mucha hierba.', 'Me pusieron una inyección en el médico.', 'Fuy al parque con mis amigos.'], correct: 2 }
+    ],
+    s5: [
+      { text: '¿Qué es el "Sujeto" en una oración?', options: ['La acción que se realiza', 'La persona, animal o cosa que realiza la acción o de la que se dice algo', 'El lugar donde ocurren los hechos', 'Cualquier palabra que lleve tilde'], correct: 1 },
+      { text: 'El sujeto siempre concuerda con el verbo en...', options: ['Género (masculino/femenino)', 'Tiempo (pasado/presente/futuro)', 'Número (singular/plural) y persona', 'Solo en el color'], correct: 2 },
+      { text: 'En la oración "Mis primos jugaron al ajedrez", ¿cuál es el sujeto?', options: ['Al ajedrez', 'Jugaron', 'Mis primos', 'Primos jugaron'], correct: 2 },
+      { text: '¿Qué es un Sujeto Elíptico (u omitido)?', options: ['Un sujeto muy largo', 'Un sujeto que no aparece escrito pero se sobreentiende', 'Un sujeto que tiene dos núcleos', 'Un sujeto que siempre es un animal'], correct: 1 },
+      { text: '¿Cuál es el sujeto en esta oración?: "Mañana iremos nosotros al cine".', options: ['Mañana', 'Iremos', 'Al cine', 'Nosotros'], correct: 3 }
+    ],
+    s6: [
+      { text: '¿En qué tipo de texto encontramos verbos en imperativo para explicar cómo hacer una manualidad?', options: ['En una novela fantástica', 'En las instrucciones', 'En una leyenda', 'En una poesía'], correct: 1 },
+      { text: 'En la frase "El rey leyó las leyes nuevas", ¿por qué se escribe "leyó" con Y?', options: ['Porque termina en diptongo', 'Porque tiene la sílaba -yec-', 'Porque es un verbo que no tiene ll ni y en su infinitivo (leer)', 'Porque es un sustantivo plural'], correct: 2 },
+      { text: '¿Qué cargo ocupaba Herbert Lemon en el Hotel Gran Nautilus?', options: ['Director general', 'Encargado de Objetos Perdidos', 'Cocinero', 'Socorrista'], correct: 1 },
+      { text: 'Si en la oración "Llegaron muy tarde a casa" preguntamos ¿Quiénes llegaron?, nos damos cuenta de que el sujeto es...', options: ['Muy tarde', 'A casa', 'Elíptico u omitido (Ellos / Ellas)', 'Llegaron'], correct: 2 },
+      { text: 'Un crucigrama y una sopa de letras son ejemplos de...', options: ['Deportes de riesgo', 'Textos narrativos', 'Pasatiempos (juegos de ocio y entretenimiento)', 'Aparatos del hotel'], correct: 2 },
+      { text: 'Indica qué palabra de la siguiente familia está INCORRECTAMENTE escrita:', options: ['Inyectar', 'Proyector', 'Trayectória', 'Trayectoria'], correct: 2 },
+      { text: 'En las instrucciones, si queremos transformar el verbo "recorta" (imperativo) en infinitivo, ¿cómo se diría?', options: ['Se recorta', 'Recortando', 'Recortar', 'Recortará'], correct: 2 }
+    ]
+  };
+
+  /* ── QUIZ ENGINE ── */
+  const QuizEngine = {
+    instances: {},
+    create(id, questions) {
+      this.instances[id] = { questions, current: 0, score: 0, answered: false, completed: false };
+      this.render(id);
+    },
+    get(id) { return this.instances[id]; },
+    render(id) {
+      const s = this.get(id);
+      const container = document.getElementById(`quiz-${id}`);
+      if (!container || s.completed) return;
+      const q = s.questions[s.current];
+      const inner = document.createElement('div');
+      inner.innerHTML = `
+        <div class="quiz-progress">Pregunta ${s.current + 1} de ${s.questions.length}</div>
+        <div class="quiz-question">${q.text}</div>
+        <div class="quiz-options">
+          ${q.options.map((opt, i) => `<button class="quiz-option" data-index="${i}">${opt}</button>`).join('')}
+        </div>
+        <div class="quiz-feedback" id="feedback-${id}"></div>
+      `;
+      // Preservar el h3
+      const h3 = container.querySelector('h3');
+      container.innerHTML = '';
+      if (h3) container.appendChild(h3);
+      container.appendChild(inner);
+      
+      inner.querySelectorAll('.quiz-option').forEach(btn => {
+        btn.addEventListener('click', e => {
+          if (s.answered) return;
+          this.answer(id, parseInt(e.currentTarget.dataset.index));
+        });
+      });
+    },
+    answer(id, sel) {
+      const s = this.get(id);
+      if (s.answered) return;
+      s.answered = true;
+      const q = s.questions[s.current];
+      const correct = sel === q.correct;
+      if (correct) s.score++;
+      
+      const fb = document.getElementById(`feedback-${id}`);
+      if (fb) {
+        fb.textContent = correct ? '✅ ¡Correcto!' : `❌ Incorrecto. La respuesta era: ${q.options[q.correct]}`;
+        fb.className = `quiz-feedback ${correct ? 'correct' : 'wrong'}`;
+      }
+      
+      const container = document.getElementById(`quiz-${id}`);
+      container.querySelectorAll('.quiz-option').forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === q.correct) btn.classList.add('correct');
+        else if (i === sel) btn.classList.add('wrong');
+      });
+      
+      setTimeout(() => {
+        s.current++;
+        s.answered = false;
+        if (s.current < s.questions.length) {
+          this.render(id);
+        } else {
+          this.showResult(id);
+        }
+      }, 1800);
+    },
+    showResult(id) {
+      const s = this.get(id);
+      s.completed = true;
+      const pct = Math.round((s.score / s.questions.length) * 100);
+      const container = document.getElementById(`quiz-${id}`);
+      const h3 = container.querySelector('h3');
+      container.innerHTML = '';
+      if (h3) container.appendChild(h3);
+      
+      const res = document.createElement('div');
+      res.className = 'quiz-result';
+      const emoji = pct >= 80 ? '🏆' : pct >= 60 ? '👍' : '🎲';
+      const msg = pct >= 80 ? '¡Excelente, has ganado la partida!' : pct >= 60 ? '¡Muy bien! Sigue practicando.' : '¡No te rindas! Repasa la sección e inténtalo de nuevo.';
+      res.innerHTML = `
+        <div class="result-score">${s.score}/${s.questions.length}</div>
+        <div class="result-pct">${pct}% de aciertos</div>
+        <div class="result-msg">${emoji} ${msg}</div>
+        <button class="btn-retry" id="retry-${id}">🔄 Jugar otra vez</button>
+      `;
+      container.appendChild(res);
+      
+      document.getElementById(`retry-${id}`).addEventListener('click', () => {
+        s.current = 0; s.score = 0; s.answered = false; s.completed = false;
+        this.render(id);
+      });
+      ScoreTracker.update(id, s.score, s.questions.length);
+      
+      const btn = document.querySelector(`.tab-btn[data-section="${id}"]`);
+      if (btn && !btn.querySelector('.check')) {
+        const chk = document.createElement('span');
+        chk.className = 'check'; chk.textContent = '✅';
+        btn.appendChild(chk);
+      }
+    }
+  };
+
+  /* ── SCORE TRACKER ── */
+  const ScoreTracker = {
+    scores: {},
+    update(id, got, tot) {
+      this.scores[id] = { got, tot };
+      const entries = Object.values(this.scores);
+      const totalGot = entries.reduce((a, e) => a + e.got, 0);
+      const totalTot = entries.reduce((a, e) => a + e.tot, 0);
+      document.getElementById('global-score').textContent = `${totalGot}/${totalTot}`;
+    }
+  };
+
+  /* ── NAV TABS ── */
+  const tabs = document.querySelectorAll('.tab-btn');
+  const sections = document.querySelectorAll('.section');
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(b => b.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+      
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.section).classList.add('active');
+      
+      const sid = btn.dataset.section;
+      if (!QuizEngine.instances[sid]) {
+        QuizEngine.create(sid, QUESTIONS[sid]);
+      }
+    });
+  });
+
+  /* ── INICIALIZAR PRIMERA SECCIÓN ── */
+  QuizEngine.create('s1', QUESTIONS['s1']);
+});
+</script>
+</body>
+</html>

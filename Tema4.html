@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 4 · Lengua 6.º Primaria</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f4fbfb;
+  --surface: #ffffff;
+  --surface-alt: #eef8f9;
+  --accent: #00acc1;      /* Turquesa principal */
+  --accent2: #ffb300;     /* Ámbar cálido */
+  --accent3: #039be5;     /* Azul brillante */
+  --accent4: #43a047;     /* Verde naturaleza */
+  --accent-light: #e0f7fa; /* Turquesa muy claro */
+  --text: #1e2a3a;
+  --text-muted: #546e7a;
+  --border: #b2ebf2;
+  --success: #43a047;
+  --error: #e53935;
+  --shadow: 0 4px 16px rgba(0, 172, 193, 0.08);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+header {
+  background: linear-gradient(135deg, #00acc1 0%, #00838f 100%);
+  color: white;
+  padding: 20px 28px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 4px 20px rgba(0, 172, 193, 0.3);
+}
+.header-icon { font-size: 2.6rem; }
+.header-text h1 { font-family: 'Nunito', sans-serif; font-size: 1.55rem; font-weight: 800; line-height: 1.2; }
+.header-text p { font-size: 0.9rem; opacity: 0.9; margin-top: 2px; }
+.global-score-wrap {
+  margin-left: auto;
+  background: rgba(255,255,255,0.2);
+  border-radius: 12px;
+  padding: 8px 16px;
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+}
+.global-score-wrap .label { font-size: 0.75rem; opacity: 0.9; }
+#global-score { font-size: 1.35rem; font-weight: 800; }
+
+/* ── NAV ── */
+nav {
+  background: var(--surface);
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  overflow-x: auto;
+  padding: 0 12px;
+  gap: 4px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+nav::-webkit-scrollbar { display: none; }
+.tab-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 12px 16px;
+  min-height: 54px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tab-btn:hover { color: var(--accent); background-color: var(--surface-alt); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); background-color: var(--surface-alt); }
+.tab-btn .check { color: var(--success); font-size: 0.8rem; }
+
+/* ── MAIN ── */
+main { max-width: 880px; margin: 0 auto; padding: 28px 20px 60px; }
+
+/* ── SECTIONS ── */
+.section { display: none; animation: fadeIn 0.35s ease-out; }
+.section.active { display: block; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+.section-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-title span { font-size: 1.8rem; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 22px 24px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+  border-left: 5px solid var(--accent);
+}
+.card.blue { border-left-color: var(--accent3); }
+.card.green { border-left-color: var(--accent4); }
+.card.orange { border-left-color: var(--accent2); }
+.card h3 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+.card p { font-size: 0.95rem; line-height: 1.65; color: var(--text); margin-bottom: 8px; }
+.card ul { padding-left: 20px; margin-bottom: 8px; }
+.card li { font-size: 0.95rem; line-height: 1.7; }
+
+.concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 18px; }
+.concept-card {
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
+  border-top: 4px solid var(--accent);
+}
+.concept-card.blue { border-top-color: var(--accent3); }
+.concept-card.green { border-top-color: var(--accent4); }
+.concept-card.orange { border-top-color: var(--accent2); }
+.concept-card .icon { font-size: 2rem; margin-bottom: 8px; }
+.concept-card h4 { font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 6px; }
+.concept-card p { font-size: 0.9rem; line-height: 1.55; color: var(--text-muted); }
+
+.highlight-box {
+  background: var(--accent-light);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  border-left: 4px solid var(--accent);
+}
+.highlight-box.blue { background: #e1f5fe; border-left-color: var(--accent3); }
+.highlight-box.green { background: #e8f5e9; border-left-color: var(--accent4); }
+.highlight-box.orange { background: #fff8e1; border-left-color: var(--accent2); }
+
+.example-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0;
+}
+.tag {
+  background: var(--surface-alt);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.tag.blue { background: #e1f5fe; border-color: #81d4fa; color: #0277bd; }
+.tag.orange { background: #fff8e1; border-color: #ffe082; color: #ff8f00; }
+.tag.green { background: #e8f5e9; border-color: #a5d6a7; color: #2e7d32; }
+
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9rem; }
+th { background: var(--surface-alt); padding: 10px 14px; text-align: left; font-family: 'Nunito', sans-serif; font-weight: 800; border-bottom: 2px solid var(--border); color: var(--accent); }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+tr:last-child td { border-bottom: none; }
+
+/* ── QUIZ ── */
+.quiz-wrap {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 26px;
+  margin-top: 26px;
+  box-shadow: var(--shadow);
+  border-top: 5px solid var(--accent3);
+}
+.quiz-wrap h3 {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 1.15rem;
+  margin-bottom: 18px;
+  color: var(--accent3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.quiz-progress { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;}
+.quiz-question { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 16px; line-height: 1.5; color: var(--text); }
+.quiz-option {
+  display: block;
+  width: 100%;
+  padding: 14px 18px;
+  margin: 8px 0;
+  background: #f4f8fb;
+  border: 2px solid #cfd8dc;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-family: 'Open Sans', sans-serif;
+  transition: all 0.2s ease;
+  min-height: 52px; 
+}
+.quiz-option:hover:not(:disabled) { background: #e1f5fe; border-color: #81d4fa; transform: translateY(-1px); }
+.quiz-option.correct { background: #e8f5e9; border-color: #43a047; color: #1b5e20; font-weight: 700; }
+.quiz-option.wrong   { background: #ffebee; border-color: #e53935; color: #b71c1c; }
+.quiz-feedback { margin-top: 12px; font-weight: 700; min-height: 24px; font-size: 0.95rem; }
+.quiz-feedback.correct { color: #2e7d32; }
+.quiz-feedback.wrong   { color: #c62828; }
+.quiz-result { text-align: center; padding: 24px 0 12px; }
+.result-score { font-family: 'Nunito', sans-serif; font-size: 3rem; font-weight: 800; color: var(--accent3); }
+.result-pct { font-size: 1.15rem; color: var(--text-muted); margin: 6px 0 14px; font-weight: 600; }
+.result-msg { font-size: 1.05rem; font-weight: 700; margin-bottom: 20px; }
+.btn-retry {
+  background: var(--accent3);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 28px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+  min-height: 50px;
+  box-shadow: 0 4px 12px rgba(3, 155, 229, 0.3);
+}
+.btn-retry:hover { opacity: 0.9; transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-icon">🐾</div>
+  <div class="header-text">
+    <h1>Tema 4 · Lengua 6.º Primaria</h1>
+    <p>Los animales · Textos expositivos y El español de Canarias</p>
+  </div>
+  <div class="global-score-wrap">
+    <div class="label">Puntuación global</div>
+    <div id="global-score">–</div>
+  </div>
+</header>
+
+<nav id="main-nav">
+  <button class="tab-btn active" data-section="s1">📄 Textos expositivos</button>
+  <button class="tab-btn" data-section="s2">🔤 Vocabulario</button>
+  <button class="tab-btn" data-section="s3">✏️ Acentuación</button>
+  <button class="tab-btn" data-section="s4">📝 Pronombres</button>
+  <button class="tab-btn" data-section="s5">🇮🇨 Español de Canarias</button>
+  <button class="tab-btn" data-section="s6">🌟 Repaso final</button>
+</nav>
+
+<main>
+
+<!-- ══════════════════════════════════════ S1 TEXTOS EXPOSITIVOS ══════════════════════════════════════ -->
+<section id="s1" class="section active">
+  <div class="section-title"><span>📄</span> El texto expositivo</div>
+
+  <div class="highlight-box">
+    <strong>Los textos expositivos</strong> son aquellos en los que se pretende dar <strong>información sobre un tema</strong> de forma clara y objetiva. 
+  </div>
+
+  <div class="card">
+    <h3>¿Dónde los encontramos?</h3>
+    <p>En el ámbito de la enseñanza se utilizan muchísimos textos expositivos. Ejemplos:</p>
+    <ul>
+      <li>La explicación <strong>oral</strong> de un profesor o profesora sobre un contenido de clase.</li>
+      <li>Un <strong>trabajo escrito</strong> sobre un tema de alguna asignatura.</li>
+      <li>Las enciclopedias, libros de texto o artículos científicos.</li>
+    </ul>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card blue">
+      <div class="icon">1️⃣</div>
+      <h4>Introducción</h4>
+      <p>Suele ser el primer párrafo. Presenta el tema general del que se va a hablar (por ejemplo, presentar a un animal específico).</p>
+    </div>
+    <div class="concept-card orange">
+      <div class="icon">2️⃣</div>
+      <h4>Desarrollo</h4>
+      <p>Son los párrafos siguientes. Se explica el tema con detalle, utilizando datos, ejemplos y <strong>enumeraciones</strong>.</p>
+    </div>
+    <div class="concept-card green">
+      <div class="icon">3️⃣</div>
+      <h4>Conclusión</h4>
+      <p>Es la parte final. En ella se resume lo más destacado o se hace un cierre sobre la importancia del tema.</p>
+    </div>
+  </div>
+
+  <div id="quiz-s1" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S2 VOCABULARIO ══════════════════════════════════════ -->
+<section id="s2" class="section">
+  <div class="section-title"><span>🔤</span> Vocabulario: Los animales</div>
+
+  <div class="highlight-box blue">
+    <strong>Amaestrar</strong> a un animal es hacer que obedezca y aprenda a hacer algunas cosas.
+  </div>
+
+  <div class="card">
+    <h3>Sinónimos de amaestrar</h3>
+    <p>Si no queremos repetir la palabra "amaestrar", podemos utilizar otros verbos que significan lo mismo:</p>
+    <div class="example-row">
+      <span class="tag blue">adiestrar</span>
+      <span class="tag blue">domesticar</span>
+      <span class="tag blue">domar</span>
+      <span class="tag blue">enseñar</span>
+    </div>
+  </div>
+
+  <div class="card orange">
+    <h3>Adjetivos para cada animal</h3>
+    <p>Cada especie animal suele asociarse con unas cualidades particulares. Observa estos ejemplos:</p>
+    <table>
+      <tr><th>Animal</th><th>Adjetivos descriptivos</th></tr>
+      <tr><td><strong>🐶 Perro</strong></td><td>Fiel, cariñoso</td></tr>
+      <tr><td><strong>🐱 Gato</strong></td><td>Curioso, dormilón</td></tr>
+      <tr><td><strong>🐴 Caballo</strong></td><td>Manso, tranquilo</td></tr>
+      <tr><td><strong>🐹 Hámster</strong></td><td>Inquieto, asustadizo</td></tr>
+      <tr><td><strong>🐰 Conejo</strong></td><td>Dócil, juguetón</td></tr>
+    </table>
+  </div>
+
+  <div id="quiz-s2" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S3 ORTOGRAFÍA ══════════════════════════════════════ -->
+<section id="s3" class="section">
+  <div class="section-title"><span>✏️</span> Ortografía: Interrogativos y exclamativos</div>
+
+  <div class="highlight-box orange">
+    Las palabras <strong>qué, quién/quiénes, cómo, cuál/cuáles, cuándo, cuánto/a/os/as y dónde</strong> llevan tilde cuando se usan en oraciones <strong>interrogativas</strong> (preguntas) o <strong>exclamativas</strong> (exclamaciones).
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="icon">❓</div>
+      <h4>Interrogativos</h4>
+      <p>Se usan para hacer preguntas directas (con signos ¿?) o indirectas.<br>
+      <em>Ej: ¿<strong>Qué</strong> aspecto tiene la información?</em><br>
+      <em>Ej: Me pregunto <strong>dónde</strong> viven los camellos.</em></p>
+    </div>
+    <div class="concept-card green">
+      <div class="icon">❗</div>
+      <h4>Exclamativos</h4>
+      <p>Se usan para expresar emociones, sorpresas o intensidad (con signos ¡!).<br>
+      <em>Ej: ¡<strong>Cómo</strong> corre ese caballo!</em><br>
+      <em>Ej: ¡<strong>Qué</strong> gato más dormilón!</em></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>¡Atención a la tilde diacrítica!</h3>
+    <p>Estas mismas palabras <strong>NO llevan tilde</strong> cuando funcionan como pronombres relativos o conjunciones (no hacen preguntas ni exclamaciones).</p>
+    <table>
+      <tr><th>Con tilde (Interrogativo/Exclamativo)</th><th>Sin tilde (Relativo/Conjunción)</th></tr>
+      <tr><td>¿<strong>Dónde</strong> estás?</td><td>La casa <strong>donde</strong> nací.</td></tr>
+      <tr><td>¡<strong>Qué</strong> bonito!</td><td>Dijo <strong>que</strong> vendría.</td></tr>
+      <tr><td>¿<strong>Cuándo</strong> llegas?</td><td>Llámame <strong>cuando</strong> llegues.</td></tr>
+      <tr><td>¿<strong>Quién</strong> es él?</td><td>El chico de <strong>quien</strong> te hablé.</td></tr>
+    </table>
+  </div>
+
+  <div id="quiz-s3" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S4 GRAMÁTICA ══════════════════════════════════════ -->
+<section id="s4" class="section">
+  <div class="section-title"><span>📝</span> Gramática: Los pronombres personales</div>
+
+  <div class="highlight-box blue">
+    <strong>Los pronombres personales</strong> son palabras que sirven para nombrar a las personas, los animales o las cosas <strong>sin usar sustantivos</strong>. Su función principal es sustituir al nombre para no repetirlo.
+  </div>
+
+  <div class="card">
+    <h3>Clasificación por persona</h3>
+    <p>Dependiendo de a quién se refieran, los pronombres personales se dividen en tres personas:</p>
+    <ul>
+      <li><strong>1.ª Persona:</strong> Nombra a la persona o personas que hablan.<br><em>Ej: <strong>Yo</strong> preparé la exposición. <strong>Nosotros</strong> hicimos el mural.</em></li>
+      <li><strong>2.ª Persona:</strong> Nombra a la persona o personas que escuchan.<br><em>Ej: <strong>Tú</strong> tienes un gato dócil. <strong>Vosotras</strong> leísteis la noticia.</em></li>
+      <li><strong>3.ª Persona:</strong> Nombra a las personas o cosas de las que se habla (ni el que habla ni el que escucha).<br><em>Ej: <strong>Él</strong> adiestró al perro. <strong>Ellas</strong> son muy cariñosas.</em></li>
+    </ul>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card blue">
+      <div class="icon">👤</div>
+      <h4>Singular</h4>
+      <p>1ª: Yo, mí, conmigo.<br>
+         2ª: Tú, te, ti, contigo, usted.<br>
+         3ª: Él, ella, ello, lo, la, le, se, sí, consigo.</p>
+    </div>
+    <div class="concept-card green">
+      <div class="icon">👥</div>
+      <h4>Plural</h4>
+      <p>1ª: Nosotros, nosotras, nos.<br>
+         2ª: Vosotros, vosotras, os, ustedes.<br>
+         3ª: Ellos, ellas, los, las, les, se, sí, consigo.</p>
+    </div>
+  </div>
+
+  <div id="quiz-s4" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S5 ESPAÑOL DE CANARIAS ══════════════════════════════════════ -->
+<section id="s5" class="section">
+  <div class="section-title"><span>🇮🇨</span> La variedad de Canarias y las campañas</div>
+
+  <div class="card orange">
+    <h3>El español de Canarias</h3>
+    <p>El español tiene distintas variedades según el lugar donde se hable. La <strong>variedad canaria</strong> es muy rica y tiene sus propias particularidades en tres aspectos fundamentales:</p>
+    <ul>
+      <li><strong>La pronunciación:</strong> la forma en que suenan algunas letras (como el seseo).</li>
+      <li><strong>La gramática:</strong> el uso de ciertas estructuras (como el uso de "ustedes" en lugar de "vosotros").</li>
+      <li><strong>El vocabulario:</strong> palabras propias de las islas (canarismos) para nombrar objetos, animales o situaciones.</li>
+    </ul>
+  </div>
+
+  <div class="highlight-box">
+    <strong>Campaña de concienciación:</strong> Se compone de diferentes acciones con un mismo objetivo: <strong>convencer a la gente de algo</strong>. En este tema, el objetivo es concienciar a los demás de la importancia de <strong>conservar y valorar</strong> las particularidades del español de Canarias.
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="icon">🖼️</div>
+      <h4>Mural informativo</h4>
+      <p>Se realiza en cartulina grande con información estructurada, un título adecuado e imágenes atractivas.</p>
+    </div>
+    <div class="concept-card blue">
+      <div class="icon">📻</div>
+      <h4>Anuncio para radio</h4>
+      <p>Un mensaje sonoro, claro y persuasivo para llegar a los oyentes y convencerlos de una idea.</p>
+    </div>
+    <div class="concept-card green">
+      <div class="icon">📢</div>
+      <h4>Cartel con eslogan</h4>
+      <p>Combina diseño visual con una frase corta y muy llamativa (eslogan) fácil de recordar.</p>
+    </div>
+  </div>
+
+  <div id="quiz-s5" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S6 REPASO FINAL ══════════════════════════════════════ -->
+<section id="s6" class="section">
+  <div class="section-title"><span>🌟</span> Repaso final: Demuestra tus conocimientos</div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="icon">📄</div>
+      <h4>Textos Expositivos</h4>
+      <p>Dan información. Estructura: Introducción, Desarrollo (con enumeraciones) y Conclusión.</p>
+    </div>
+    <div class="concept-card blue">
+      <div class="icon">🔤</div>
+      <h4>Vocabulario</h4>
+      <p>Amaestrar = adiestrar. Adjetivos: gato dormilón, perro fiel, conejo juguetón, caballo manso.</p>
+    </div>
+    <div class="concept-card orange">
+      <div class="icon">✏️</div>
+      <h4>Ortografía y Gramática</h4>
+      <p>Qué, quién, dónde... llevan tilde en exclamaciones y preguntas. Los pronombres sustituyen al nombre.</p>
+    </div>
+    <div class="concept-card green">
+      <div class="icon">🇮🇨</div>
+      <h4>Español de Canarias</h4>
+      <p>Tiene particularidades en pronunciación, gramática y vocabulario que debemos valorar mediante campañas.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>¡A por el último reto del Tema 4!</strong> Aquí encontrarás preguntas mezcladas de todas las secciones anteriores. Lee detenidamente cada opción antes de marcar.
+  </div>
+
+  <div id="quiz-s6" class="quiz-wrap">
+    <h3>🏆 Quiz de repaso general</h3>
+  </div>
+</section>
+
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* ── DATOS DE LOS QUIZZES ── */
+  const QUESTIONS = {
+    s1: [
+      { text: '¿Cuál es el objetivo principal de un texto expositivo?', options: ['Contar una historia mágica e inventada', 'Dar información sobre un tema de forma clara y objetiva', 'Expresar los sentimientos del autor', 'Convencer a alguien para que compre un producto'], correct: 1 },
+      { text: 'La explicación oral de un profesor o profesora sobre un contenido en clase es un ejemplo de...', options: ['Texto literario', 'Texto argumentativo', 'Texto expositivo', 'Texto periodístico'], correct: 2 },
+      { text: '¿En qué parte del texto expositivo se presenta el tema general del que se va a hablar?', options: ['En la Conclusión', 'En el Desarrollo', 'En la Introducción', 'En el Título secundario'], correct: 2 },
+      { text: '¿Qué suele contener el Desarrollo de un texto expositivo?', options: ['El saludo inicial', 'Un resumen muy breve y la despedida', 'La explicación detallada con datos, ejemplos y enumeraciones', 'Un poema sobre el tema'], correct: 2 },
+      { text: '¿Qué es la Conclusión en un texto expositivo?', options: ['El párrafo donde se introducen nuevos temas', 'El primer párrafo de todos', 'La parte final donde se resume lo más destacado del tema', 'El índice del libro'], correct: 2 }
+    ],
+    s2: [
+      { text: '¿Cuál de estas palabras NO es un sinónimo de "amaestrar"?', options: ['Domesticar', 'Adiestrar', 'Asustar', 'Enseñar'], correct: 2 },
+      { text: 'Según el vocabulario estudiado, ¿qué adjetivos describen mejor a un hámster?', options: ['Manso y tranquilo', 'Inquieto y asustadizo', 'Fiel y cariñoso', 'Dócil y juguetón'], correct: 1 },
+      { text: '¿Qué adjetivos se asocian habitualmente con el caballo en el cuaderno?', options: ['Curioso y dormilón', 'Manso y tranquilo', 'Dócil y juguetón', 'Inquieto y asustadizo'], correct: 1 },
+      { text: 'Amaestrar a un animal consiste en...', options: ['Dejarlo libre en el bosque', 'Pintar un cuadro de él', 'Hacer que obedezca y aprenda a hacer algunas cosas', 'Llevarlo al veterinario únicamente'], correct: 2 },
+      { text: 'De los siguientes adjetivos, ¿cuáles se asocian con el gato?', options: ['Fiel y cariñoso', 'Curioso y dormilón', 'Dócil y juguetón', 'Manso y tranquilo'], correct: 1 }
+    ],
+    s3: [
+      { text: 'Las palabras qué, quién, cómo y dónde...', options: ['Nunca llevan tilde', 'Siempre llevan tilde en cualquier oración', 'Llevan tilde cuando se usan en oraciones interrogativas o exclamativas', 'Solo llevan tilde si van al principio de la oración'], correct: 2 },
+      { text: '¿Cuál de estas oraciones está acentuada CORRECTAMENTE?', options: ['¿Que hora es?', '¡Cuanto tiempo sin verte!', '¿Dónde viven los camellos?', 'Dime como se llama.'], correct: 2 },
+      { text: 'Elige la oración EXCLAMATIVA escrita correctamente:', options: ['¡Qué sorpresa más agradable!', '¡Que sorpresa más agradable!', '¡Quien lo hubiera dicho!', '¡Cuanto corre ese animal!'], correct: 0 },
+      { text: 'En la oración "El lugar donde nací es hermoso", ¿por qué "donde" no lleva tilde?', options: ['Porque es un error, debería llevarla.', 'Porque funciona como relativo, no está haciendo una pregunta ni exclamación.', 'Porque solo lleva tilde en plural.', 'Porque es un lugar.'], correct: 1 },
+      { text: 'Completa correctamente: Me gustaría saber _______ has hecho el mural.', options: ['cómo', 'como', 'comó', 'còmo'], correct: 0 }
+    ],
+    s4: [
+      { text: '¿Qué son los pronombres personales?', options: ['Palabras que acompañan al sustantivo para decir si está cerca o lejos', 'Palabras que expresan cualidades', 'Palabras que sirven para nombrar a personas, animales o cosas sin usar sustantivos', 'Acciones que realizamos'], correct: 2 },
+      { text: 'En la oración "Ellas hicieron el cartel con el eslogan", el pronombre "Ellas" pertenece a la...', options: ['Primera persona del singular', 'Segunda persona del plural', 'Tercera persona del plural', 'Primera persona del plural'], correct: 2 },
+      { text: '¿Qué pronombre personal podría sustituir al sujeto en "Mi amigo y yo fuimos a la radio"?', options: ['Ellos', 'Nosotros', 'Vosotros', 'Él'], correct: 1 },
+      { text: '¿Cuál de estos grupos está formado SOLO por pronombres personales?', options: ['yo, tú, este, ese', 'nosotros, ellos, mi, tu', 'yo, tú, él, nosotras, vosotros', 'uno, dos, tres, nosotros'], correct: 2 },
+      { text: 'El pronombre "Tú" nombra a...', options: ['La persona que habla (1.ª persona)', 'La persona que escucha (2.ª persona)', 'La persona de la que se habla (3.ª persona)', 'A un animal siempre'], correct: 1 }
+    ],
+    s5: [
+      { text: '¿Qué tres aspectos fundamentales diferencian a la variedad del español de Canarias?', options: ['La escritura, el color y el formato', 'La pronunciación, la gramática y el vocabulario', 'El clima, las islas y los animales', 'Los textos expositivos, los murales y los carteles'], correct: 1 },
+      { text: '¿Qué es una "campaña de concienciación"?', options: ['Un campamento de verano en la naturaleza', 'Un examen sobre lengua canaria', 'Un conjunto de acciones con el objetivo de convencer a la gente de algo', 'Una fiesta tradicional canaria'], correct: 2 },
+      { text: 'Para la campaña propuesta en el cuaderno sobre el español de Canarias, ¿qué acciones se sugieren?', options: ['Hacer un examen, escribir un libro y leer un poema', 'Un mural informativo, un anuncio para la radio y un cartel con un eslogan', 'Limpiar las playas y plantar árboles', 'Hacer un viaje por las islas'], correct: 1 },
+      { text: 'En un cartel publicitario o de campaña, ¿qué es un "eslogan"?', options: ['El título del libro', 'El nombre del autor', 'Una frase corta, llamativa y fácil de recordar que resume la idea', 'Una imagen muy grande sin texto'], correct: 2 }
+    ],
+    s6: [
+      { text: '¿Qué estructura tiene un texto expositivo?', options: ['Planteamiento, nudo y desenlace', 'Introducción, desarrollo y conclusión', 'Titular, entradilla y cuerpo', 'Estrofa, verso y rima'], correct: 1 },
+      { text: '¿A qué clase de palabra pertenece "nosotros"?', options: ['Sustantivo común', 'Pronombre personal de 1.ª persona', 'Adjetivo calificativo', 'Determinante demostrativo'], correct: 1 },
+      { text: '¿En qué oración "cuando" debe llevar tilde (cuándo)?', options: ['Saldremos cuando pare de llover.', 'Aún no sabemos cuando será el examen.', 'Me lo dijo cuando vino.', 'Ese fue el año cuando nació.'], correct: 1 },
+      { text: '¿Qué adjetivos asociamos con el perro según el vocabulario de la unidad?', options: ['Inquieto y asustadizo', 'Curioso y dormilón', 'Fiel y cariñoso', 'Manso y tranquilo'], correct: 2 },
+      { text: 'El seseo o el uso de palabras propias de las islas son características de...', options: ['El texto expositivo', 'Las reglas de acentuación', 'La variedad canaria del español', 'El adiestramiento animal'], correct: 2 },
+      { text: 'Sustituye por un pronombre: "María y Laura prepararon el mural."', options: ['Ellos prepararon el mural.', 'Nosotros prepararon el mural.', 'Vosotras prepararon el mural.', 'Ellas prepararon el mural.'], correct: 3 },
+      { text: 'Sinónimo de "amaestrar":', options: ['Domesticar', 'Alimentar', 'Cuidar', 'Liberar'], correct: 0 }
+    ]
+  };
+
+  /* ── QUIZ ENGINE ── */
+  const QuizEngine = {
+    instances: {},
+    create(id, questions) {
+      this.instances[id] = { questions, current: 0, score: 0, answered: false, completed: false };
+      this.render(id);
+    },
+    get(id) { return this.instances[id]; },
+    render(id) {
+      const s = this.get(id);
+      const container = document.getElementById(`quiz-${id}`);
+      if (!container || s.completed) return;
+      const q = s.questions[s.current];
+      const inner = document.createElement('div');
+      inner.innerHTML = `
+        <div class="quiz-progress">Pregunta ${s.current + 1} de ${s.questions.length}</div>
+        <div class="quiz-question">${q.text}</div>
+        <div class="quiz-options">
+          ${q.options.map((opt, i) => `<button class="quiz-option" data-index="${i}">${opt}</button>`).join('')}
+        </div>
+        <div class="quiz-feedback" id="feedback-${id}"></div>
+      `;
+      // Preservar el título h3
+      const h3 = container.querySelector('h3');
+      container.innerHTML = '';
+      if (h3) container.appendChild(h3);
+      container.appendChild(inner);
+      
+      // Añadir interactividad
+      inner.querySelectorAll('.quiz-option').forEach(btn => {
+        btn.addEventListener('click', e => {
+          if (s.answered) return;
+          this.answer(id, parseInt(e.currentTarget.dataset.index));
+        });
+      });
+    },
+    answer(id, sel) {
+      const s = this.get(id);
+      if (s.answered) return;
+      s.answered = true;
+      const q = s.questions[s.current];
+      const correct = sel === q.correct;
+      if (correct) s.score++;
+      
+      const fb = document.getElementById(`feedback-${id}`);
+      if (fb) {
+        fb.textContent = correct ? '✅ ¡Respuesta correcta!' : `❌ Incorrecto. La respuesta era: ${q.options[q.correct]}`;
+        fb.className = `quiz-feedback ${correct ? 'correct' : 'wrong'}`;
+      }
+      
+      const container = document.getElementById(`quiz-${id}`);
+      container.querySelectorAll('.quiz-option').forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === q.correct) btn.classList.add('correct');
+        else if (i === sel) btn.classList.add('wrong');
+      });
+      
+      setTimeout(() => {
+        s.current++;
+        s.answered = false;
+        if (s.current < s.questions.length) {
+          this.render(id);
+        } else {
+          this.showResult(id);
+        }
+      }, 1800);
+    },
+    showResult(id) {
+      const s = this.get(id);
+      s.completed = true;
+      const pct = Math.round((s.score / s.questions.length) * 100);
+      const container = document.getElementById(`quiz-${id}`);
+      const h3 = container.querySelector('h3');
+      container.innerHTML = '';
+      if (h3) container.appendChild(h3);
+      
+      const res = document.createElement('div');
+      res.className = 'quiz-result';
+      const emoji = pct >= 80 ? '🏆' : pct >= 60 ? '👍' : '💪';
+      const msg = pct >= 80 ? '¡Excelente trabajo!' : pct >= 60 ? '¡Muy bien! Puedes repasar algo más.' : '¡No te rindas! Repasa la lección y vuelve a intentarlo.';
+      res.innerHTML = `
+        <div class="result-score">${s.score}/${s.questions.length}</div>
+        <div class="result-pct">${pct}% de aciertos</div>
+        <div class="result-msg">${emoji} ${msg}</div>
+        <button class="btn-retry" id="retry-${id}">🔄 Repetir test</button>
+      `;
+      container.appendChild(res);
+      
+      document.getElementById(`retry-${id}`).addEventListener('click', () => {
+        s.current = 0; s.score = 0; s.answered = false; s.completed = false;
+        this.render(id);
+      });
+      ScoreTracker.update(id, s.score, s.questions.length);
+      
+      // Marcar pestaña como completada con check verde
+      const btn = document.querySelector(`.tab-btn[data-section="${id}"]`);
+      if (btn && !btn.querySelector('.check')) {
+        const chk = document.createElement('span');
+        chk.className = 'check'; chk.textContent = '✅';
+        btn.appendChild(chk);
+      }
+    }
+  };
+
+  /* ── SCORE TRACKER ── */
+  const ScoreTracker = {
+    scores: {},
+    update(id, got, tot) {
+      this.scores[id] = { got, tot };
+      const entries = Object.values(this.scores);
+      const totalGot = entries.reduce((a, e) => a + e.got, 0);
+      const totalTot = entries.reduce((a, e) => a + e.tot, 0);
+      document.getElementById('global-score').textContent = `${totalGot}/${totalTot}`;
+    }
+  };
+
+  /* ── NAV TABS ── */
+  const tabs = document.querySelectorAll('.tab-btn');
+  const sections = document.querySelectorAll('.section');
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Remover clases activas
+      tabs.forEach(b => b.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+      
+      // Añadir clase activa al tab y sección correspondientes
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.section).classList.add('active');
+      
+      // Inicializar quiz si no existe
+      const sid = btn.dataset.section;
+      if (!QuizEngine.instances[sid]) {
+        QuizEngine.create(sid, QUESTIONS[sid]);
+      }
+    });
+  });
+
+  /* ── INICIALIZAR PRIMERA SECCIÓN ── */
+  QuizEngine.create('s1', QUESTIONS['s1']);
+});
+</script>
+</body>
+</html>

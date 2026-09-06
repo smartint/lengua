@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 3 · Lengua 6.º Primaria</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f7ff;
+  --surface: #ffffff;
+  --surface-alt: #eef1fb;
+  --accent: #673ab7;      /* Morado principal */
+  --accent2: #fbc02d;     /* Amarillo mostaza */
+  --accent3: #3f51b5;     /* Azul índigo */
+  --accent4: #e53935;     /* Rojo suave */
+  --accent-light: #f3e5f5; /* Morado muy claro */
+  --text: #1e2a3a;
+  --text-muted: #6b7a99;
+  --border: #dde3f0;
+  --success: #4caf82;
+  --error: #e57373;
+  --shadow: 0 2px 14px rgba(0,0,0,0.08);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+header {
+  background: linear-gradient(135deg, #673ab7 0%, #3f51b5 100%);
+  color: white;
+  padding: 20px 28px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 3px 16px rgba(103,58,183,0.3);
+}
+.header-icon { font-size: 2.4rem; }
+.header-text h1 { font-family: 'Nunito', sans-serif; font-size: 1.5rem; font-weight: 800; line-height: 1.2; }
+.header-text p { font-size: 0.88rem; opacity: 0.88; margin-top: 2px; }
+.global-score-wrap {
+  margin-left: auto;
+  background: rgba(255,255,255,0.22);
+  border-radius: 12px;
+  padding: 8px 16px;
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+}
+.global-score-wrap .label { font-size: 0.72rem; opacity: 0.85; }
+#global-score { font-size: 1.3rem; font-weight: 800; }
+
+/* ── NAV ── */
+nav {
+  background: var(--surface);
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  overflow-x: auto;
+  padding: 0 12px;
+  gap: 4px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+nav::-webkit-scrollbar { display: none; }
+.tab-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 12px 14px;
+  min-height: 48px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.tab-btn:hover { color: var(--accent); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-btn .check { color: var(--success); font-size: 0.75rem; }
+
+/* ── MAIN ── */
+main { max-width: 860px; margin: 0 auto; padding: 28px 20px 60px; }
+
+/* ── SECTIONS ── */
+.section { display: none; animation: fadeIn 0.3s ease; }
+.section.active { display: block; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+.section-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-title span { font-size: 1.6rem; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 20px 22px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--accent);
+}
+.card.blue { border-left-color: var(--accent3); }
+.card.red { border-left-color: var(--accent4); }
+.card.orange { border-left-color: var(--accent2); }
+.card h3 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.card p { font-size: 0.93rem; line-height: 1.65; color: var(--text); margin-bottom: 6px; }
+.card ul { padding-left: 18px; }
+.card li { font-size: 0.93rem; line-height: 1.7; }
+
+.concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 16px; }
+.concept-card {
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 16px 18px;
+  box-shadow: var(--shadow);
+  border-top: 4px solid var(--accent);
+}
+.concept-card.blue { border-top-color: var(--accent3); }
+.concept-card.red { border-top-color: var(--accent4); }
+.concept-card.orange { border-top-color: var(--accent2); }
+.concept-card .icon { font-size: 1.8rem; margin-bottom: 6px; }
+.concept-card h4 { font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 800; margin-bottom: 5px; }
+.concept-card p { font-size: 0.85rem; line-height: 1.55; color: var(--text-muted); }
+
+.highlight-box {
+  background: var(--accent-light);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 14px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  border-left: 4px solid var(--accent);
+}
+.highlight-box.blue { background: #e8eaf6; border-left-color: var(--accent3); }
+.highlight-box.red { background: #ffebee; border-left-color: var(--accent4); }
+.highlight-box.orange { background: #fffde7; border-left-color: var(--accent2); }
+
+.example-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0;
+}
+.tag {
+  background: var(--surface-alt);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.tag.purple { background: var(--accent-light); border-color: #ce93d8; color: #4a148c; }
+.tag.blue { background: #e8eaf6; border-color: #9fa8da; color: #1a237e; }
+.tag.red { background: #ffebee; border-color: #ef9a9a; color: #b71c1c; }
+.tag.orange { background: #fffde7; border-color: #fff59d; color: #f57f17; }
+
+table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.88rem; }
+th { background: var(--surface-alt); padding: 9px 12px; text-align: left; font-family: 'Nunito', sans-serif; font-weight: 700; border-bottom: 2px solid var(--border); }
+td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+tr:last-child td { border-bottom: none; }
+
+/* ── QUIZ ── */
+.quiz-wrap {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 24px 24px 20px;
+  margin-top: 24px;
+  box-shadow: var(--shadow);
+  border-top: 4px solid var(--accent3);
+}
+.quiz-wrap h3 {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  margin-bottom: 16px;
+  color: var(--accent3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.quiz-progress { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; font-weight: 600; }
+.quiz-question { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 14px; line-height: 1.5; }
+.quiz-option {
+  display: block;
+  width: 100%;
+  padding: 14px 16px;
+  margin: 8px 0;
+  background: #f0f4ff;
+  border: 2px solid #c8d8f8;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.92rem;
+  font-family: 'Open Sans', sans-serif;
+  transition: background 0.18s, border-color 0.18s;
+  min-height: 48px; 
+}
+.quiz-option:hover:not(:disabled) { background: #ddeaff; border-color: #7aabf7; }
+.quiz-option.correct { background: #d4f7e0; border-color: #4caf82; }
+.quiz-option.wrong   { background: #ffe0e0; border-color: #e57373; }
+.quiz-feedback { margin-top: 10px; font-weight: 700; min-height: 22px; font-size: 0.93rem; }
+.quiz-feedback.correct { color: #2e7d52; }
+.quiz-feedback.wrong   { color: #c62828; }
+.quiz-result { text-align: center; padding: 20px 0 10px; }
+.result-score { font-family: 'Nunito', sans-serif; font-size: 2.8rem; font-weight: 800; color: var(--accent3); }
+.result-pct { font-size: 1.1rem; color: var(--text-muted); margin: 4px 0 10px; }
+.result-msg { font-size: 1rem; font-weight: 600; margin-bottom: 16px; }
+.btn-retry {
+  background: var(--accent3);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 24px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  min-height: 48px;
+}
+.btn-retry:hover { opacity: 0.88; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-icon">🎭</div>
+  <div class="header-text">
+    <h1>Tema 3 · Lengua 6.º Primaria</h1>
+    <p>Historias que atrapan · No me gusta hacer de pato</p>
+  </div>
+  <div class="global-score-wrap">
+    <div class="label">Puntuación global</div>
+    <div id="global-score">–</div>
+  </div>
+</header>
+
+<nav id="main-nav">
+  <button class="tab-btn active" data-section="s1">🦆 Texto narrativo</button>
+  <button class="tab-btn" data-section="s2">🔤 Formación (Sufijos)</button>
+  <button class="tab-btn" data-section="s3">✏️ Acentuación</button>
+  <button class="tab-btn" data-section="s4">📝 Numerales e Indefinidos</button>
+  <button class="tab-btn" data-section="s5">🏰 Las Leyendas</button>
+  <button class="tab-btn" data-section="s6">🌟 Repaso final</button>
+</nav>
+
+<main>
+
+<!-- ══════════════════════════════════════ S1 TEXTO NARRATIVO ══════════════════════════════════════ -->
+<section id="s1" class="section active">
+  <div class="section-title"><span>🦆</span> Texto narrativo: No me gusta hacer de pato</div>
+
+  <div class="card">
+    <h3>¿De qué trata la lectura?</h3>
+    <p>En el texto <em>«No me gusta hacer de pato»</em> conocemos a un joven protagonista que participa en una obra de teatro del colegio. Al contrario de lo que a muchos les gustaría, él no está nada contento con su papel.</p>
+    <p><strong>¿El problema?</strong> Le ha tocado hacer de pato. No le gusta el traje que debe llevar y, para colmo, la frase que le ha tocado decir en la obra le parece completamente ridícula. Esto le hace sentirse muy avergonzado durante la actuación.</p>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="icon">🎭</div>
+      <h4>El teatro</h4>
+      <p>Es el arte de representar historias frente a un público. En la lectura vemos los nervios, el escenario, los disfraces y la memorización de guiones.</p>
+    </div>
+    <div class="concept-card blue">
+      <div class="icon">👦</div>
+      <h4>El narrador</h4>
+      <p>Es el protagonista del cuento (narrado en primera persona). Él mismo nos cuenta sus miedos y lo ridículo que se sintió con el disfraz de pato.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>Palabras de la lectura:</strong><br>
+    • <em>Alienígena:</em> extraterrestre.<br>
+    • <em>Fatídico:</em> desgraciado, que trae mala suerte.<br>
+    • <em>Infancia / Juventud:</em> etapas de la vida por las que pasa el personaje.
+  </div>
+
+  <div id="quiz-s1" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S2 VOCABULARIO ══════════════════════════════════════ -->
+<section id="s2" class="section">
+  <div class="section-title"><span>🔤</span> Vocabulario: Formación de palabras con sufijos</div>
+
+  <div class="highlight-box blue">
+    <strong>Los sufijos</strong> son morfemas (partículas) que se añaden <strong>al final</strong> de la raíz de una palabra para formar palabras nuevas (palabras derivadas).
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="icon">🧑‍🔧</div>
+      <h4>Profesión / Oficio</h4>
+      <p>Sufijos como <strong>-ero, -era, -ista, -dor</strong>.<br><em>Ejemplos:</em> reloj<strong>ero</strong>, flor<strong>ista</strong>, pesca<strong>dor</strong>.</p>
+    </div>
+    <div class="concept-card orange">
+      <div class="icon">📍</div>
+      <h4>Lugar</h4>
+      <p>Sufijos como <strong>-ería, -dor, -torio</strong>.<br><em>Ejemplos:</em> panad<strong>ería</strong>, come<strong>dor</strong>, labora<strong>torio</strong>.</p>
+    </div>
+    <div class="concept-card red">
+      <div class="icon">✨</div>
+      <h4>Cualidad / Acción</h4>
+      <p>Sufijos como <strong>-eza, -ura, -ción</strong>.<br><em>Ejemplos:</em> bell<strong>eza</strong>, blanc<strong>ura</strong>, actua<strong>ción</strong>.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Ejemplos de creación de palabras</h3>
+    <table>
+      <tr><th>Palabra base</th><th>Sufijo</th><th>Palabra derivada</th></tr>
+      <tr><td>arte</td><td>-ista</td><td><strong>artista</strong></td></tr>
+      <tr><td>lavar</td><td>-ble</td><td><strong>lavable</strong></td></tr>
+      <tr><td>fruta</td><td>-ería</td><td><strong>frutería</strong></td></tr>
+      <tr><td>cantar</td><td>-ante</td><td><strong>cantante</strong></td></tr>
+    </table>
+  </div>
+
+  <div id="quiz-s2" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S3 ORTOGRAFÍA ══════════════════════════════════════ -->
+<section id="s3" class="section">
+  <div class="section-title"><span>✏️</span> Ortografía: Acentuación de monosílabos</div>
+
+  <div class="highlight-box red">
+    <strong>Regla general:</strong> Las palabras de una sola sílaba (monosílabos) <strong>NO</strong> llevan tilde.<br>
+    ✅ <em>Ejemplos correctos: sol, tren, pan, luz, dio, vio, fue.</em>
+  </div>
+
+  <div class="card blue">
+    <h3>La tilde diacrítica (Excepciones)</h3>
+    <p>Algunos monosílabos <strong>sí llevan tilde</strong> para diferenciarlos de otras palabras que se escriben igual pero tienen distinto significado o función gramatical.</p>
+    
+    <table>
+      <tr><th>Con Tilde (Diacrítica)</th><th>Sin Tilde</th></tr>
+      <tr>
+        <td><strong>él</strong> (Pronombre personal)<br><em>Ayer lo vi a él.</em></td>
+        <td><strong>el</strong> (Artículo)<br><em>El coche rojo.</em></td>
+      </tr>
+      <tr>
+        <td><strong>tú</strong> (Pronombre personal)<br><em>Tú siempre ayudas.</em></td>
+        <td><strong>tu</strong> (Determinante posesivo)<br><em>Tu mochila es nueva.</em></td>
+      </tr>
+      <tr>
+        <td><strong>mí</strong> (Pronombre personal)<br><em>Ese regalo es para mí.</em></td>
+        <td><strong>mi</strong> (Determinante posesivo)<br><em>Mi perro ladra.</em></td>
+      </tr>
+      <tr>
+        <td><strong>sé</strong> (Verbo saber o ser)<br><em>Yo sé la respuesta.</em></td>
+        <td><strong>se</strong> (Pronombre)<br><em>Se lava las manos.</em></td>
+      </tr>
+      <tr>
+        <td><strong>sí</strong> (Afirmación / Pronombre)<br><em>Me dijo que sí.</em></td>
+        <td><strong>si</strong> (Condicional / Nota musical)<br><em>Si llueve, no voy.</em></td>
+      </tr>
+      <tr>
+        <td><strong>té</strong> (Sustantivo, infusión)<br><em>Tomo un té caliente.</em></td>
+        <td><strong>te</strong> (Pronombre)<br><em>Te lo dije ayer.</em></td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="quiz-s3" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S4 GRAMÁTICA ══════════════════════════════════════ -->
+<section id="s4" class="section">
+  <div class="section-title"><span>📝</span> Gramática: Numerales e Indefinidos</div>
+
+  <div class="concept-grid">
+    <div class="concept-card blue">
+      <div class="icon">🔢</div>
+      <h4>Los Numerales</h4>
+      <p>Expresan una cantidad exacta o un orden.<br>
+      • <strong>Cardinales (cantidad):</strong> un, dos, tres, diez...<br>
+      • <strong>Ordinales (orden):</strong> primero, segundo, quinto...</p>
+    </div>
+    <div class="concept-card orange">
+      <div class="icon">❓</div>
+      <h4>Los Indefinidos</h4>
+      <p>Expresan una cantidad de forma imprecisa o indeterminada.<br>
+      • <em>Ejemplos:</em> algún, ningún, poco, mucho, todo, varios, bastantes, demasiados.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Sus funciones en el Sintagma Nominal</h3>
+    <p>Tanto los numerales como los indefinidos pueden cumplir diferentes funciones dependiendo de a qué palabra acompañen o sustituyan:</p>
+    <table>
+      <tr><th>Función</th><th>Posición</th><th>Ejemplo Numeral</th><th>Ejemplo Indefinido</th></tr>
+      <tr>
+        <td><strong>Determinante</strong></td>
+        <td>Delante del sustantivo</td>
+        <td><em>Compré <strong>tres</strong> manzanas.</em></td>
+        <td><em>Faltan <strong>algunos</strong> alumnos.</em></td>
+      </tr>
+      <tr>
+        <td><strong>Complemento</strong></td>
+        <td>Detrás del sustantivo</td>
+        <td><em>Subió al piso <strong>segundo</strong>.</em></td>
+        <td><em>Es un hombre <strong>cualquiera</strong>.</em></td>
+      </tr>
+      <tr>
+        <td><strong>Núcleo</strong></td>
+        <td>Sustituyen al sustantivo</td>
+        <td><em>De los gatos, vi a <strong>dos</strong>.</em></td>
+        <td><em>Vinieron <strong>muchos</strong>.</em></td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="quiz-s4" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S5 LITERATURA ══════════════════════════════════════ -->
+<section id="s5" class="section">
+  <div class="section-title"><span>🏰</span> Literatura: Historias que atrapan (Las Leyendas)</div>
+
+  <div class="highlight-box">
+    <strong>Las leyendas</strong> son relatos antiguos de hechos prodigiosos o extraordinarios que se han transmitido de forma oral de generación en generación.
+  </div>
+
+  <div class="card orange">
+    <h3>Características de las Leyendas</h3>
+    <ul>
+      <li><strong>Transmisión oral:</strong> Originalmente no se escribían, se contaban de abuelos a nietos alrededor del fuego o en reuniones.</li>
+      <li><strong>Hechos prodigiosos:</strong> Mezclan sucesos reales con magia, fantasía o elementos sobrenaturales.</li>
+      <li><strong>Explicación del entorno:</strong> Muchos de estos relatos surgen para explicar fenómenos de la naturaleza (como el origen de una montaña o un volcán) o algún aspecto de la cultura de un lugar.</li>
+      <li><strong>Personajes arquetípicos:</strong> Héroes, dioses, seres mitológicos, fantasmas, etc.</li>
+    </ul>
+    <p style="margin-top: 10px;"><em>A diferencia de los cuentos (que suelen ser totalmente ficticios y buscan entretener), la leyenda suele estar ligada a un lugar geográfico concreto y presentarse como si fuera "historia real" de ese sitio.</em></p>
+  </div>
+
+  <div id="quiz-s5" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S6 REPASO FINAL ══════════════════════════════════════ -->
+<section id="s6" class="section">
+  <div class="section-title"><span>🌟</span> Repaso final: Demuestra tus conocimientos</div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="icon">🦆</div>
+      <h4>Lectura y Teatro</h4>
+      <p>El protagonista narrador. El incómodo disfraz de pato. Alienígena y fatídico.</p>
+    </div>
+    <div class="concept-card blue">
+      <div class="icon">🔤</div>
+      <h4>Vocabulario</h4>
+      <p>Crear palabras añadiendo sufijos al final de la raíz (-ero, -ista, -ble, -ción).</p>
+    </div>
+    <div class="concept-card red">
+      <div class="icon">✏️</div>
+      <h4>Ortografía</h4>
+      <p>Monosílabos sin tilde por regla general. La tilde diacrítica (él/el, tú/tu, sé/se).</p>
+    </div>
+    <div class="concept-card orange">
+      <div class="icon">🔢</div>
+      <h4>Gramática y Leyendas</h4>
+      <p>Numerales (exactos) e Indefinidos (imprecisos). Las leyendas (orales, prodigiosas).</p>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>¡Último esfuerzo del Tema 3!</strong> Aquí tienes preguntas mezcladas de todos los apartados. Lee despacio las opciones y demuestra lo que sabes.
+  </div>
+
+  <div id="quiz-s6" class="quiz-wrap">
+    <h3>🏆 Quiz de repaso general</h3>
+  </div>
+</section>
+
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* ── DATOS DE LOS QUIZZES ── */
+  const QUESTIONS = {
+    s1: [
+      { text: 'En la lectura "No me gusta hacer de pato", ¿quién es el narrador?', options: ['El director de la obra', 'Un pato de verdad', 'El propio protagonista contando su historia', 'Una voz externa que no participa en la obra'], correct: 2 },
+      { text: '¿Por qué se siente mal el protagonista en la obra de teatro?', options: ['Porque no le gusta el traje que lleva y su frase le parece ridícula', 'Porque se le olvidó el guion', 'Porque no quería salir de su casa', 'Porque quería disfrazarse de alienígena'], correct: 0 },
+      { text: '¿Qué significa la palabra "fatídico" que aparece en el vocabulario?', options: ['Muy divertido y gracioso', 'Desgraciado o que trae mala suerte', 'Cansado', 'Relacionado con la juventud'], correct: 1 },
+      { text: '¿Qué significa la palabra "alienígena"?', options: ['Que tiene alas', 'Que está enfermo', 'Un animal marino', 'Extraterrestre'], correct: 3 }
+    ],
+    s2: [
+      { text: '¿Qué son los sufijos?', options: ['Palabras que se ponen delante del sustantivo', 'Morfemas que se añaden al final de la raíz para formar nuevas palabras', 'Signos de puntuación', 'Palabras de una sola sílaba'], correct: 1 },
+      { text: 'Si a la palabra "fruta" le añadimos un sufijo para indicar un lugar o tienda, ¿qué palabra obtenemos?', options: ['Frutero', 'Frutal', 'Frutería', 'Disfrutar'], correct: 2 },
+      { text: '¿Cuál de estas palabras NO contiene un sufijo derivativo?', options: ['Panadero', 'Florista', 'Cuchara', 'Belleza'], correct: 2 },
+      { text: 'Si a "arte" le añadimos "-ista", formamos "artista". El sufijo "-ista" suele indicar:', options: ['Lugar', 'Profesión u ocupación', 'Cualidad', 'Aumento de tamaño'], correct: 1 },
+      { text: '¿Qué palabra se forma al unir "lavar" y el sufijo "-ble"?', options: ['Lavadero', 'Lavadora', 'Lavadura', 'Lavable'], correct: 3 }
+    ],
+    s3: [
+      { text: 'Según la regla general de acentuación, ¿los monosílabos llevan tilde?', options: ['Sí, siempre', 'Solo los que terminan en vocal, n o s', 'No, por regla general no llevan tilde', 'Solo si son verbos'], correct: 2 },
+      { text: '¿Por qué algunas palabras de una sílaba sí llevan tilde (como él, tú, mí)?', options: ['Porque son esdrújulas', 'Para diferenciarlas de otras palabras que se escriben igual pero tienen distinto significado (Tilde diacrítica)', 'Porque se escriben en mayúsculas', 'Porque son más largas'], correct: 1 },
+      { text: 'Elige la oración que está escrita CORRECTAMENTE:', options: ['Tú coche es muy rápido.', 'Ese regalo es para mi.', 'El niño fue a jugar al parque.', 'Quiero qué me des te.'], correct: 2 },
+      { text: '¿En qué caso el monosílabo "sé" lleva tilde?', options: ['Cuando es un pronombre (ej. se lavó).', 'Cuando es del verbo saber o ser (ej. yo lo sé).', 'Nunca lleva tilde.', 'Cuando va delante de un sustantivo.'], correct: 1 },
+      { text: '¿Cuál de estos monosílabos está correctamente escrito SIN tilde porque no necesita diferenciarse?', options: ['Té (infusión)', 'Sól (estrella)', 'Mí (pronombre)', 'Tren (transporte)'], correct: 3 }
+    ],
+    s4: [
+      { text: '¿Qué tipo de palabras expresan una cantidad EXACTA o un orden?', options: ['Los indefinidos', 'Los demostrativos', 'Los posesivos', 'Los numerales'], correct: 3 },
+      { text: '¿Qué expresan los Indefinidos?', options: ['Una cantidad imprecisa o indeterminada (muchos, algunos...)', 'A quién pertenece algo (mío, tuyo...)', 'La distancia (este, ese, aquel)', 'El orden en una fila (primero, segundo...)'], correct: 0 },
+      { text: 'En la oración "Tengo tres perros", la palabra "tres" es un numeral:', options: ['Ordinal, y funciona como núcleo', 'Cardinal, y funciona como determinante', 'Ordinal, y funciona como complemento', 'Cardinal, y funciona como núcleo'], correct: 1 },
+      { text: 'En la oración "Vinieron muchos a la fiesta", ¿qué función cumple el indefinido "muchos"?', options: ['Determinante (va delante del sustantivo)', 'Núcleo (sustituye al sustantivo)', 'Complemento (va detrás del sustantivo)', 'Verbo'], correct: 1 },
+      { text: '¿Cuál de estas palabras es un Numeral Ordinal?', options: ['Quince', 'Varios', 'Séptimo', 'Demasiados'], correct: 2 }
+    ],
+    s5: [
+      { text: '¿Qué es una leyenda?', options: ['Un texto que nos da las noticias del día', 'Un relato antiguo de hechos prodigiosos transmitido de forma oral', 'Una obra de teatro para hacer reír', 'Un poema sobre la naturaleza'], correct: 1 },
+      { text: '¿Cómo se transmitían originalmente las leyendas?', options: ['Por internet', 'En los periódicos', 'De forma oral, de abuelos a nietos', 'En libros de texto'], correct: 2 },
+      { text: '¿Para qué solían surgir muchos de los relatos de leyendas en la antigüedad?', options: ['Para enseñar gramática', 'Para explicar fenómenos de la naturaleza o aspectos culturales de un lugar', 'Para vender más libros', 'Para aprender a cocinar'], correct: 1 },
+      { text: '¿Qué tipo de hechos se narran en las leyendas?', options: ['Solo hechos aburridos y comunes', 'Hechos prodigiosos y extraordinarios, mezclando realidad y fantasía', 'Noticias sobre deportes', 'Recetas paso a paso'], correct: 1 }
+    ],
+    s6: [
+      { text: 'En la lectura, al niño no le gusta hacer de...', options: ['Árbol', 'Alien', 'Pato', 'Rey'], correct: 2 },
+      { text: 'Si a "jardín" le añadimos un sufijo de profesión, formamos:', options: ['Jardinería', 'Jardinero', 'Ajardinar', 'Jardines'], correct: 1 },
+      { text: '¿Cuál es la función del indefinido en "Faltan ALGUNOS libros"?', options: ['Núcleo', 'Verbo', 'Complemento', 'Determinante'], correct: 3 },
+      { text: '¿Cuándo lleva tilde el monosílabo "te"?', options: ['Nunca', 'Cuando es pronombre (te lo dije)', 'Cuando es el sustantivo que nombra la infusión (tomar un té)', 'Siempre'], correct: 2 },
+      { text: 'Las leyendas se caracterizan principalmente por...', options: ['Estar siempre escritas en verso', 'Ser relatos modernos sobre tecnología', 'Transmitirse de forma oral y relatar hechos prodigiosos', 'Ser crónicas deportivas'], correct: 2 },
+      { text: '¿Cuál de estas palabras es un numeral ORDINAL?', options: ['Cinco', 'Tercero', 'Muchos', 'Ninguno'], correct: 1 },
+      { text: 'En la oración "Tú eres mi mejor amigo", ¿por qué "Tú" lleva tilde?', options: ['Para diferenciar el pronombre personal del determinante posesivo', 'Porque es el principio de la frase', 'Porque es una palabra aguda terminada en vocal', 'Porque las palabras de dos letras llevan tilde'], correct: 0 }
+    ]
+  };
+
+  /* ── QUIZ ENGINE ── */
+  const QuizEngine = {
+    instances: {},
+    create(id, questions) {
+      this.instances[id] = { questions, current: 0, score: 0, answered: false, completed: false };
+      this.render(id);
+    },
+    get(id) { return this.instances[id]; },
+    render(id) {
+      const s = this.get(id);
+      const container = document.getElementById(`quiz-${id}`);
+      if (!container || s.completed) return;
+      const q = s.questions[s.current];
+      const inner = document.createElement('div');
+      inner.innerHTML = `
+        <div class="quiz-progress">Pregunta ${s.current + 1} de ${s.questions.length}</div>
+        <div class="quiz-question">${q.text}</div>
+        <div class="quiz-options">
+          ${q.options.map((opt, i) => `<button class="quiz-option" data-index="${i}">${opt}</button>`).join('')}
+        </div>
+        <div class="quiz-feedback" id="feedback-${id}"></div>
+      `;
+      // Preservar el título h3
+      const h3 = container.querySelector('h3');
+      container.innerHTML = '';
+      if (h3) container.appendChild(h3);
+      container.appendChild(inner);
+      
+      // Añadir interactividad táctil
+      inner.querySelectorAll('.quiz-option').forEach(btn => {
+        btn.addEventListener('click', e => {
+          if (s.answered) return;
+          this.answer(id, parseInt(e.currentTarget.dataset.index));
+        });
+      });
+    },
+    answer(id, sel) {
+      const s = this.get(id);
+      if (s.answered) return;
+      s.answered = true;
+      const q = s.questions[s.current];
+      const correct = sel === q.correct;
+      if (correct) s.score++;
+      
+      const fb = document.getElementById(`feedback-${id}`);
+      if (fb) {
+        fb.textContent = correct ? '✅ ¡Correcto!' : `❌ Incorrecto. La respuesta correcta era: ${q.options[q.correct]}`;
+        fb.className = `quiz-feedback ${correct ? 'correct' : 'wrong'}`;
+      }
+      
+      const container = document.getElementById(`quiz-${id}`);
+      container.querySelectorAll('.quiz-option').forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === q.correct) btn.classList.add('correct');
+        else if (i === sel) btn.classList.add('wrong');
+      });
+      
+      setTimeout(() => {
+        s.current++;
+        s.answered = false;
+        if (s.current < s.questions.length) {
+          this.render(id);
+        } else {
+          this.showResult(id);
+        }
+      }, 1800);
+    },
+    showResult(id) {
+      const s = this.get(id);
+      s.completed = true;
+      const pct = Math.round((s.score / s.questions.length) * 100);
+      const container = document.getElementById(`quiz-${id}`);
+      const h3 = container.querySelector('h3');
+      container.innerHTML = '';
+      if (h3) container.appendChild(h3);
+      
+      const res = document.createElement('div');
+      res.className = 'quiz-result';
+      const emoji = pct >= 80 ? '🎉' : pct >= 60 ? '👍' : '📚';
+      const msg = pct >= 80 ? '¡Excelente trabajo!' : pct >= 60 ? '¡Bien! Puedes mejorar.' : 'Repasa la sección e inténtalo de nuevo.';
+      res.innerHTML = `
+        <div class="result-score">${s.score}/${s.questions.length}</div>
+        <div class="result-pct">${pct}%</div>
+        <div class="result-msg">${emoji} ${msg}</div>
+        <button class="btn-retry" id="retry-${id}">🔄 Repetir quiz</button>
+      `;
+      container.appendChild(res);
+      
+      document.getElementById(`retry-${id}`).addEventListener('click', () => {
+        s.current = 0; s.score = 0; s.answered = false; s.completed = false;
+        this.render(id);
+      });
+      ScoreTracker.update(id, s.score, s.questions.length);
+      
+      // Marcar pestaña como completada
+      const btn = document.querySelector(`.tab-btn[data-section="${id}"]`);
+      if (btn && !btn.querySelector('.check')) {
+        const chk = document.createElement('span');
+        chk.className = 'check'; chk.textContent = '✅';
+        btn.appendChild(chk);
+      }
+    }
+  };
+
+  /* ── SCORE TRACKER ── */
+  const ScoreTracker = {
+    scores: {},
+    update(id, got, tot) {
+      this.scores[id] = { got, tot };
+      const entries = Object.values(this.scores);
+      const totalGot = entries.reduce((a, e) => a + e.got, 0);
+      const totalTot = entries.reduce((a, e) => a + e.tot, 0);
+      document.getElementById('global-score').textContent = `${totalGot}/${totalTot}`;
+    }
+  };
+
+  /* ── NAV TABS ── */
+  const tabs = document.querySelectorAll('.tab-btn');
+  const sections = document.querySelectorAll('.section');
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(b => b.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.section).classList.add('active');
+      
+      // Inicializar quiz al cambiar de pestaña
+      const sid = btn.dataset.section;
+      if (!QuizEngine.instances[sid]) {
+        QuizEngine.create(sid, QUESTIONS[sid]);
+      }
+    });
+  });
+
+  /* ── INICIALIZAR PRIMERA SECCIÓN ── */
+  QuizEngine.create('s1', QUESTIONS['s1']);
+});
+</script>
+</body>
+</html>

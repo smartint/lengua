@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 12 · Lengua 6.º Primaria</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f2fa;--surface:#fff;--surface-alt:#eeebf6;--accent:#7c5cbf;--accent-light:#ddd4f2;--accent-dark:#5a3e9a;--text:#1e1a2a;--text-muted:#6a6280;--border:#d4cce6;--success:#4caf82;--error:#e57373;--shadow:0 2px 14px rgba(60,40,100,.08);--tab-lectura:#e06858;--tab-informacion:#d4a030;--tab-ortografia:#5b8dee;--tab-gramatica:#3a9e6a}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Open Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+h1,h2,h3,h4{font-family:'Nunito',sans-serif}
+.header{background:linear-gradient(135deg,#7c5cbf,#6248a8);color:#fff;padding:28px 24px 22px;text-align:center;position:relative}
+.header h1{font-size:1.7rem;font-weight:800;letter-spacing:-.5px}
+.header .subtitle{font-size:.95rem;opacity:.9;margin-top:4px;font-family:'Open Sans',sans-serif}
+.header .tema-num{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.25);font-size:1.5rem;font-weight:800;margin-bottom:8px}
+#global-score{position:absolute;top:14px;right:20px;background:rgba(255,255,255,.2);padding:6px 14px;border-radius:20px;font-size:.82rem;font-weight:600}
+.nav-tabs{display:flex;flex-wrap:wrap;background:var(--surface);border-bottom:2px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.tab-btn{flex:1;min-width:110px;padding:14px 10px;border:none;background:transparent;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;color:var(--text-muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .25s}
+.tab-btn:hover{background:var(--surface-alt)}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);background:var(--accent-light)}
+.tab-btn[data-section="lectura"].active{color:var(--tab-lectura);border-bottom-color:var(--tab-lectura);background:#fde0dc}
+.tab-btn[data-section="informacion"].active{color:var(--tab-informacion);border-bottom-color:var(--tab-informacion);background:#fdf3d4}
+.tab-btn[data-section="ortografia"].active{color:var(--tab-ortografia);border-bottom-color:var(--tab-ortografia);background:#d6e4ff}
+.tab-btn[data-section="gramatica"].active{color:var(--tab-gramatica);border-bottom-color:var(--tab-gramatica);background:#d4f0e0}
+.tab-check{margin-left:4px;font-size:.8rem}
+.section{display:none;animation:fadeIn .35s ease;padding:24px 20px 40px;max-width:860px;margin:0 auto}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:var(--surface);border-radius:16px;padding:22px 24px;margin-bottom:18px;box-shadow:var(--shadow);border-left:5px solid var(--accent)}
+.card h3{font-size:1.1rem;margin-bottom:10px;color:var(--accent-dark)}
+.card p,.card li{line-height:1.7;font-size:.95rem}
+.card ul{padding-left:20px;margin-top:6px}
+.card ul li{margin-bottom:5px}
+.concepto{background:linear-gradient(135deg,var(--accent-light),var(--surface));border-left-color:var(--accent-dark)}
+.ejemplo-box{background:#faf8ff;border:1px dashed var(--border);border-radius:10px;padding:12px 16px;margin:10px 0;font-style:italic;color:var(--text-muted);font-size:.92rem}
+.section[data-color="lectura"] .card{border-left-color:var(--tab-lectura)}.section[data-color="lectura"] .card h3{color:var(--tab-lectura)}.section[data-color="lectura"] .concepto{background:linear-gradient(135deg,#fde0dc,var(--surface))}
+.section[data-color="informacion"] .card{border-left-color:var(--tab-informacion)}.section[data-color="informacion"] .card h3{color:#a07818}.section[data-color="informacion"] .concepto{background:linear-gradient(135deg,#fdf3d4,var(--surface))}
+.section[data-color="ortografia"] .card{border-left-color:var(--tab-ortografia)}.section[data-color="ortografia"] .card h3{color:var(--tab-ortografia)}.section[data-color="ortografia"] .concepto{background:linear-gradient(135deg,#d6e4ff,var(--surface))}
+.section[data-color="gramatica"] .card{border-left-color:var(--tab-gramatica)}.section[data-color="gramatica"] .card h3{color:var(--tab-gramatica)}.section[data-color="gramatica"] .concepto{background:linear-gradient(135deg,#d4f0e0,var(--surface))}
+.table-wrap{overflow-x:auto;margin:12px 0}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th{background:var(--accent-light);padding:10px 14px;text-align:left;font-weight:700;font-family:'Nunito',sans-serif}
+td{padding:9px 14px;border-bottom:1px solid var(--border)}
+tr:hover td{background:var(--surface-alt)}
+.quiz-wrap{margin-top:28px}.quiz-title{font-family:'Nunito',sans-serif;font-size:1.15rem;font-weight:800;margin-bottom:14px}
+.quiz-progress{font-size:.82rem;color:var(--text-muted);margin-bottom:8px;font-weight:600}
+.quiz-question{font-size:1.02rem;font-weight:600;margin-bottom:14px;line-height:1.6}
+.quiz-option{display:block;width:100%;padding:13px 18px;margin:7px 0;background:#f0edf6;border:2px solid var(--border);border-radius:12px;cursor:pointer;text-align:left;font-size:.93rem;font-family:'Open Sans',sans-serif;transition:background .2s,border-color .2s,transform .1s}
+.quiz-option:hover:not(:disabled){background:var(--accent-light);border-color:var(--accent);transform:translateX(3px)}
+.quiz-option.correct{background:#d4f7e0;border-color:#4caf82}.quiz-option.wrong{background:#ffe0e0;border-color:#e57373}
+.quiz-option:disabled{cursor:default;opacity:.85}
+.quiz-feedback{margin-top:10px;font-weight:700;min-height:24px;font-size:.95rem}
+.quiz-feedback.correct{color:#2e7d52}.quiz-feedback.wrong{color:#c62828}
+.quiz-result{text-align:center;padding:30px 20px}
+.result-score{font-size:2.8rem;font-weight:800;color:var(--accent)}
+.result-pct{font-size:1.1rem;color:var(--text-muted);margin:4px 0 10px}
+.result-msg{font-size:1.05rem;font-weight:700;margin-bottom:16px}
+.btn-retry{padding:11px 28px;border:none;border-radius:24px;background:var(--accent);color:#fff;font-weight:700;font-family:'Nunito',sans-serif;font-size:.95rem;cursor:pointer;transition:background .2s}
+.btn-retry:hover{background:var(--accent-dark)}
+@media(max-width:640px){.header h1{font-size:1.3rem}.tab-btn{font-size:.72rem;padding:11px 6px;min-width:0}.section{padding:16px 14px 30px}.card{padding:16px}#global-score{position:static;margin-top:10px;display:inline-block}}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="tema-num">12</div>
+  <h1>Lengua · Tema 12</h1>
+  <p class="subtitle">6.º Primaria — Santillana Canarias</p>
+  <div id="global-score">Puntuación total: —</div>
+</header>
+<nav class="nav-tabs">
+  <button class="tab-btn active" data-section="lectura">📰 Periodismo<span class="tab-check" id="check-lectura"></span></button>
+  <button class="tab-btn" data-section="informacion">🕵️ Fake News<span class="tab-check" id="check-informacion"></span></button>
+  <button class="tab-btn" data-section="ortografia">✏️ Ortografía<span class="tab-check" id="check-ortografia"></span></button>
+  <button class="tab-btn" data-section="gramatica">🔧 Gramática<span class="tab-check" id="check-gramatica"></span></button>
+</nav>
+
+<div class="section active" id="sec-lectura" data-color="lectura">
+  <div class="card concepto">
+    <h3>📰 El texto periodístico</h3>
+    <p>Los textos periodísticos nos mantienen informados de lo que sucede en el mundo o nos ofrecen puntos de vista. Entre los géneros periodísticos principales encontramos la <strong>noticia</strong>, la <strong>entrevista</strong> y el <strong>artículo de opinión</strong>[cite: 7, 129, 134, 135, 136].</p>
+  </div>
+  <div class="card">
+    <h3>📢 La Noticia y la Entrevista</h3>
+    <ul>
+      <li><strong>La Noticia:</strong> Cuenta de forma breve un suceso de interés que ha ocurrido recientemente[cite: 8, 135]. Presenta un <strong>titular</strong> que resume la información y capta la atención de los lectores[cite: 14].</li>
+      <li><strong>La Entrevista:</strong> Recoge el diálogo entre un periodista y un personaje de actualidad[cite: 5, 134]. Suele comenzar con la presentación del personaje y luego se transcriben las preguntas y las respuestas[cite: 6].</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>✍️ El Artículo de Opinión</h3>
+    <p>A diferencia de la noticia o la entrevista que pretenden ser más informativas, el <strong>artículo de opinión</strong> expone las ideas personales del autor sobre un hecho reciente o un tema de actualidad[cite: 136].</p>
+  </div>
+  <div class="quiz-wrap"><div class="quiz-title">🧩 Quiz — Textos periodísticos</div><div id="quiz-lectura"></div></div>
+</div>
+
+<div class="section" id="sec-informacion" data-color="informacion">
+  <div class="card concepto">
+    <h3>🕵️ ¿Qué son las fake news?</h3>
+    <p>En los medios de comunicación se habla mucho sobre <strong>fake news</strong> o bulos. Son noticias y vídeos manipulados, con apariencia de reales, pero que son informaciones falsas que se difunden rápidamente por internet[cite: 39, 40, 53, 57].</p>
+  </div>
+  <div class="card">
+    <h3>⚠️ ¿Dónde son más frecuentes?</h3>
+    <p>Por lo general, este tipo de noticias engañosas son mucho más frecuentes en las <strong>redes sociales</strong> e internet[cite: 131].</p>
+  </div>
+  <div class="card">
+    <h3>🔍 Reglas para comprobar la veracidad</h3>
+    <p>Para evitar que te engañen haciéndote creer algo que no es cierto, puedes seguir estas reglas[cite: 41, 49]:</p>
+    <ul>
+      <li>Ver si reconoces la <strong>URL</strong> del sitio web donde se publicó[cite: 51, 54].</li>
+      <li>Buscar la noticia en otros <strong>medios de comunicación fiables</strong>[cite: 52, 56, 130].</li>
+      <li>Analizar si contiene <strong>errores ortográficos</strong> o de redacción[cite: 50, 55].</li>
+      <li>Descartar que el titular contenga un <strong>ciberanzuelo</strong>[cite: 52, 55, 130].</li>
+      <li>Comprobar si menciona el nombre de <strong>quien la escribió</strong>[cite: 50, 51].</li>
+    </ul>
+  </div>
+  <div class="quiz-wrap"><div class="quiz-title">🧩 Quiz — Información y Fake News</div><div id="quiz-informacion"></div></div>
+</div>
+
+<div class="section" id="sec-ortografia" data-color="ortografia">
+  <div class="card concepto">
+    <h3>➖ Los puntos suspensivos (...)</h3>
+    <p>Los puntos suspensivos son un signo de puntuación formado por tres puntos (...) que sirven para dejar un enunciado incompleto o en suspenso[cite: 58, 62, 72].</p>
+  </div>
+  <div class="card">
+    <h3>📏 Cuándo se utilizan</h3>
+    <ul>
+      <li>Para indicar que una <strong>enumeración es incompleta</strong> y no está terminada[cite: 58, 61, 71].</li>
+      <li>Para expresar <strong>temor, sorpresa o duda</strong>[cite: 62].</li>
+      <li>Para completar o dejar en suspenso frases con <strong>finales sorprendentes</strong>[cite: 72].</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>📝 Ejemplos</h3>
+    <div class="ejemplo-box">
+      <strong>Enumeración incompleta:</strong> "En el paseo en barco vimos varios animales: una gaviota, una ballena, un delfín..."[cite: 59].<br><br>
+      <strong>Duda:</strong> "Y, entonces, ahora... ¿qué hacemos?"[cite: 63].<br><br>
+      <strong>Final sorprendente:</strong> "Abrí la puerta... ¡y ahí había un canario!"[cite: 74].
+    </div>
+  </div>
+  <div class="quiz-wrap"><div class="quiz-title">🧩 Quiz — Puntos suspensivos</div><div id="quiz-ortografia"></div></div>
+</div>
+
+<div class="section" id="sec-gramatica" data-color="gramatica">
+  <div class="card concepto">
+    <h3>📌 La voz pasiva</h3>
+    <p>Las formas verbales pueden estar en voz activa o pasiva[cite: 146]. La voz pasiva se forma con el <strong>verbo ser</strong> conjugado más el <strong>participio</strong> del verbo principal[cite: 79].</p>
+    <div class="ejemplo-box"><strong>Ejemplo:</strong> "ha sido prohibido", "fue liberado", "serán seguidas"[cite: 78, 81, 83].</div>
+  </div>
+  <div class="card">
+    <h3>🎯 El sujeto paciente</h3>
+    <p>En las oraciones pasivas, el sujeto no realiza la acción del verbo, sino que la recibe o padece. A este sujeto se le llama <strong>sujeto paciente</strong>[cite: 87].</p>
+    <div class="ejemplo-box">"<u>Esa alfombra roja</u> fue tejida por un artesano." → Sujeto paciente: Esa alfombra roja[cite: 87].</div>
+  </div>
+  <div class="card">
+    <h3>🎁 El complemento agente (C Ag)</h3>
+    <p>Es el complemento que nombra a la persona, animal o cosa que <strong>realiza la acción</strong> en las oraciones pasivas[cite: 89, 98].</p>
+    <ul>
+      <li>Siempre va introducido por la preposición <strong>por</strong>[cite: 80, 87].</li>
+    </ul>
+    <div class="ejemplo-box">"El pulpo fue liberado <u>por un bañista</u>." → Complemento Agente: por un bañista[cite: 81].</div>
+  </div>
+  <div class="quiz-wrap"><div class="quiz-title">🧩 Quiz — La voz pasiva</div><div id="quiz-gramatica"></div></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+const tabs=document.querySelectorAll('.tab-btn'),sections=document.querySelectorAll('.section');
+tabs.forEach(b=>{b.addEventListener('click',()=>{const t=b.dataset.section;tabs.forEach(x=>x.classList.remove('active'));b.classList.add('active');sections.forEach(s=>{s.classList.remove('active');if(s.id==='sec-'+t)s.classList.add('active')});window.scrollTo({top:0,behavior:'smooth'})})});
+
+const Q={
+lectura:[
+{text:"¿Qué texto cuenta de forma breve un suceso de interés reciente?",options:["La entrevista","El artículo de opinión","La noticia","El poema"],correct:2},
+{text:"¿Qué recoge una entrevista?",options:["Datos estadísticos abstractos","Un diálogo entre un periodista y un personaje de actualidad","Instrucciones de un producto","La opinión personal del autor"],correct:1},
+{text:"¿Cómo suele empezar una entrevista?",options:["Con la conclusión","Con el pie de foto","Con la presentación del personaje","Con un ciberanzuelo"],correct:2},
+{text:"¿Qué expone el artículo de opinión?",options:["Ideas personales sobre un hecho o tema de actualidad","Solo información científica contrastada","Una lista de compras","Un diálogo entre dos personas"],correct:0},
+{text:"¿Qué función tiene el titular de una noticia?",options:["Ocultar la verdad","Resumir la información y captar la atención de los lectores","Rebatir los argumentos","Saludar al lector"],correct:1},
+{text:"¿Qué signos ortográficos se usan para recoger palabras literales en una noticia?",options:["Los paréntesis","Los puntos suspensivos","Los guiones","Las comillas"],correct:3},
+{text:"¿Qué es el pie de foto en una noticia periodística?",options:["La firma del fotógrafo únicamente","El texto principal de la noticia","Un texto breve que acompaña y explica una imagen","El resumen final"],correct:2},
+{text:"¿Cuál de los siguientes NO es un texto periodístico estudiado en este tema?",options:["Noticia","Cuento de ciencia ficción","Entrevista","Artículo de opinión"],correct:1},
+{text:"En la estructura general de una entrevista, después de la presentación, ¿qué se transcribe?",options:["Las preguntas y las respuestas","Un poema","Las comillas","La URL del sitio web"],correct:0},
+{text:"El objetivo principal de los textos periodísticos vistos es mantenernos...",options:["Ignorantes del entorno","Informados de lo que sucede o de diversos puntos de vista","Entretenidos con magia","Sanos y fuertes"],correct:1}
+],
+informacion:[
+{text:"¿Qué son las fake news?",options:["Noticias reales y verificadas","Noticias de deportes","Noticias falsas con apariencia de reales","Artículos de opinión históricos"],correct:2},
+{text:"¿En qué medios son más frecuentes las fake news?",options:["En enciclopedias impresas","En las redes sociales e internet","En libros de texto escolares","En diccionarios oficiales"],correct:1},
+{text:"¿Cuál es uno de los pasos para comprobar la veracidad de una noticia?",options:["Ver si tiene muchas fotos bonitas","Ver si reconoces la URL del sitio web","Creer lo que dicen los amigos siempre","Ignorar quién la escribió"],correct:1},
+{text:"¿Qué término en español se usa comúnmente para las fake news?",options:["Anzuelos","Bulos","Noticias fiables","Sujetos pacientes"],correct:1},
+{text:"¿Qué elemento engañoso suelen contener los titulares de las noticias falsas?",options:["Un pronombre personal","Un ciberanzuelo","Una enumeración incompleta","Un hiato con tilde"],correct:1},
+{text:"Si una noticia contiene graves errores ortográficos o de redacción, lo más probable es que sea...",options:["Una noticia de última hora","Una fake news o bulo","Un artículo de opinión riguroso","Un ciberanzuelo legal"],correct:1},
+{text:"¿Qué debes comprobar respecto a la autoría de la noticia?",options:["Comprobar si menciona el nombre de quien la escribió","Que no tenga autor","Que la haya escrito un niño","Que el autor tenga redes sociales"],correct:0},
+{text:"¿Qué es un ciberanzuelo?",options:["Un virus que rompe el ordenador","Una noticia antigua","Un titular diseñado para llamar la atención y obligarte a hacer clic","Un tipo de caña de pescar"],correct:2},
+{text:"Si dudas de la veracidad de una noticia en redes sociales, ¿qué debes hacer?",options:["Compartirla inmediatamente","Borrar tu perfil","Buscar la noticia en otros medios de comunicación fiables","Ignorarla por completo"],correct:2},
+{text:"El objetivo principal de una fake news suele ser...",options:["Enseñar ortografía","Informar rigurosamente","Engañar o manipular la información","Entrevistar a famosos"],correct:2}
+],
+ortografia:[
+{text:"¿Para qué utilizamos los puntos suspensivos en una lista?",options:["Para cerrarla completamente","Para indicar que la enumeración es incompleta","Para separar los elementos principales","Para finalizar un párrafo"],correct:1},
+{text:"¿Cuántos puntos forman los puntos suspensivos?",options:["Dos","Tres","Cuatro","Uno"],correct:1},
+{text:"Lee la oración: 'El mago sacó de la chistera... ¡un conejo!' ¿Para qué se han usado los puntos suspensivos?",options:["Para mostrar una enumeración","Para crear un final sorprendente","Para indicar duda","Para separar oraciones pasivas"],correct:1},
+{text:"'Y, entonces, ahora... ¿qué hacemos?' Aquí los puntos suspensivos expresan...",options:["Duda, temor o sorpresa","Final feliz","Un ciberanzuelo","El sujeto paciente"],correct:0},
+{text:"¿Cuál de estas oraciones contiene una enumeración incompleta?",options:["Compré manzanas, plátanos y peras.","Me gustaría viajar a Roma, París, Londres...","Ella es alta y simpática.","Ayer llovió mucho."],correct:1},
+{text:"Si transformamos 'Llevo lápiz, goma y regla' en enumeración incompleta, será...",options:["Llevo lápiz, goma... regla","Llevo... lápiz, goma y regla","Llevo lápiz, goma, regla...","Llevo lápiz y goma y regla..."],correct:2},
+{text:"Además de expresar duda o temor, los puntos suspensivos se usan para...",options:["Escribir el sujeto","Dejar el enunciado en suspenso","Sustituir a las comillas","Reemplazar el punto y final siempre"],correct:1},
+{text:"¿Es correcto poner el punto de cierre de oración si justo antes hay puntos suspensivos?",options:["Sí, siempre","No, los puntos suspensivos ya sirven de cierre","Solo si hay comillas","Solo si es una exclamación"],correct:1},
+{text:"'Abrí la caja y había... ¡un anillo de diamantes!' es un uso de...",options:["Enumeración","Duda o temor","Final sorpresivo","Complemento agente"],correct:2},
+{text:"Las enumeraciones que no utilizan puntos suspensivos ni la palabra 'etcétera' al final son...",options:["Incompletas","Completas","Sorprendentes","Pasivas"],correct:1}
+],
+gramatica:[
+{text:"¿Cómo se forma el verbo en una oración pasiva?",options:["Verbo estar + gerundio","Verbo haber + participio","Verbo ser + participio","Verbo ir + infinitivo"],correct:2},
+{text:"En la oración pasiva, el sujeto no realiza la acción, sino que la recibe. Se llama sujeto...",options:["Paciente","Agente","Elíptico","Oculto"],correct:0},
+{text:"¿Qué complemento acompaña a los verbos pasivos para indicar quién realiza la acción?",options:["El complemento directo","El complemento indirecto","El complemento agente","El complemento de lugar"],correct:2},
+{text:"¿Qué preposición introduce siempre al complemento agente?",options:["De","Para","En","Por"],correct:3},
+{text:"En 'El pulpo fue liberado por un bañista', ¿cuál es el complemento agente?",options:["El pulpo","fue liberado","por un bañista","pulpo"],correct:2},
+{text:"En 'Esa alfombra roja fue tejida por un artesano', ¿cuál es el sujeto paciente?",options:["Esa alfombra roja","fue tejida","por un artesano","Esa"],correct:0},
+{text:"Identifica la oración en voz pasiva:",options:["La niña rescató a la tortuga.","La tortuga fue rescatada por la niña.","Ellos limpian las playas.","Yo compré un libro."],correct:1},
+{text:"¿Cuál es el verbo en pasiva en 'Las regatas serán seguidas por cientos de personas'?",options:["regatas","seguidas","serán","serán seguidas"],correct:3},
+{text:"Transforma a voz pasiva: 'La alcaldesa inaugurará el puerto'.",options:["El puerto inauguró a la alcaldesa.","El puerto será inaugurado por la alcaldesa.","La alcaldesa es inaugurada.","El puerto es inaugurado ayer."],correct:1},
+{text:"En 'El texto sería dictado por el profesor', la parte 'por el profesor' sintácticamente es...",options:["Sujeto paciente","Núcleo del predicado","Complemento Circunstancial","Complemento Agente"],correct:3}
+]
+};
+
+const QE={instances:{},
+create(id,qs){this.instances[id]={questions:qs,current:0,score:0,answered:false,completed:false};this.render(id)},
+get(id){return this.instances[id]},
+render(id){const s=this.get(id),c=document.getElementById('quiz-'+id);if(!c||s.completed)return;const q=s.questions[s.current];
+c.innerHTML='<div class="quiz-progress">Pregunta '+(s.current+1)+' de '+s.questions.length+'</div><div class="quiz-question">'+q.text+'</div><div class="quiz-options">'+q.options.map((o,i)=>'<button class="quiz-option" data-i="'+i+'">'+o+'</button>').join('')+'</div><div class="quiz-feedback" id="fb-'+id+'"></div>';
+c.querySelectorAll('.quiz-option').forEach(b=>{b.addEventListener('click',e=>{if(s.answered)return;this.answer(id,parseInt(e.currentTarget.dataset.i))})})},
+answer(id,si){const s=this.get(id);if(s.answered)return;s.answered=true;const q=s.questions[s.current],ok=si===q.correct;if(ok)s.score++;
+const fb=document.getElementById('fb-'+id);fb.textContent=ok?'✅ ¡Correcto!':'❌ Incorrecto. La respuesta era: '+q.options[q.correct];fb.className='quiz-feedback '+(ok?'correct':'wrong');
+document.getElementById('quiz-'+id).querySelectorAll('.quiz-option').forEach((b,i)=>{b.disabled=true;if(i===q.correct)b.classList.add('correct');else if(i===si&&!ok)b.classList.add('wrong')});
+setTimeout(()=>{s.current++;s.answered=false;if(s.current<s.questions.length)this.render(id);else this.showResult(id)},1500)},
+showResult(id){const s=this.get(id);s.completed=true;const pct=Math.round(s.score/s.questions.length*100),c=document.getElementById('quiz-'+id);
+c.innerHTML='<div class="quiz-result"><div class="result-score">'+s.score+'/'+s.questions.length+'</div><div class="result-pct">'+pct+'%</div><div class="result-msg">'+(pct>=70?'🎉 ¡Muy bien! Has superado el quiz.':'📚 Repasa la sección e inténtalo de nuevo.')+'</div><button class="btn-retry" id="ret-'+id+'">🔄 Repetir quiz</button></div>';
+document.getElementById('ret-'+id).addEventListener('click',()=>{s.current=0;s.score=0;s.answered=false;s.completed=false;this.render(id)});
+ST.update(id,s.score,s.questions.length);const ch=document.getElementById('check-'+id);if(ch&&pct>=70)ch.textContent=' ✅'}
+};
+const ST={scores:{},update(id,o,t){this.scores[id]={obtained:o,total:t};this.render()},render(){const e=Object.values(this.scores);if(!e.length)return;const o=e.reduce((s,x)=>s+x.obtained,0),t=e.reduce((s,x)=>s+x.total,0);const el=document.getElementById('global-score');if(el)el.textContent='Puntuación total: '+o+'/'+t}};
+Object.keys(Q).forEach(k=>{QE.create(k,Q[k])});
+});
+</script>
+</body>
+</html>

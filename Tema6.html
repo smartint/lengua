@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 6 · Lengua 6.º Primaria</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f0f8ff;
+  --surface: #ffffff;
+  --surface-alt: #e3f2fd;
+  --accent: #0277bd;      /* Azul profundo */
+  --accent2: #ff9800;     /* Naranja/Ámbar */
+  --accent3: #00acc1;     /* Cian / Turquesa */
+  --accent4: #43a047;     /* Verde naturaleza */
+  --accent-light: #e1f5fe; /* Azul muy claro */
+  --text: #1a237e;
+  --text-muted: #546e7a;
+  --border: #b3e5fc;
+  --success: #43a047;
+  --error: #e53935;
+  --shadow: 0 4px 16px rgba(2, 119, 189, 0.1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+header {
+  background: linear-gradient(135deg, #0277bd 0%, #00acc1 100%);
+  color: white;
+  padding: 20px 28px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 4px 20px rgba(0, 172, 193, 0.3);
+}
+.header-icon { font-size: 2.6rem; }
+.header-text h1 { font-family: 'Nunito', sans-serif; font-size: 1.55rem; font-weight: 800; line-height: 1.2; }
+.header-text p { font-size: 0.9rem; opacity: 0.9; margin-top: 2px; }
+.global-score-wrap {
+  margin-left: auto;
+  background: rgba(255,255,255,0.2);
+  border-radius: 12px;
+  padding: 8px 16px;
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+}
+.global-score-wrap .label { font-size: 0.75rem; opacity: 0.9; }
+#global-score { font-size: 1.35rem; font-weight: 800; }
+
+/* ── NAV ── */
+nav {
+  background: var(--surface);
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  overflow-x: auto;
+  padding: 0 12px;
+  gap: 4px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+nav::-webkit-scrollbar { display: none; }
+.tab-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 12px 16px;
+  min-height: 54px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tab-btn:hover { color: var(--accent); background-color: var(--surface-alt); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); background-color: var(--surface-alt); }
+.tab-btn .check { color: var(--success); font-size: 0.8rem; }
+
+/* ── MAIN ── */
+main { max-width: 900px; margin: 0 auto; padding: 28px 20px 60px; }
+
+/* ── SECTIONS ── */
+.section { display: none; animation: fadeIn 0.35s ease-out; }
+.section.active { display: block; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+.section-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-title span { font-size: 1.8rem; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 22px 24px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+  border-left: 5px solid var(--accent);
+}
+.card.cyan { border-left-color: var(--accent3); }
+.card.green { border-left-color: var(--accent4); }
+.card.orange { border-left-color: var(--accent2); }
+.card h3 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+.card p { font-size: 0.95rem; line-height: 1.65; color: var(--text); margin-bottom: 8px; }
+.card ul { padding-left: 20px; margin-bottom: 8px; }
+.card li { font-size: 0.95rem; line-height: 1.7; }
+
+.concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 18px; }
+.concept-card {
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
+  border-top: 4px solid var(--accent);
+}
+.concept-card.cyan { border-top-color: var(--accent3); }
+.concept-card.green { border-top-color: var(--accent4); }
+.concept-card.orange { border-top-color: var(--accent2); }
+.concept-card .icon { font-size: 2rem; margin-bottom: 8px; }
+.concept-card h4 { font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 6px; }
+.concept-card p { font-size: 0.9rem; line-height: 1.55; color: var(--text-muted); }
+
+.highlight-box {
+  background: var(--accent-light);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  border-left: 4px solid var(--accent);
+}
+.highlight-box.cyan { background: #e0f7fa; border-left-color: var(--accent3); }
+.highlight-box.green { background: #e8f5e9; border-left-color: var(--accent4); }
+.highlight-box.orange { background: #fff8e1; border-left-color: var(--accent2); }
+
+.example-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0;
+}
+.tag {
+  background: var(--surface-alt);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.tag.blue { background: #e1f5fe; border-color: #81d4fa; color: #0277bd; }
+.tag.orange { background: #fff8e1; border-color: #ffe082; color: #ff8f00; }
+.tag.green { background: #e8f5e9; border-color: #a5d6a7; color: #2e7d32; }
+
+/* ── IFRAME APP TEMA 6 ── */
+.app-container {
+  width: 100%;
+  height: 750px;
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: #fff;
+}
+.app-fallback {
+  text-align: center;
+  padding: 15px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+.app-fallback a { color: var(--accent); font-weight: bold; text-decoration: none; }
+
+/* ── QUIZ ── */
+.quiz-wrap {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 26px;
+  margin-top: 26px;
+  box-shadow: var(--shadow);
+  border-top: 5px solid var(--accent3);
+}
+.quiz-wrap h3 {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 1.15rem;
+  margin-bottom: 18px;
+  color: var(--accent3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.quiz-progress { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;}
+.quiz-question { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 16px; line-height: 1.5; color: var(--text); }
+.quiz-option {
+  display: block;
+  width: 100%;
+  padding: 14px 18px;
+  margin: 8px 0;
+  background: #f4f8fb;
+  border: 2px solid #cfd8dc;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-family: 'Open Sans', sans-serif;
+  transition: all 0.2s ease;
+  min-height: 52px; 
+}
+.quiz-option:hover:not(:disabled) { background: #e1f5fe; border-color: #81d4fa; transform: translateY(-1px); }
+.quiz-option.correct { background: #e8f5e9; border-color: #43a047; color: #1b5e20; font-weight: 700; }
+.quiz-option.wrong   { background: #ffebee; border-color: #e53935; color: #b71c1c; }
+.quiz-feedback { margin-top: 12px; font-weight: 700; min-height: 24px; font-size: 0.95rem; }
+.quiz-feedback.correct { color: #2e7d32; }
+.quiz-feedback.wrong   { color: #c62828; }
+.quiz-result { text-align: center; padding: 24px 0 12px; }
+.result-score { font-family: 'Nunito', sans-serif; font-size: 3rem; font-weight: 800; color: var(--accent3); }
+.result-pct { font-size: 1.15rem; color: var(--text-muted); margin: 6px 0 14px; font-weight: 600; }
+.result-msg { font-size: 1.05rem; font-weight: 700; margin-bottom: 20px; }
+.btn-retry {
+  background: var(--accent3);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 28px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+  min-height: 50px;
+  box-shadow: 0 4px 12px rgba(0, 172, 193, 0.3);
+}
+.btn-retry:hover { opacity: 0.9; transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-icon">💧</div>
+  <div class="header-text">
+    <h1>Tema 6 · Lengua 6.º Primaria</h1>
+    <p>El agua · La argumentación y Palabras invariables</p>
+  </div>
+  <div class="global-score-wrap">
+    <div class="label">Puntuación global</div>
+    <div id="global-score">–</div>
+  </div>
+</header>
+
+<nav id="main-nav">
+  <button class="tab-btn active" data-section="s1">🌊 Argumentación</button>
+  <button class="tab-btn" data-section="s2">🔤 Uso de la G y J</button>
+  <button class="tab-btn" data-section="s3">📝 Palabras invariables</button>
+  <button class="tab-btn" data-section="s4">📰 Lab. de Información</button>
+  <button class="tab-btn" data-section="s5">🌟 Repaso final</button>
+  <button class="tab-btn" data-section="s6" style="color: var(--accent); background: var(--surface-alt);">📲 App: Es el momento</button>
+</nav>
+
+<main>
+
+<!-- ══════════════════════════════════════ S1 LA ARGUMENTACIÓN ══════════════════════════════════════ -->
+<section id="s1" class="section active">
+  <div class="section-title"><span>🌊</span> La argumentación: El blog de Gara</div>
+
+  <div class="highlight-box cyan">
+    <strong>La argumentación</strong> es un tipo de texto en el que el autor o la autora expresa su opinión sobre un tema (la <strong>tesis</strong>) y aporta razones (los <strong>argumentos</strong>) para defenderla y convencer a los demás.
+  </div>
+
+  <div class="card">
+    <h3>El uso responsable del agua</h3>
+    <p>En este tema hemos leído un blog escrito por Gara sobre la <strong>escasez de agua</strong> en Pueblo Recio. En él, Gara defiende una tesis muy clara: <em>"El agua es un bien común al que todos tienen derecho, y es imprescindible garantizar ese derecho."</em></p>
+    <p>Algunos de los argumentos que da son:</p>
+    <ul>
+      <li>La sequía afecta a la agricultura y a los cultivos.</li>
+      <li>El uso irresponsable del agua puede afectar a nuestras necesidades cotidianas (beber, cocinar, lavarse...).</li>
+      <li>Realizar pequeños ahorros en casa repercute en el ahorro general de todos.</li>
+    </ul>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card cyan">
+      <div class="icon">🤔</div>
+      <h4>La Tesis</h4>
+      <p>Es la idea principal que se defiende o la opinión del autor/a. Ejemplo: <em>"Hay que ahorrar agua en casa."</em></p>
+    </div>
+    <div class="concept-card orange">
+      <div class="icon">💬</div>
+      <h4>Los Argumentos</h4>
+      <p>Son las razones, datos o ejemplos que demuestran que la tesis es cierta. Sirven para convencer.</p>
+    </div>
+  </div>
+
+  <div class="card cyan">
+    <h3>Vocabulario del agua</h3>
+    <div class="example-row">
+      <span class="tag blue">Anegado: inundado</span>
+      <span class="tag blue">Agua potable: apta para beber</span>
+      <span class="tag blue">Aguas termales</span>
+      <span class="tag blue">Aguas residuales</span>
+    </div>
+    <p style="margin-top: 10px;"><strong>Refrán popular:</strong> <em>"Agua pasada no mueve molino"</em>. (Significa que no tiene sentido preocuparse por cosas del pasado que ya no podemos cambiar).</p>
+  </div>
+
+  <div id="quiz-s1" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S2 USO DE LA G Y LA J ══════════════════════════════════════ -->
+<section id="s2" class="section">
+  <div class="section-title"><span>🔤</span> Ortografía: Uso de la G y la J</div>
+
+  <div class="highlight-box">
+    Las letras <strong>G</strong> (ante e, i) y <strong>J</strong> representan el mismo sonido. Por eso es importante conocer las reglas ortográficas para no confundirnos.
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card cyan">
+      <div class="icon">🅶️</div>
+      <h4>Reglas de la G</h4>
+      <p>• Los verbos terminados en <strong>-ger, -gir</strong> (proteger, dirigir). ¡Excepto: <em>tejer, crujir</em>!<br>
+      • Las palabras que empiezan por <strong>geo-</strong>, <strong>gest-</strong> (geometría, gesto).<br>
+      • Palabras que terminan en <strong>-logía</strong> (biología).</p>
+    </div>
+    <div class="concept-card orange">
+      <div class="icon">🅹️</div>
+      <h4>Reglas de la J</h4>
+      <p>• Las palabras terminadas en <strong>-aje, -eje</strong> (paisaje, garaje, hereje).<br>
+      • Las formas de los verbos que NO tienen g ni j en su infinitivo. Ej: decir -> <strong>dije</strong>; traer -> <strong>trajo</strong>.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Clasifica en tu mente</h3>
+    <p>Piensa con qué letra se escriben las siguientes palabras antes de hacer el quiz:</p>
+    <div class="example-row">
+      <span class="tag">Mensa_e</span>
+      <span class="tag">Co_er</span>
+      <span class="tag">Cru_ir</span>
+      <span class="tag">_eología</span>
+      <span class="tag">Condu_eron</span>
+    </div>
+  </div>
+
+  <div id="quiz-s2" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S3 PALABRAS INVARIABLES ══════════════════════════════════════ -->
+<section id="s3" class="section">
+  <div class="section-title"><span>📝</span> Gramática: Las palabras invariables</div>
+
+  <div class="highlight-box orange">
+    <strong>Las palabras invariables</strong> son aquellas que <strong>NO tienen ni género (masculino/femenino) ni número (singular/plural)</strong>. Es decir, nunca cambian de forma.
+  </div>
+
+  <div class="card">
+    <h3>Tipos de palabras invariables</h3>
+    <ul>
+      <li><strong>Adverbios:</strong> Expresan lugar, tiempo, modo, cantidad...<br><em>Ejemplos del cuaderno:</em> <strong>aquí, después, debajo, ágilmente</strong>.</li>
+      <li><strong>Preposiciones:</strong> Sirven para unir palabras.<br><em>Ejemplos del cuaderno:</em> <strong>de, desde, mediante, bajo, según</strong>.</li>
+      <li><strong>Conjunciones:</strong> Unen palabras u oraciones enteras.<br><em>Ejemplos:</em> <strong>y, o, pero, aunque</strong>.</li>
+      <li><strong>Interjecciones:</strong> Expresan emociones o impresiones repentinas. Suelen ir entre signos de exclamación.<br><em>Ejemplos del cuaderno:</em> <strong>¡Ajá!, ¡Ay!, ¡Oh!</strong>.</li>
+    </ul>
+  </div>
+
+  <div class="card cyan">
+    <h3>Analiza estas palabras del cuaderno</h3>
+    <table>
+      <tr><th>Palabra</th><th>Clase de palabra</th><th>¿Es variable o invariable?</th></tr>
+      <tr><td><strong>Vuestra</strong></td><td>Determinante posesivo</td><td>Variable (femenino, singular)</td></tr>
+      <tr><td><strong>Piensa</strong></td><td>Verbo</td><td>Variable</td></tr>
+      <tr><td><strong>Después</strong></td><td>Adverbio de tiempo</td><td><strong>Invariable</strong></td></tr>
+      <tr><td><strong>Desde</strong></td><td>Preposición</td><td><strong>Invariable</strong></td></tr>
+      <tr><td><strong>¡Ajá!</strong></td><td>Interjección</td><td><strong>Invariable</strong></td></tr>
+    </table>
+  </div>
+
+  <div id="quiz-s3" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S4 LABORATORIO DE INFORMACIÓN ══════════════════════════════════════ -->
+<section id="s4" class="section">
+  <div class="section-title"><span>📰</span> Lab. de información: ¿Dónde se ha publicado?</div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="icon">🔍</div>
+      <h4>El origen del texto</h4>
+      <p>No todos los textos que leemos son iguales ni tienen el mismo valor. Es fundamental fijarse en <strong>dónde se han publicado</strong> (un periódico, un blog personal, un cartel en la calle...) para saber cuál es la intención de su autor.</p>
+    </div>
+    <div class="concept-card cyan">
+      <div class="icon">📱</div>
+      <h4>Diferentes soportes</h4>
+      <p>• <strong>Blog:</strong> Puede contener opiniones muy personales (como el de Gara sobre el agua).<br>
+         • <strong>Cartel:</strong> Suele dar normas o indicaciones directas (ej: cartel de la piscina).<br>
+         • <strong>Artículo periodístico:</strong> Pretende informar a mucha gente de forma seria.</p>
+    </div>
+  </div>
+
+  <div id="quiz-s4" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S5 REPASO FINAL ══════════════════════════════════════ -->
+<section id="s5" class="section">
+  <div class="section-title"><span>🌟</span> Repaso final: Demuestra tus conocimientos</div>
+
+  <div class="concept-grid">
+    <div class="concept-card cyan">
+      <div class="icon">🌊</div>
+      <h4>Argumentación</h4>
+      <p>El agua como bien común. Tesis (idea principal) y Argumentos (razones).</p>
+    </div>
+    <div class="concept-card orange">
+      <div class="icon">📝</div>
+      <h4>Gramática</h4>
+      <p>Palabras INVARIABLES: Adverbios, Preposiciones (desde, de, mediante), Conjunciones e Interjecciones (¡Ajá!).</p>
+    </div>
+    <div class="concept-card green">
+      <div class="icon">🔤</div>
+      <h4>Ortografía G y J</h4>
+      <p>Excepciones como tejer y crujir. Verbos sin g ni j (conducir -> condujeron).</p>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>¡El gran reto del Tema 6!</strong> Aquí encontrarás preguntas mezcladas de todas las secciones anteriores.
+  </div>
+
+  <div id="quiz-s5" class="quiz-wrap">
+    <h3>🏆 Quiz de repaso general</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S6 APP ADJUNTA ══════════════════════════════════════ -->
+<section id="s6" class="section">
+  <div class="section-title" style="color: var(--text);"><span>📲</span> Lectura interactiva: Es el momento</div>
+  
+  <div class="highlight-box cyan">
+    A continuación se carga la aplicación interactiva que acompaña a este tema. Podrás realizar los ejercicios directamente aquí. 
+  </div>
+
+  <div class="app-fallback">
+    Si la aplicación no carga correctamente, comprueba que el archivo <code>app_es_el_momento_tema 6.html</code> se encuentra en la misma carpeta que este documento, o <a href="app_es_el_momento_tema 6.html" target="_blank">haz clic aquí para abrirla en una pestaña nueva</a>.
+  </div>
+
+  <div class="app-container">
+    <!-- El iframe carga el archivo HTML local adjunto -->
+    <iframe src="app_es_el_momento_tema 6.html" width="100%" height="100%" frameborder="0" title="App Es el momento"></iframe>
+  </div>
+
+</section>
+
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* ── DATOS DE LOS QUIZZES ── */
+  const QUESTIONS = {
+    s1: [
+      { text: 'En un texto argumentativo, ¿qué es la "tesis"?', options: ['Un resumen del final', 'La idea u opinión que defiende el autor o la autora', 'Las palabras que riman en el texto', 'Un sinónimo de agua potable'], correct: 1 },
+      { text: '¿Para qué sirven los argumentos?', options: ['Para que el texto sea más largo', 'Para aburrir al lector', 'Para dar razones y datos que convenzan a los demás de que la tesis es cierta', 'Para contar un cuento fantástico'], correct: 2 },
+      { text: 'Según el texto de Gara, ¿cuál de las siguientes opciones es una consecuencia del uso irresponsable del agua?', options: ['Que llueva más', 'Que afecte a nuestras necesidades cotidianas (beber, cocinar, lavarse...)', 'Que los ríos se congelen', 'Que el agua se vuelva termal'], correct: 1 },
+      { text: '¿Qué significa que un terreno está "anegado"?', options: ['Que está muy seco', 'Que está cultivado', 'Que está inundado', 'Que está plantado de pinos'], correct: 2 },
+      { text: '¿Qué nos quiere enseñar el refrán "Agua pasada no mueve molino"?', options: ['Que los molinos necesitan mucho viento', 'Que no tiene sentido preocuparse por cosas del pasado que ya no podemos cambiar', 'Que hay que ahorrar agua', 'Que el agua de los ríos va muy rápida'], correct: 1 }
+    ],
+    s2: [
+      { text: 'Los verbos terminados en -ger y -gir se escriben con G (como proteger y dirigir), pero existen dos excepciones. ¿Cuáles son?', options: ['Crujir y tejer', 'Exigir y coger', 'Elegir y recoger', 'Fingir y surgir'], correct: 0 },
+      { text: 'Si un verbo no lleva ni G ni J en el infinitivo (como "conducir" o "decir"), su pasado se escribe con...', options: ['G (condugeron, digeron)', 'J (condujeron, dijeron)', 'H (conduheron)', 'Depende de la palabra'], correct: 1 },
+      { text: 'La palabra "paisaje" se escribe con J porque...', options: ['Es un verbo', 'Termina en -aje', 'Empieza por pa-', 'Es una excepción'], correct: 1 },
+      { text: '¿Cómo se escribe la ciencia que estudia la Tierra?', options: ['Geología', 'Jeología', 'Heología', 'Geolojía'], correct: 0 },
+      { text: '¿Cuál de las siguientes palabras está INCORRECTAMENTE escrita?', options: ['Mensaje', 'Crujir', 'Cojer', 'Proteger'], correct: 2 }
+    ],
+    s3: [
+      { text: '¿Qué es una palabra invariable?', options: ['Una palabra que solo tiene género masculino', 'Una palabra que no cambia nunca su forma (no tiene ni género ni número)', 'Una palabra que solo se usa en plural', 'Un verbo en pasado'], correct: 1 },
+      { text: 'De las siguientes palabras, ¿cuál es INVARIABLE?', options: ['Vuestra', 'Piensa', 'Atún', 'Después'], correct: 3 },
+      { text: '¿A qué clase de palabras invariables pertenece "desde"?', options: ['Adverbio', 'Preposición', 'Interjección', 'Conjunción'], correct: 1 },
+      { text: 'Las palabras como ¡Ajá!, ¡Ay! o ¡Hola! se utilizan para expresar impresiones o sentimientos. Son...', options: ['Preposiciones', 'Interjecciones', 'Adverbios', 'Conjunciones'], correct: 1 },
+      { text: '¿Qué tipo de palabra es "ágilmente"?', options: ['Preposición', 'Adjetivo', 'Adverbio (de modo)', 'Sustantivo'], correct: 2 }
+    ],
+    s4: [
+      { text: '¿Por qué es importante fijarse DÓNDE se ha publicado un texto?', options: ['Para saber si es largo o corto', 'Para conocer la intención de quien lo ha escrito y saber si la información es fiable', 'Para ver si tiene faltas de ortografía', 'Solo importa si es un libro'], correct: 1 },
+      { text: 'Si encuentras un cartel en la puerta de una piscina, ¿cuál será probablemente su intención principal?', options: ['Contar un cuento', 'Expresar los sentimientos del socorrista', 'Dar normas, instrucciones o recomendaciones a los usuarios', 'Vender bañadores'], correct: 2 },
+      { text: 'El blog de Gara sobre el agua es un texto donde principalmente se...', options: ['Expresan opiniones y se argumenta sobre un tema de interés social', 'Cuentan chistes', 'Dictan leyes que todos deben cumplir', 'Venden productos agrícolas'], correct: 0 }
+    ],
+    s5: [
+      { text: 'En la argumentación, la "tesis" es...', options: ['Un tipo de preposición', 'La idea principal u opinión que se defiende', 'El nombre del autor', 'El final del texto'], correct: 1 },
+      { text: 'Identifica la palabra VARIABLE (que sí tiene género y número):', options: ['Aquí', 'Mediante', 'Nosotros', 'Según'], correct: 2 },
+      { text: '¿Cuál de estas opciones contiene SOLO preposiciones?', options: ['¡Ajá!, ¡Oh!, ¡Ay!', 'Después, ágilmente, aquí', 'De, desde, mediante, bajo', 'Vuestra, tuya, nuestra'], correct: 2 },
+      { text: '¿Por qué la palabra "crujir" se escribe con J?', options: ['Porque las palabras terminadas en -aje se escriben con J', 'Porque es una excepción a la regla de los verbos terminados en -gir', 'Porque todos los verbos se escriben con J', 'Porque no lleva g ni j en el infinitivo'], correct: 1 },
+      { text: '¿Qué es un terreno "anegado"?', options: ['Un terreno muy seco (con sequía)', 'Un terreno inundado de agua', 'Un jardín de pinos canarios', 'Un parque infantil'], correct: 1 },
+      { text: 'Completa la frase: "Las interjecciones, los adverbios, las preposiciones y las conjunciones son..."', options: ['Palabras invariables', 'Palabras variables', 'Verbos conjugados', 'Sustantivos comunes'], correct: 0 }
+    ]
+  };
+
+  /* ── QUIZ ENGINE ── */
+  const QuizEngine = {
+    instances: {},
+    create(id, questions) {
+      this.instances[id] = { questions, current: 0, score: 0, answered: false, completed: false };
+      this.render(id);
+    },
+    get(id) { return this.instances[id]; },
+    render(id) {
+      const s = this.get(id);
+      const container = document.getElementById(`quiz-${id}`);
+      if (!container || s.completed) return;
+      const q = s.questions[s.current];
+      const inner = document.createElement('div');
+      inner.innerHTML = `
+        <div class="quiz-progress">Pregunta ${s.current + 1} de ${s.questions.length}</div>
+        <div class="quiz-question">${q.text}</div>
+        <div class="quiz-options">
+          ${q.options.map((opt, i) => `<button class="quiz-option" data-index="${i}">${opt}</button>`).join('')}
+        </div>
+        <div class="quiz-feedback" id="feedback-${id}"></div>
+      `;
+      const h3 = container.querySelector('h3');
+      container.innerHTML = '';
+      if (h3) container.appendChild(h3);
+      container.appendChild(inner);
+      
+      inner.querySelectorAll('.quiz-option').forEach(btn => {
+        btn.addEventListener('click', e => {
+          if (s.answered) return;
+          this.answer(id, parseInt(e.currentTarget.dataset.index));
+        });
+      });
+    },
+    answer(id, sel) {
+      const s = this.get(id);
+      if (s.answered) return;
+      s.answered = true;
+      const q = s.questions[s.current];
+      const correct = sel === q.correct;
+      if (correct) s.score++;
+      
+      const fb = document.getElementById(`feedback-${id}`);
+      if (fb) {
+        fb.textContent = correct ? '✅ ¡Respuesta correcta!' : `❌ Incorrecto. La respuesta era: ${q.options[q.correct]}`;
+        fb.className = `quiz-feedback ${correct ? 'correct' : 'wrong'}`;
+      }
+      
+      const container = document.getElementById(`quiz-${id}`);
+      container.querySelectorAll('.quiz-option').forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === q.correct) btn.classList.add('correct');
+        else if (i === sel) btn.classList.add('wrong');
+      });
+      
+      setTimeout(() => {
+        s.current++;
+        s.answered = false;
+        if (s.current < s.questions.length) {
+          this.render(id);
+        } else {
+          this.showResult(id);
+        }
+      }, 1800);
+    },
+    showResult(id) {
+      const s = this.get(id);
+      s.completed = true;
+      const pct = Math.round((s.score / s.questions.length) * 100);
+      const container = document.getElementById(`quiz-${id}`);
+      const h3 = container.querySelector('h3');
+      container.innerHTML = '';
+      if (h3) container.appendChild(h3);
+      
+      const res = document.createElement('div');
+      res.className = 'quiz-result';
+      const emoji = pct >= 80 ? '🏆' : pct >= 60 ? '👍' : '🌊';
+      const msg = pct >= 80 ? '¡Excelente trabajo, todo un experto!' : pct >= 60 ? '¡Muy bien! Estás aprendiendo rápido.' : '¡No te rindas! Repasa la sección y vuelve a intentarlo.';
+      res.innerHTML = `
+        <div class="result-score">${s.score}/${s.questions.length}</div>
+        <div class="result-pct">${pct}% de aciertos</div>
+        <div class="result-msg">${emoji} ${msg}</div>
+        <button class="btn-retry" id="retry-${id}">🔄 Repetir test</button>
+      `;
+      container.appendChild(res);
+      
+      document.getElementById(`retry-${id}`).addEventListener('click', () => {
+        s.current = 0; s.score = 0; s.answered = false; s.completed = false;
+        this.render(id);
+      });
+      ScoreTracker.update(id, s.score, s.questions.length);
+      
+      const btn = document.querySelector(`.tab-btn[data-section="${id}"]`);
+      if (btn && !btn.querySelector('.check')) {
+        const chk = document.createElement('span');
+        chk.className = 'check'; chk.textContent = '✅';
+        btn.appendChild(chk);
+      }
+    }
+  };
+
+  /* ── SCORE TRACKER ── */
+  const ScoreTracker = {
+    scores: {},
+    update(id, got, tot) {
+      this.scores[id] = { got, tot };
+      const entries = Object.values(this.scores);
+      const totalGot = entries.reduce((a, e) => a + e.got, 0);
+      const totalTot = entries.reduce((a, e) => a + e.tot, 0);
+      document.getElementById('global-score').textContent = `${totalGot}/${totalTot}`;
+    }
+  };
+
+  /* ── NAV TABS ── */
+  const tabs = document.querySelectorAll('.tab-btn');
+  const sections = document.querySelectorAll('.section');
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(b => b.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+      
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.section).classList.add('active');
+      
+      const sid = btn.dataset.section;
+      if (sid !== 's6' && !QuizEngine.instances[sid]) {
+        QuizEngine.create(sid, QUESTIONS[sid]);
+      }
+    });
+  });
+
+  /* ── INICIALIZAR PRIMERA SECCIÓN ── */
+  QuizEngine.create('s1', QUESTIONS['s1']);
+});
+</script>
+</body>
+</html>

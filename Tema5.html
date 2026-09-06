@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 5 · Lengua 6.º Primaria</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fdf5f9;
+  --surface: #ffffff;
+  --surface-alt: #fce4ec;
+  --accent: #d81b60;      /* Magenta principal */
+  --accent2: #ffca28;     /* Dorado/Amarillo cálido */
+  --accent3: #8e24aa;     /* Púrpura oscuro */
+  --accent4: #ec407a;     /* Rosa vibrante */
+  --accent-light: #f8bbd0; /* Rosa muy claro */
+  --text: #2c1a22;
+  --text-muted: #755b69;
+  --border: #f48fb1;
+  --success: #43a047;
+  --error: #e53935;
+  --shadow: 0 4px 16px rgba(216, 27, 96, 0.08);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+header {
+  background: linear-gradient(135deg, #d81b60 0%, #8e24aa 100%);
+  color: white;
+  padding: 20px 28px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 4px 20px rgba(142, 36, 170, 0.3);
+}
+.header-icon { font-size: 2.6rem; }
+.header-text h1 { font-family: 'Nunito', sans-serif; font-size: 1.55rem; font-weight: 800; line-height: 1.2; }
+.header-text p { font-size: 0.9rem; opacity: 0.9; margin-top: 2px; }
+.global-score-wrap {
+  margin-left: auto;
+  background: rgba(255,255,255,0.2);
+  border-radius: 12px;
+  padding: 8px 16px;
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+}
+.global-score-wrap .label { font-size: 0.75rem; opacity: 0.9; }
+#global-score { font-size: 1.35rem; font-weight: 800; }
+
+/* ── NAV ── */
+nav {
+  background: var(--surface);
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  overflow-x: auto;
+  padding: 0 12px;
+  gap: 4px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+nav::-webkit-scrollbar { display: none; }
+.tab-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 12px 16px;
+  min-height: 54px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tab-btn:hover { color: var(--accent); background-color: var(--surface-alt); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); background-color: var(--surface-alt); }
+.tab-btn .check { color: var(--success); font-size: 0.8rem; }
+
+/* ── MAIN ── */
+main { max-width: 880px; margin: 0 auto; padding: 28px 20px 60px; }
+
+/* ── SECTIONS ── */
+.section { display: none; animation: fadeIn 0.35s ease-out; }
+.section.active { display: block; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+.section-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-title span { font-size: 1.8rem; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 22px 24px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+  border-left: 5px solid var(--accent);
+}
+.card.purple { border-left-color: var(--accent3); }
+.card.pink { border-left-color: var(--accent4); }
+.card.gold { border-left-color: var(--accent2); }
+.card h3 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+.card p { font-size: 0.95rem; line-height: 1.65; color: var(--text); margin-bottom: 8px; }
+.card ul { padding-left: 20px; margin-bottom: 8px; }
+.card li { font-size: 0.95rem; line-height: 1.7; }
+
+.concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 18px; }
+.concept-card {
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
+  border-top: 4px solid var(--accent);
+}
+.concept-card.purple { border-top-color: var(--accent3); }
+.concept-card.pink { border-top-color: var(--accent4); }
+.concept-card.gold { border-top-color: var(--accent2); }
+.concept-card .icon { font-size: 2rem; margin-bottom: 8px; }
+.concept-card h4 { font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 6px; }
+.concept-card p { font-size: 0.9rem; line-height: 1.55; color: var(--text-muted); }
+
+.highlight-box {
+  background: var(--accent-light);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  border-left: 4px solid var(--accent);
+}
+.highlight-box.purple { background: #f3e5f5; border-left-color: var(--accent3); }
+.highlight-box.pink { background: #fce4ec; border-left-color: var(--accent4); }
+.highlight-box.gold { background: #fff8e1; border-left-color: var(--accent2); }
+
+.example-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0;
+}
+.tag {
+  background: var(--surface-alt);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.tag.purple { background: #f3e5f5; border-color: #ce93d8; color: #6a1b9a; }
+.tag.gold { background: #fff8e1; border-color: #ffe082; color: #f57f17; }
+.tag.pink { background: #fce4ec; border-color: #f48fb1; color: #c2185b; }
+
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9rem; }
+th { background: var(--surface-alt); padding: 10px 14px; text-align: left; font-family: 'Nunito', sans-serif; font-weight: 800; border-bottom: 2px solid var(--border); color: var(--accent); }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+tr:last-child td { border-bottom: none; }
+
+/* ── QUIZ ── */
+.quiz-wrap {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 26px;
+  margin-top: 26px;
+  box-shadow: var(--shadow);
+  border-top: 5px solid var(--accent3);
+}
+.quiz-wrap h3 {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 1.15rem;
+  margin-bottom: 18px;
+  color: var(--accent3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.quiz-progress { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;}
+.quiz-question { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 16px; line-height: 1.5; color: var(--text); }
+.quiz-option {
+  display: block;
+  width: 100%;
+  padding: 14px 18px;
+  margin: 8px 0;
+  background: #fdf5f9;
+  border: 2px solid #f8bbd0;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-family: 'Open Sans', sans-serif;
+  transition: all 0.2s ease;
+  min-height: 52px; 
+}
+.quiz-option:hover:not(:disabled) { background: #fce4ec; border-color: #f48fb1; transform: translateY(-1px); }
+.quiz-option.correct { background: #e8f5e9; border-color: #43a047; color: #1b5e20; font-weight: 700; }
+.quiz-option.wrong   { background: #ffebee; border-color: #e53935; color: #b71c1c; }
+.quiz-feedback { margin-top: 12px; font-weight: 700; min-height: 24px; font-size: 0.95rem; }
+.quiz-feedback.correct { color: #2e7d32; }
+.quiz-feedback.wrong   { color: #c62828; }
+.quiz-result { text-align: center; padding: 24px 0 12px; }
+.result-score { font-family: 'Nunito', sans-serif; font-size: 3rem; font-weight: 800; color: var(--accent3); }
+.result-pct { font-size: 1.15rem; color: var(--text-muted); margin: 6px 0 14px; font-weight: 600; }
+.result-msg { font-size: 1.05rem; font-weight: 700; margin-bottom: 20px; }
+.btn-retry {
+  background: var(--accent3);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 28px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+  min-height: 50px;
+  box-shadow: 0 4px 12px rgba(142, 36, 170, 0.3);
+}
+.btn-retry:hover { opacity: 0.9; transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-icon">🎨</div>
+  <div class="header-text">
+    <h1>Tema 5 · Lengua 6.º Primaria</h1>
+    <p>De corazón a corazón · El arte, los verbos y la poesía</p>
+  </div>
+  <div class="global-score-wrap">
+    <div class="label">Puntuación global</div>
+    <div id="global-score">–</div>
+  </div>
+</header>
+
+<nav id="main-nav">
+  <button class="tab-btn active" data-section="s1">🏛️ El Arte</button>
+  <button class="tab-btn" data-section="s2">🔤 Formación (Prefijos)</button>
+  <button class="tab-btn" data-section="s3">✏️ Uso de B y V</button>
+  <button class="tab-btn" data-section="s4">📝 El Verbo</button>
+  <button class="tab-btn" data-section="s5">🖼️ Literatura y Expresión</button>
+  <button class="tab-btn" data-section="s6">🌟 Repaso final</button>
+</nav>
+
+<main>
+
+<!-- ══════════════════════════════════════ S1 LECTURA Y ARTE ══════════════════════════════════════ -->
+<section id="s1" class="section active">
+  <div class="section-title"><span>🏛️</span> Lectura: El mundo del arte</div>
+
+  <div class="card">
+    <h3>Las disciplinas artísticas</h3>
+    <p>El arte nos permite expresar sentimientos e ideas "de corazón a corazón". Algunas de las disciplinas artísticas más destacadas son: <strong>pintura, escultura, literatura, danza, música, fotografía, arquitectura y cine.</strong></p>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card purple">
+      <div class="icon">🏛️</div>
+      <h4>Museos y Galerías</h4>
+      <p>Un <strong>museo</strong> es un lugar donde se conservan y se exponen obras de arte, piezas de interés cultural o científico. Las <strong>galerías de arte</strong> son espacios, normalmente privados, donde se exponen y venden estas obras.</p>
+    </div>
+    <div class="concept-card gold">
+      <div class="icon">✨</div>
+      <h4>Las Musas</h4>
+      <p>Son la fuente de inspiración para los artistas. En la mitología antigua eran cada una de las nueve diosas inspiradoras de las artes.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box pink">
+    <strong>Vocabulario de la lectura (Miguel Ángel y el papa):</strong><br>
+    • <em>Absorto:</em> muy admirado, concentrado en un pensamiento.<br>
+    • <em>Excelsa:</em> elevada, grandiosa.<br>
+    • <em>Cinceles:</em> herramientas que sirven para labrar a golpe de martillo piedras y metales.<br>
+    • <em>Apremiaba:</em> daba prisa.
+  </div>
+
+  <div id="quiz-s1" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S2 VOCABULARIO ══════════════════════════════════════ -->
+<section id="s2" class="section">
+  <div class="section-title"><span>🔤</span> Vocabulario: Palabras con prefijos</div>
+
+  <div class="highlight-box purple">
+    <strong>Los prefijos</strong> son partículas (morfemas) que se añaden <strong>DELANTE de la raíz</strong> de una palabra para formar otra nueva con un significado distinto.
+  </div>
+
+  <div class="card">
+    <h3>Ejemplos de creación con prefijos</h3>
+    <table>
+      <tr><th>Prefijo</th><th>Significado general</th><th>Ejemplos</th></tr>
+      <tr><td><strong>des-, in-</strong></td><td>Negación, contrario</td><td><strong>des</strong>hacer, <strong>in</strong>cómodo</td></tr>
+      <tr><td><strong>re-</strong></td><td>Repetición</td><td><strong>re</strong>pintar, <strong>re</strong>escribir</td></tr>
+      <tr><td><strong>pre-</strong></td><td>Antes de</td><td><strong>pre</strong>historia, <strong>pre</strong>juzgar</td></tr>
+      <tr><td><strong>sub-</strong></td><td>Por debajo de</td><td><strong>sub</strong>marino, <strong>sub</strong>terráneo</td></tr>
+      <tr><td><strong>anti-</strong></td><td>Oposición</td><td><strong>anti</strong>robo, <strong>anti</strong>héroe</td></tr>
+    </table>
+  </div>
+
+  <div class="card gold">
+    <h3>Clasifica las palabras</h3>
+    <p>¿Tienen prefijo o no? Cuidado, algunas palabras empiezan por "des" o "pre" pero no es un prefijo (ej: <em>desierto, premio</em>).</p>
+    <div class="example-row">
+      <span class="tag purple">desmontar</span>
+      <span class="tag purple">increíble</span>
+      <span class="tag purple">reordenar</span>
+      <span class="tag pink">preocupar</span>
+      <span class="tag gold">antivirus</span>
+    </div>
+  </div>
+
+  <div id="quiz-s2" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S3 ORTOGRAFÍA ══════════════════════════════════════ -->
+<section id="s3" class="section">
+  <div class="section-title"><span>✏️</span> Ortografía: Uso de la B y la V</div>
+
+  <div class="concept-grid">
+    <div class="concept-card pink">
+      <div class="icon">🅱️</div>
+      <h4>Reglas de la B</h4>
+      <ul>
+        <li>Los verbos terminados en <strong>-bir</strong> (escribir, recibir). ¡Excepciones: <em>hervir, servir, vivir</em>!</li>
+        <li>Las terminaciones del pretérito imperfecto de indicativo de la 1ª conjugación: <strong>-aba, -abas...</strong> (cantaba, bailaban).</li>
+        <li>El imperfecto del verbo ir: <strong>iba, ibas...</strong></li>
+      </ul>
+    </div>
+    <div class="concept-card purple">
+      <div class="icon">🇻</div>
+      <h4>Reglas de la V</h4>
+      <ul>
+        <li>Las formas de los verbos que no tienen b ni v en su infinitivo (ej: estar -> <strong>estuve</strong>; tener -> <strong>tuve</strong>).</li>
+        <li>El presente del verbo ir: <strong>voy, vas, vamos...</strong></li>
+        <li>Los adjetivos terminados en -avo, -ave, -evo, -eve, -ivo, -ive.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>¡Cuidado con la confusión!</h3>
+    <p>A veces suenan igual pero se escriben distinto según la norma. Lee con atención:</p>
+    <div class="example-row">
+      <span class="tag">Él <strong>cantaba</strong> (con b)</span>
+      <span class="tag">Ella <strong>tuvo</strong> (con v)</span>
+      <span class="tag">Nosotros <strong>escribimos</strong> (con b)</span>
+      <span class="tag">El agua va a <strong>hervir</strong> (con v - excepción)</span>
+    </div>
+  </div>
+
+  <div id="quiz-s3" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S4 GRAMÁTICA ══════════════════════════════════════ -->
+<section id="s4" class="section">
+  <div class="section-title"><span>📝</span> Gramática: El Verbo</div>
+
+  <div class="highlight-box pink">
+    <strong>Los verbos</strong> son palabras que expresan <strong>acciones, estados o procesos</strong>. Cada forma verbal nos da mucha información sobre quién realiza la acción y cuándo ocurre.
+  </div>
+
+  <div class="card">
+    <h3>Análisis de las formas verbales</h3>
+    <p>Una forma verbal tiene <strong>persona</strong> (1ª, 2ª, 3ª), <strong>número</strong> (singular, plural), <strong>tiempo</strong> (presente, pasado, futuro) y <strong>modo</strong> (indicativo, subjuntivo, imperativo).</p>
+    <table>
+      <tr><th>Forma verbal</th><th>Persona y Número</th><th>Tiempo</th><th>Modo</th></tr>
+      <tr><td><strong>barrió</strong> <em>(barrer)</em></td><td>3.ª persona, singular</td><td>Pretérito perfecto simple (pasado)</td><td>Indicativo</td></tr>
+      <tr><td><strong>residen</strong> <em>(residir)</em></td><td>3.ª persona, plural</td><td>Presente</td><td>Indicativo</td></tr>
+      <tr><td><strong>he soñado</strong> <em>(soñar)</em></td><td>1.ª persona, singular</td><td>Pretérito perfecto compuesto (pasado)</td><td>Indicativo</td></tr>
+      <tr><td><strong>disfrutes</strong> <em>(disfrutar)</em></td><td>2.ª persona, singular</td><td>Presente</td><td>Subjuntivo</td></tr>
+    </table>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card gold">
+      <div class="icon">⏱️</div>
+      <h4>El Tiempo</h4>
+      <p>• <strong>Presente:</strong> ocurre ahora (yo pinto).<br>
+         • <strong>Pasado/Pretérito:</strong> ya ocurrió (yo pinté, yo pintaba).<br>
+         • <strong>Futuro:</strong> ocurrirá después (yo pintaré).</p>
+    </div>
+    <div class="concept-card purple">
+      <div class="icon">🧠</div>
+      <h4>El Modo</h4>
+      <p>• <strong>Indicativo:</strong> hechos reales y seguros.<br>
+         • <strong>Subjuntivo:</strong> deseos, dudas u órdenes negativas (¡Ojalá llueva!).<br>
+         • <strong>Imperativo:</strong> órdenes afirmativas (¡Ven aquí!).</p>
+    </div>
+  </div>
+
+  <div id="quiz-s4" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S5 LITERATURA Y EXPRESIÓN ══════════════════════════════════════ -->
+<section id="s5" class="section">
+  <div class="section-title"><span>🖼️</span> Literatura y Expresión: De corazón a corazón</div>
+
+  <div class="card purple">
+    <h3>La Literatura: Textos en verso</h3>
+    <p>La poesía es un género literario muy especial. Los poemas son textos <strong>escritos en verso</strong> en los que el autor o autora expresa sus sentimientos y emociones "de corazón a corazón". A veces organizamos "karaokes poéticos" para disfrutar recitándolos en voz alta.</p>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card gold">
+      <div class="icon">🎶</div>
+      <h4>Las Rimas</h4>
+      <p>La rima es la repetición de sonidos al final de los versos. Ayuda a dar musicalidad al poema.<br>
+      <em>Ejemplo de palabras para rimar: rosa, estrella, canción, luna.</em></p>
+    </div>
+    <div class="concept-card pink">
+      <div class="icon">🎨</div>
+      <h4>Pinturas célebres</h4>
+      <p>El arte pictórico también transmite emociones. Observa estas obras citadas en la unidad:<br>
+      • <em>La noche estrellada</em>, de Vincent van Gogh.<br>
+      • <em>Las amapolas</em>, de Mary Cassatt.<br>
+      • <em>El puente japonés</em>, de Claude Monet.</p>
+    </div>
+  </div>
+
+  <div id="quiz-s5" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S6 REPASO FINAL ══════════════════════════════════════ -->
+<section id="s6" class="section">
+  <div class="section-title"><span>🌟</span> Repaso final: Demuestra tus conocimientos</div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="icon">🏛️</div>
+      <h4>El Arte</h4>
+      <p>Cinceles, museos, galerías, musas. Miguel Ángel esculpiendo y pintando.</p>
+    </div>
+    <div class="concept-card purple">
+      <div class="icon">🔤</div>
+      <h4>Los Prefijos</h4>
+      <p>Partículas DELANTE de la raíz (in-, des-, re-, sub-, pre-) que cambian el significado.</p>
+    </div>
+    <div class="concept-card gold">
+      <div class="icon">✏️</div>
+      <h4>Uso B y V / Verbos</h4>
+      <p>Excepciones: hervir, servir, vivir. Análisis de verbos: persona, número, tiempo y modo.</p>
+    </div>
+    <div class="concept-card pink">
+      <div class="icon">🖼️</div>
+      <h4>Poesía y Pintura</h4>
+      <p>Textos en verso para expresar sentimientos. Grandes pintores como Van Gogh y Monet.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>¡A por el gran reto del Tema 5!</strong> Aquí encontrarás preguntas mezcladas de todas las secciones. Lee detenidamente cada opción antes de marcar.
+  </div>
+
+  <div id="quiz-s6" class="quiz-wrap">
+    <h3>🏆 Quiz de repaso general</h3>
+  </div>
+</section>
+
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* ── DATOS DE LOS QUIZZES ── */
+  const QUESTIONS = {
+    s1: [
+      { text: '¿Qué es una galería de arte?', options: ['Un lugar donde se venden libros usados', 'Un espacio, normalmente privado, donde se exponen y venden obras de arte', 'Un tipo de museo para la ciencia', 'Un taller de herramientas'], correct: 1 },
+      { text: '¿Qué son las musas en la mitología antigua?', options: ['Herramientas para esculpir', 'Las nueve diosas inspiradoras de las artes', 'Un tipo de pintura al óleo', 'Mujeres que limpiaban el museo'], correct: 1 },
+      { text: '¿Qué herramientas utilizan los escultores para labrar la piedra a golpe de martillo?', options: ['Lápices', 'Pinceles', 'Cinceles', 'Lienzos'], correct: 2 },
+      { text: 'En el texto sobre Miguel Ángel, ¿qué significa que estaba "absorto"?', options: ['Que estaba muy aburrido', 'Que estaba sordo', 'Que estaba muy admirado y concentrado', 'Que quería irse a casa'], correct: 2 },
+      { text: '¿Cuál de las siguientes es una disciplina artística mencionada en el cuaderno?', options: ['La agricultura', 'La escultura', 'La botánica', 'El deporte'], correct: 1 }
+    ],
+    s2: [
+      { text: '¿Qué es un prefijo?', options: ['Una partícula que se añade AL FINAL de una palabra', 'Una palabra que nombra objetos', 'Una partícula que se añade DELANTE de la raíz para formar otra palabra', 'El núcleo del verbo'], correct: 2 },
+      { text: 'Si añades el prefijo "des-" a la palabra "hacer", ¿qué significa "deshacer"?', options: ['Hacer algo dos veces', 'Lo contrario de hacer', 'Hacer algo muy grande', 'Antes de hacer'], correct: 1 },
+      { text: '¿Qué palabra contiene un prefijo que significa "repetición"?', options: ['Incomodar', 'Submarino', 'Reescribir', 'Antivirus'], correct: 2 },
+      { text: '¿Cuál de estas palabras NO tiene un prefijo?', options: ['Desmontar', 'Infeliz', 'Premio', 'Prejuzgar'], correct: 2 },
+      { text: '¿Qué prefijo usarías para indicar algo que está "por debajo de"?', options: ['Anti-', 'Sub-', 'Des-', 'In-'], correct: 1 }
+    ],
+    s3: [
+      { text: 'Los verbos terminados en -bir se escriben con b, EXCEPTO:', options: ['Subir, recibir, prohibir', 'Escribir, percibir, concebir', 'Hervir, servir, vivir', 'Inscribir, suscribir, sucumbir'], correct: 2 },
+      { text: 'El pretérito imperfecto de indicativo de los verbos de la 1ª conjugación termina en...', options: ['-aba, -abas (con b)', '-ava, -avas (con v)', '-ía, -ías', '-aré, -arás'], correct: 0 },
+      { text: '¿Cuál de estas palabras está CORRECTAMENTE escrita?', options: ['Estaba', 'Estava', 'Cantava', 'Bailava'], correct: 0 },
+      { text: 'Si un verbo no tiene ni "b" ni "v" en su infinitivo (como estar o tener), al pasarlo al pasado se escribe con...', options: ['B (estube, tube)', 'V (estuve, tuve)', 'Depende de la oración', 'Con h'], correct: 1 },
+      { text: 'El presente del verbo ir (yo voy, tú vas, él va...) se escribe siempre con:', options: ['B', 'V', 'G', 'J'], correct: 1 }
+    ],
+    s4: [
+      { text: '¿Qué información principal nos dan los verbos?', options: ['Acciones, estados o procesos', 'Cualidades o características de los objetos', 'El nombre de personas, animales o cosas', 'La cantidad exacta de cosas'], correct: 0 },
+      { text: 'En la forma verbal "barrió", ¿cuál es el tiempo?', options: ['Presente', 'Futuro', 'Pretérito (pasado)', 'Infinitivo'], correct: 2 },
+      { text: '¿A qué persona y número pertenece la forma "residen"?', options: ['1.ª persona, plural', '3.ª persona, plural', '2.ª persona, singular', '3.ª persona, singular'], correct: 1 },
+      { text: 'Si digo "¡Ojalá llueva!", ¿en qué modo está el verbo "llueva"?', options: ['Indicativo (hecho real)', 'Subjuntivo (deseo o duda)', 'Imperativo (orden)', 'Infinitivo'], correct: 1 },
+      { text: 'En la forma "he soñado", ¿qué persona gramatical realiza la acción?', options: ['1.ª persona del singular (yo)', '2.ª persona del singular (tú)', '3.ª persona del plural (ellos)', '1.ª persona del plural (nosotros)'], correct: 0 }
+    ],
+    s5: [
+      { text: '¿Qué es la poesía según el cuaderno?', options: ['Una noticia en el periódico', 'Un texto escrito en verso para expresar sentimientos', 'Un cuento sobre animales', 'Un guion de teatro'], correct: 1 },
+      { text: '¿Qué es la rima en un poema?', options: ['El título de la obra', 'El nombre del autor', 'La repetición de sonidos al final de los versos', 'Los dibujos que acompañan al texto'], correct: 2 },
+      { text: '¿Quién pintó la famosa obra "La noche estrellada"?', options: ['Mary Cassatt', 'Claude Monet', 'Vincent van Gogh', 'Miguel Ángel'], correct: 2 },
+      { text: '¿A quién pertenece la obra "El puente japonés"?', options: ['Vincent van Gogh', 'Miguel Ángel', 'Mary Cassatt', 'Claude Monet'], correct: 3 },
+      { text: '¿Qué se puede organizar en clase para disfrutar recitando poemas en voz alta?', options: ['Un partido de fútbol', 'Un museo', 'Un karaoke poético', 'Un laboratorio'], correct: 2 }
+    ],
+    s6: [
+      { text: '¿Qué partícula se añade DELANTE de una raíz para formar una nueva palabra?', options: ['El sufijo', 'El verbo', 'El adjetivo', 'El prefijo'], correct: 3 },
+      { text: '¿Cuáles de estos verbos son EXCEPCIONES y se escriben con "v" aunque terminen en "ir"?', options: ['Escribir, subir', 'Recibir, prohibir', 'Hervir, servir, vivir', 'Percibir, concebir'], correct: 2 },
+      { text: 'En "disfrutes", ¿qué modo verbal se utiliza?', options: ['Imperativo', 'Subjuntivo', 'Indicativo', 'Infinitivo'], correct: 1 },
+      { text: '¿Cómo se llama la herramienta que usa un escultor para labrar piedra a golpes de martillo?', options: ['Pincel', 'Borrador', 'Cincel', 'Lienzo'], correct: 2 },
+      { text: '¿Qué artista pintó "Las amapolas"?', options: ['Vincent van Gogh', 'Mary Cassatt', 'Claude Monet', 'Greta Thunberg'], correct: 1 },
+      { text: 'En la oración "Nosotros jugábamos", la forma "jugábamos" se escribe con "b" porque...', options: ['Es del verbo ir', 'Termina en -bir', 'Es el pretérito imperfecto de la 1ª conjugación (-aba)', 'Es una excepción'], correct: 2 },
+      { text: 'El verbo "he soñado" corresponde a:', options: ['2.ª persona singular, futuro', '1.ª persona singular, pretérito (pasado)', '3.ª persona plural, presente', '1.ª persona plural, pasado'], correct: 1 }
+    ]
+  };
+
+  /* ── QUIZ ENGINE ── */
+  const QuizEngine = {
+    instances: {},
+    create(id, questions) {
+      this.instances[id] = { questions, current: 0, score: 0, answered: false, completed: false };
+      this.render(id);
+    },
+    get(id) { return this.instances[id]; },
+    render(id) {
+      const s = this.get(id);
+      const container = document.getElementById(`quiz-${id}`);
+      if (!container || s.completed) return;
+      const q = s.questions[s.current];
+      const inner = document.createElement('div');
+      inner.innerHTML = `
+        <div class="quiz-progress">Pregunta ${s.current + 1} de ${s.questions.length}</div>
+        <div class="quiz-question">${q.text}</div>
+        <div class="quiz-options">
+          ${q.options.map((opt, i) => `<button class="quiz-option" data-index="${i}">${opt}</button>`).join('')}
+        </div>
+        <div class="quiz-feedback" id="feedback-${id}"></div>
+      `;
+      // Preservar el título h3
+      const h3 = container.querySelector('h3');
+      container.innerHTML = '';
+      if (h3) container.appendChild(h3);
+      container.appendChild(inner);
+      
+      // Añadir interactividad táctil
+      inner.querySelectorAll('.quiz-option').forEach(btn => {
+        btn.addEventListener('click', e => {
+          if (s.answered) return;
+          this.answer(id, parseInt(e.currentTarget.dataset.index));
+        });
+      });
+    },
+    answer(id, sel) {
+      const s = this.get(id);
+      if (s.answered) return;
+      s.answered = true;
+      const q = s.questions[s.current];
+      const correct = sel === q.correct;
+      if (correct) s.score++;
+      
+      const fb = document.getElementById(`feedback-${id}`);
+      if (fb) {
+        fb.textContent = correct ? '✅ ¡Respuesta correcta!' : `❌ Incorrecto. La respuesta era: ${q.options[q.correct]}`;
+        fb.className = `quiz-feedback ${correct ? 'correct' : 'wrong'}`;
+      }
+      
+      const container = document.getElementById(`quiz-${id}`);
+      container.querySelectorAll('.quiz-option').forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === q.correct) btn.classList.add('correct');
+        else if (i === sel) btn.classList.add('wrong');
+      });
+      
+      setTimeout(() => {
+        s.current++;
+        s.answered = false;
+        if (s.current < s.questions.length) {
+          this.render(id);
+        } else {
+          this.showResult(id);
+        }
+      }, 1800);
+    },
+    showResult(id) {
+      const s = this.get(id);
+      s.completed = true;
+      const pct = Math.round((s.score / s.questions.length) * 100);
+      const container = document.getElementById(`quiz-${id}`);
+      const h3 = container.querySelector('h3');
+      container.innerHTML = '';
+      if (h3) container.appendChild(h3);
+      
+      const res = document.createElement('div');
+      res.className = 'quiz-result';
+      const emoji = pct >= 80 ? '🏆' : pct >= 60 ? '👍' : '🎨';
+      const msg = pct >= 80 ? '¡Excelente trabajo, todo un artista!' : pct >= 60 ? '¡Muy bien! Estás aprendiendo rápido.' : '¡No te rindas! Repasa la sección y vuelve a intentarlo.';
+      res.innerHTML = `
+        <div class="result-score">${s.score}/${s.questions.length}</div>
+        <div class="result-pct">${pct}% de aciertos</div>
+        <div class="result-msg">${emoji} ${msg}</div>
+        <button class="btn-retry" id="retry-${id}">🔄 Repetir test</button>
+      `;
+      container.appendChild(res);
+      
+      document.getElementById(`retry-${id}`).addEventListener('click', () => {
+        s.current = 0; s.score = 0; s.answered = false; s.completed = false;
+        this.render(id);
+      });
+      ScoreTracker.update(id, s.score, s.questions.length);
+      
+      // Marcar pestaña como completada con un check
+      const btn = document.querySelector(`.tab-btn[data-section="${id}"]`);
+      if (btn && !btn.querySelector('.check')) {
+        const chk = document.createElement('span');
+        chk.className = 'check'; chk.textContent = '✅';
+        btn.appendChild(chk);
+      }
+    }
+  };
+
+  /* ── SCORE TRACKER ── */
+  const ScoreTracker = {
+    scores: {},
+    update(id, got, tot) {
+      this.scores[id] = { got, tot };
+      const entries = Object.values(this.scores);
+      const totalGot = entries.reduce((a, e) => a + e.got, 0);
+      const totalTot = entries.reduce((a, e) => a + e.tot, 0);
+      document.getElementById('global-score').textContent = `${totalGot}/${totalTot}`;
+    }
+  };
+
+  /* ── NAV TABS ── */
+  const tabs = document.querySelectorAll('.tab-btn');
+  const sections = document.querySelectorAll('.section');
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Remover activas
+      tabs.forEach(b => b.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+      
+      // Activar clickeada
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.section).classList.add('active');
+      
+      // Inicializar quiz si no existe
+      const sid = btn.dataset.section;
+      if (!QuizEngine.instances[sid]) {
+        QuizEngine.create(sid, QUESTIONS[sid]);
+      }
+    });
+  });
+
+  /* ── INICIALIZAR PRIMERA SECCIÓN ── */
+  QuizEngine.create('s1', QUESTIONS['s1']);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 11 · Lengua 6.º Primaria</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f4f0;--surface:#fff;--surface-alt:#fdf5ec;--accent:#c8782a;--accent-light:#fbe8d0;--accent-dark:#9a5a18;--text:#2a2018;--text-muted:#7a6a58;--border:#e4d4c0;--success:#4caf82;--error:#e57373;--shadow:0 2px 14px rgba(80,50,20,.08);--tab1:#c85840;--tab2:#d4a030;--tab3:#5b8dee;--tab4:#3a9e6a;--tab5:#a86cc8}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Open Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+h1,h2,h3,h4{font-family:'Nunito',sans-serif}
+.header{background:linear-gradient(135deg,#c8782a,#a86018);color:#fff;padding:28px 24px 22px;text-align:center;position:relative}
+.header h1{font-size:1.7rem;font-weight:800}.header .subtitle{font-size:.95rem;opacity:.9;margin-top:4px;font-family:'Open Sans',sans-serif}
+.header .tn{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.25);font-size:1.5rem;font-weight:800;margin-bottom:8px}
+#global-score{position:absolute;top:14px;right:20px;background:rgba(255,255,255,.2);padding:6px 14px;border-radius:20px;font-size:.82rem;font-weight:600}
+.nav-tabs{display:flex;flex-wrap:wrap;background:var(--surface);border-bottom:2px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.tab-btn{flex:1;min-width:90px;padding:13px 8px;border:none;background:transparent;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:700;color:var(--text-muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .25s}
+.tab-btn:hover{background:var(--surface-alt)}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);background:var(--accent-light)}
+.tab-btn[data-section="lectura"].active{color:var(--tab1);border-bottom-color:var(--tab1);background:#fde0dc}
+.tab-btn[data-section="vocabulario"].active{color:var(--tab2);border-bottom-color:var(--tab2);background:#fdf3d4}
+.tab-btn[data-section="ortografia"].active{color:var(--tab3);border-bottom-color:var(--tab3);background:#d6e4ff}
+.tab-btn[data-section="gramatica"].active{color:var(--tab4);border-bottom-color:var(--tab4);background:#d4f0e0}
+.tab-btn[data-section="literatura"].active{color:var(--tab5);border-bottom-color:var(--tab5);background:#ecdcf8}
+.tab-check{margin-left:3px;font-size:.78rem}
+.section{display:none;animation:fadeIn .35s ease;padding:24px 20px 40px;max-width:860px;margin:0 auto}.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:var(--surface);border-radius:16px;padding:22px 24px;margin-bottom:18px;box-shadow:var(--shadow);border-left:5px solid var(--accent)}
+.card h3{font-size:1.08rem;margin-bottom:10px;color:var(--accent-dark)}.card p,.card li{line-height:1.7;font-size:.95rem}.card ul{padding-left:20px;margin-top:6px}.card ul li{margin-bottom:5px}
+.concepto{background:linear-gradient(135deg,var(--accent-light),var(--surface));border-left-color:var(--accent-dark)}
+.ejemplo-box{background:#fdfaf6;border:1px dashed var(--border);border-radius:10px;padding:12px 16px;margin:10px 0;font-style:italic;color:var(--text-muted);font-size:.92rem}
+.section[data-color="lectura"] .card{border-left-color:var(--tab1)}.section[data-color="lectura"] .card h3{color:var(--tab1)}
+.section[data-color="vocabulario"] .card{border-left-color:var(--tab2)}.section[data-color="vocabulario"] .card h3{color:#a07818}
+.section[data-color="ortografia"] .card{border-left-color:var(--tab3)}.section[data-color="ortografia"] .card h3{color:var(--tab3)}
+.section[data-color="gramatica"] .card{border-left-color:var(--tab4)}.section[data-color="gramatica"] .card h3{color:var(--tab4)}
+.section[data-color="literatura"] .card{border-left-color:var(--tab5)}.section[data-color="literatura"] .card h3{color:var(--tab5)}
+.table-wrap{overflow-x:auto;margin:12px 0}table{width:100%;border-collapse:collapse;font-size:.9rem}th{background:var(--accent-light);padding:10px 14px;text-align:left;font-weight:700;font-family:'Nunito',sans-serif}td{padding:9px 14px;border-bottom:1px solid var(--border)}tr:hover td{background:var(--surface-alt)}
+.quiz-wrap{margin-top:28px}.quiz-title{font-family:'Nunito',sans-serif;font-size:1.15rem;font-weight:800;margin-bottom:14px}
+.quiz-progress{font-size:.82rem;color:var(--text-muted);margin-bottom:8px;font-weight:600}.quiz-question{font-size:1.02rem;font-weight:600;margin-bottom:14px;line-height:1.6}
+.quiz-option{display:block;width:100%;padding:13px 18px;margin:7px 0;background:#f4f0ea;border:2px solid var(--border);border-radius:12px;cursor:pointer;text-align:left;font-size:.93rem;font-family:'Open Sans',sans-serif;transition:background .2s,border-color .2s,transform .1s}
+.quiz-option:hover:not(:disabled){background:var(--accent-light);border-color:var(--accent);transform:translateX(3px)}
+.quiz-option.correct{background:#d4f7e0;border-color:#4caf82}.quiz-option.wrong{background:#ffe0e0;border-color:#e57373}.quiz-option:disabled{cursor:default;opacity:.85}
+.quiz-feedback{margin-top:10px;font-weight:700;min-height:24px;font-size:.95rem}.quiz-feedback.correct{color:#2e7d52}.quiz-feedback.wrong{color:#c62828}
+.quiz-result{text-align:center;padding:30px 20px}.result-score{font-size:2.8rem;font-weight:800;color:var(--accent)}.result-pct{font-size:1.1rem;color:var(--text-muted);margin:4px 0 10px}.result-msg{font-size:1.05rem;font-weight:700;margin-bottom:16px}
+.btn-retry{padding:11px 28px;border:none;border-radius:24px;background:var(--accent);color:#fff;font-weight:700;font-family:'Nunito',sans-serif;font-size:.95rem;cursor:pointer;transition:background .2s}.btn-retry:hover{background:var(--accent-dark)}
+@media(max-width:640px){.header h1{font-size:1.3rem}.tab-btn{font-size:.68rem;padding:10px 4px;min-width:0}.section{padding:16px 14px 30px}.card{padding:16px}#global-score{position:static;margin-top:10px;display:inline-block}}
+</style>
+</head>
+<body>
+<header class="header"><div class="tn">11</div><h1>Lengua · Tema 11</h1><p class="subtitle">6.º Primaria — Santillana Canarias</p><div id="global-score">Puntuación total: —</div></header>
+<nav class="nav-tabs">
+  <button class="tab-btn active" data-section="lectura">📖 Lectura<span class="tab-check" id="check-lectura"></span></button>
+  <button class="tab-btn" data-section="vocabulario">📝 Vocabulario<span class="tab-check" id="check-vocabulario"></span></button>
+  <button class="tab-btn" data-section="ortografia">✏️ Ortografía<span class="tab-check" id="check-ortografia"></span></button>
+  <button class="tab-btn" data-section="gramatica">🔧 Gramática<span class="tab-check" id="check-gramatica"></span></button>
+  <button class="tab-btn" data-section="literatura">🎭 Literatura<span class="tab-check" id="check-literatura"></span></button>
+</nav>
+
+<!-- LECTURA -->
+<div class="section active" id="sec-lectura" data-color="lectura">
+  <div class="card concepto"><h3>🏛️ Los relatos mitológicos</h3><p>Son historias que proceden de culturas antiguas, como la de la antigua Grecia. <strong>Dioses, héroes y seres fantásticos</strong> protagonizan estos relatos. Los dioses suelen ser poderosos y crueles, con sentimientos humanos. Los héroes son capaces de realizar acciones valerosas.</p></div>
+  <div class="card"><h3>🎵 Orfeo y Eurídice</h3><p><strong>Orfeo</strong> era un joven músico griego que tocaba la <strong>lira</strong> con tal belleza que las fieras se amansaban y los ríos cambiaban su curso. Un día conoció a la ninfa <strong>Eurídice</strong>, se enamoraron y se casaron.</p><p style="margin-top:8px">Pero la fortuna es inconstante: una serpiente mordió a Eurídice y ella perdió la vida. Orfeo, roto de dolor, descendió al <strong>inframundo</strong> para suplicar que la devolvieran a la vida.</p></div>
+  <div class="card"><h3>⛵ El viaje al inframundo</h3><p>Orfeo llegó a la <strong>laguna Estigia</strong>, que separa el mundo de los vivos del de los muertos, e impresionó con su canto a <strong>Carón</strong>, el barquero de las almas. Logró cruzar las aguas y llegar ante <strong>Hades</strong>, dios de las profundidades.</p><p style="margin-top:8px">Conmovido por su música, Hades aceptó devolver a Eurídice con una <strong>condición</strong>: ella iría detrás de Orfeo y él no podría mirarla hasta haber cruzado la laguna Estigia. Si la miraba antes, la perdería para siempre.</p></div>
+  <div class="card"><h3>💔 El trágico desenlace</h3><p>Orfeo emprendió el camino de vuelta. En el silencio, la duda lo atormentaba: ¿y si era un engaño? Justo antes de cruzar la laguna, <strong>giró la cabeza</strong> un instante. En ese momento, Eurídice se convirtió en una columna de humo y desapareció para siempre.</p><p style="margin-top:8px">Orfeo suplicó perdón a los dioses, pero solo recibió silencio. Se retiró a un monte donde pasó el resto de su vida tocando melancólicos cantos en memoria de Eurídice.</p></div>
+  <div class="quiz-wrap"><div class="quiz-title">🧩 Quiz — Lectura</div><div id="quiz-lectura"></div></div>
+</div>
+
+<!-- VOCABULARIO -->
+<div class="section" id="sec-vocabulario" data-color="vocabulario">
+  <div class="card concepto"><h3>🔤 Siglas</h3><p>Las <strong>siglas</strong> son palabras formadas por las iniciales de un grupo de palabras. Se escriben en <strong>mayúsculas y sin punto</strong> entre las letras, no se pueden dividir a final de línea y tienen la misma forma en singular y en plural.</p><div class="ejemplo-box">ONG → Organización No Gubernamental · DNI → Documento Nacional de Identidad</div></div>
+  <div class="card concepto"><h3>🗣️ Acrónimos</h3><p>Los <strong>acrónimos</strong> son siglas que se pronuncian como una palabra. También son acrónimos las palabras que resultan de la unión de parte de otras palabras.</p><div class="ejemplo-box">ovni → objeto volador no identificado<br>docudrama → documental + dramático · teleñeco → televisión + muñeco</div></div>
+  <div class="card concepto"><h3>📎 Abreviaturas</h3><p>Las <strong>abreviaturas</strong> son formas acortadas de algunas palabras. Siempre llevan punto al final.</p>
+    <div class="table-wrap"><table><tr><th>Abreviatura</th><th>Significado</th></tr>
+    <tr><td>Dña.</td><td>doña</td></tr><tr><td>Sr.</td><td>señor</td></tr><tr><td>avda.</td><td>avenida</td></tr><tr><td>n.º</td><td>número</td></tr><tr><td>pág.</td><td>página</td></tr><tr><td>Dra.</td><td>doctora</td></tr><tr><td>etc.</td><td>etcétera</td></tr><tr><td>Gral.</td><td>general</td></tr>
+    </table></div></div>
+  <div class="quiz-wrap"><div class="quiz-title">🧩 Quiz — Vocabulario</div><div id="quiz-vocabulario"></div></div>
+</div>
+
+<!-- ORTOGRAFÍA -->
+<div class="section" id="sec-ortografia" data-color="ortografia">
+  <div class="card concepto"><h3>🔚 Signos que cierran enunciados</h3><p>Todas las oraciones terminan con alguno de estos signos de puntuación:</p>
+    <ul><li><strong>Signo de interrogación (?)</strong>: cierra las oraciones que contienen una pregunta.</li>
+    <li><strong>Signo de exclamación (!)</strong>: cierra las que contienen una exclamación.</li>
+    <li><strong>Punto (.)</strong>: cierra las oraciones que afirman o niegan algo.</li></ul></div>
+  <div class="card"><h3>📏 Reglas importantes</h3>
+    <ul><li>Los signos de interrogación y exclamación se abren (¿ ¡) y se cierran (? !).</li>
+    <li><strong>No se pone punto</strong> detrás de los signos de cierre de interrogación ni exclamación.</li>
+    <li>Detrás de ? y ! <strong>se escribe con mayúscula</strong> la siguiente palabra.</li></ul>
+    <div class="ejemplo-box">¿A qué hora es el concierto? ¡Anímate y ven! La entrada es gratuita.</div></div>
+  <div class="card"><h3>📝 Palabras interrogativas y exclamativas</h3><p>Palabras como <em>qué, cuándo, cuánto, cuánta, dónde, por qué, quién</em> llevan tilde cuando se usan en preguntas y exclamaciones.</p>
+    <div class="ejemplo-box">¿<strong>Cuándo</strong> empezará el concierto? ¡<strong>Qué</strong> susto me has dado! ¿<strong>Por qué</strong> se ha molestado?</div></div>
+  <div class="quiz-wrap"><div class="quiz-title">🧩 Quiz — Ortografía</div><div id="quiz-ortografia"></div></div>
+</div>
+
+<!-- GRAMÁTICA -->
+<div class="section" id="sec-gramatica" data-color="gramatica">
+  <div class="card concepto"><h3>📍 El complemento circunstancial (CC)</h3><p>Expresa las <strong>circunstancias</strong> de la acción verbal: lugar, tiempo, modo, cantidad, compañía, instrumento…</p>
+    <div class="ejemplo-box">Ese grupo de música <strong>actuará mañana</strong>. → CC de tiempo</div></div>
+  <div class="card"><h3>📊 Clases de complementos circunstanciales</h3>
+    <div class="table-wrap"><table><tr><th>Clase</th><th>Pregunta</th><th>Ejemplo</th></tr>
+    <tr><td>🗺️ <strong>Lugar</strong></td><td>¿Dónde?</td><td>Coloca los libros <em>en la estantería</em>.</td></tr>
+    <tr><td>⏰ <strong>Tiempo</strong></td><td>¿Cuándo?</td><td>Los artistas tocarán <em>mañana</em>.</td></tr>
+    <tr><td>🎯 <strong>Modo</strong></td><td>¿Cómo?</td><td>Esta novelista escribe <em>bien</em>.</td></tr>
+    <tr><td>🔢 <strong>Cantidad</strong></td><td>¿Cuánto?</td><td>Los bebés duermen <em>demasiado</em>.</td></tr>
+    <tr><td>👥 <strong>Compañía</strong></td><td>¿Con quién?</td><td>Merienda <em>con sus amigos</em>.</td></tr>
+    <tr><td>🔧 <strong>Instrumento</strong></td><td>¿Con qué?</td><td>Recogió las hojas <em>con un rastrillo</em>.</td></tr>
+    </table></div></div>
+  <div class="card"><h3>🔎 ¿Qué puede funcionar como CC?</h3>
+    <ul><li>Un <strong>sintagma nominal con preposición</strong>: <em>en la cocina, con unas tijeras</em>.</li>
+    <li>Un <strong>sintagma nominal sin preposición</strong>: <em>el próximo lunes</em>.</li>
+    <li>Un <strong>adverbio</strong>: <em>correctamente, mañana, cerca</em>.</li></ul></div>
+  <div class="quiz-wrap"><div class="quiz-title">🧩 Quiz — Gramática</div><div id="quiz-gramatica"></div></div>
+</div>
+
+<!-- LITERATURA -->
+<div class="section" id="sec-literatura" data-color="literatura">
+  <div class="card concepto"><h3>✨ Recursos literarios: al servicio de la expresión</h3><p>Los poetas y escritores usan recursos literarios para dar belleza y expresividad. En esta unidad se estudian la <strong>personificación</strong>, la <strong>hipérbole</strong> y el <strong>paralelismo</strong>.</p></div>
+  <div class="card"><h3>🧸 La personificación</h3><p>Consiste en <strong>atribuir facultades humanas</strong> a un animal, planta u objeto.</p>
+    <div class="ejemplo-box">«El sol de marzo camina / sobre las huellas del frío / para despertar las ramas / de los árboles dormidos.» (L. García Montero)<br>→ Se atribuye al sol la facultad humana de andar.</div></div>
+  <div class="card"><h3>🎪 La hipérbole</h3><p>Consiste en <strong>exagerar</strong> un suceso, una cualidad o una cantidad. También es frecuente en el lenguaje cotidiano.</p>
+    <div class="ejemplo-box">«Por el valle de Orotava / la primavera pasó / y en sus frondosos jardines / para siempre se quedó.» (Diego Crosa)<br>→ Se exagera diciendo que la primavera se quedó para siempre.<br><br>Lenguaje cotidiano: «Este pan está más duro que una piedra.»</div></div>
+  <div class="card"><h3>🔁 El paralelismo</h3><p>Consiste en la <strong>repetición de estructuras parecidas</strong> en varios versos u oraciones. Aporta ritmo y musicalidad.</p>
+    <div class="ejemplo-box">«Que es mi barco mi tesoro, / que es mi Dios la libertad.» (J. de Espronceda)<br>→ Se repite el mismo esquema «que es mi… mi…» en dos versos.</div></div>
+  <div class="quiz-wrap"><div class="quiz-title">🧩 Quiz — Literatura</div><div id="quiz-literatura"></div></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+const tabs=document.querySelectorAll('.tab-btn'),secs=document.querySelectorAll('.section');
+tabs.forEach(b=>{b.addEventListener('click',()=>{const t=b.dataset.section;tabs.forEach(x=>x.classList.remove('active'));b.classList.add('active');secs.forEach(s=>{s.classList.remove('active');if(s.id==='sec-'+t)s.classList.add('active')});window.scrollTo({top:0,behavior:'smooth'})})});
+const Q={
+lectura:[
+{text:"¿Qué son los relatos mitológicos?",options:["Noticias de periódico","Historias que proceden de culturas antiguas con dioses y héroes","Textos publicitarios","Instrucciones de un juego"],correct:1},
+{text:"¿Qué instrumento tocaba Orfeo?",options:["La flauta","El arpa","La lira","La guitarra"],correct:2},
+{text:"¿Qué efecto producía la música de Orfeo?",options:["Las fieras se amansaban y los ríos cambiaban su curso","La gente se dormía","No producía ningún efecto","Llovía siempre que tocaba"],correct:0},
+{text:"¿Quién era Eurídice?",options:["Una diosa del mar","Una ninfa que se enamoró de Orfeo","La madre de Orfeo","La hija de Hades"],correct:1},
+{text:"¿Cómo murió Eurídice?",options:["Se ahogó en la laguna Estigia","Se perdió en el laberinto","Una serpiente le mordió el talón","Cayó por un precipicio"],correct:2},
+{text:"¿Quién era Carón?",options:["El dios del inframundo","El barquero que transporta las almas de los muertos","Un héroe griego","El padre de Orfeo"],correct:1},
+{text:"¿Qué condición puso Hades para devolver a Eurídice?",options:["Orfeo debía cantar sin parar","Orfeo no podía mirar a Eurídice hasta cruzar la laguna","Orfeo debía dejar su lira","Eurídice debía quedarse un año más"],correct:1},
+{text:"¿Por qué Orfeo giró la cabeza?",options:["Escuchó un ruido","Quiso despedirse de Hades","Dudó y temió que fuera un engaño","Eurídice lo llamó"],correct:2},
+{text:"¿Qué le pasó a Eurídice cuando Orfeo la miró?",options:["Desapareció convertida en una columna de humo","Se convirtió en piedra","Volvió al mundo de los vivos","Se transformó en pájaro"],correct:0},
+{text:"¿Qué hizo Orfeo el resto de su vida?",options:["Viajó por el mundo","Se retiró a un monte a tocar cantos melancólicos","Se casó de nuevo","Gobernó Atenas"],correct:1}
+],
+vocabulario:[
+{text:"¿Qué son las siglas?",options:["Formas acortadas de palabras","Palabras formadas por las iniciales de un grupo de palabras","Palabras compuestas","Sinónimos de otras palabras"],correct:1},
+{text:"¿Cómo se escriben las siglas?",options:["En minúsculas con punto","En mayúsculas y sin punto entre las letras","Con la primera letra en mayúscula","Entre paréntesis"],correct:1},
+{text:"¿Qué significa ONG?",options:["Orden Nacional de Gobierno","Organización No Gubernamental","Oficina Nacional de Gestión","Operación Nacional Global"],correct:1},
+{text:"¿Qué es un acrónimo?",options:["Una sigla que se pronuncia como una palabra","Una abreviatura","Un sufijo","Un prefijo especial"],correct:0},
+{text:"¿Cuál de estos es un acrónimo?",options:["DNI","FMI","ovni","AEE"],correct:2},
+{text:"«Docudrama» es un acrónimo formado por…",options:["documento + drama","documental + dramático","doctor + drama","doce + drama"],correct:1},
+{text:"¿Qué son las abreviaturas?",options:["Siglas que se pronuncian","Formas acortadas de algunas palabras","Palabras compuestas","Sinónimos"],correct:1},
+{text:"¿Qué abreviatura corresponde a «número»?",options:["nm.","nro. o n.º","núm","nr"],correct:1},
+{text:"¿Qué significa la abreviatura «Dña.»?",options:["Doctora","Directora","Doña","Doncella"],correct:2},
+{text:"¿Se pueden dividir las siglas a final de línea?",options:["Sí, como cualquier palabra","No, nunca","Solo si tienen más de tres letras","Solo las que son acrónimos"],correct:1}
+],
+ortografia:[
+{text:"¿Con qué signo terminan las oraciones que contienen una pregunta?",options:["Punto","Signo de exclamación","Signo de interrogación","Puntos suspensivos"],correct:2},
+{text:"¿Con qué signo terminan las oraciones que afirman o niegan algo?",options:["Punto","Signo de interrogación","Signo de exclamación","Dos puntos"],correct:0},
+{text:"¿Se pone punto detrás del signo de cierre de interrogación (?)?",options:["Sí, siempre","No, nunca","Solo si la oración es larga","Solo en preguntas formales"],correct:1},
+{text:"Después de ? o !, ¿cómo se escribe la siguiente palabra?",options:["En minúscula","En mayúscula","No importa","Con cursiva"],correct:1},
+{text:"¿Cuál de estas oraciones está bien puntuada?",options:["¿Cuándo empezará el concierto.","¿Cuándo empezará el concierto?","¿cuándo empezará el concierto?","Cuándo empezará el concierto?"],correct:1},
+{text:"¿Cuál de estas oraciones es correcta?",options:["¡Qué susto me has dado!.","¡Qué susto me has dado!","Qué susto me has dado!","¡Qué susto me has dado."],correct:1},
+{text:"En español, los signos de interrogación se…",options:["Solo se cierran","Se abren y se cierran","Solo se abren","No se usan"],correct:1},
+{text:"¿Qué llevan las palabras interrogativas como «cuándo» o «qué»?",options:["Guion","Mayúscula especial","Tilde","Nada especial"],correct:2},
+{text:"«Menudos patines Son preciosos» — ¿Qué signos faltan?",options:["Comas","Signos de exclamación","Puntos suspensivos","Paréntesis"],correct:1},
+{text:"«Cuánto tiempo Qué ha sido de ti» — ¿Cuántas oraciones hay?",options:["Una","Dos","Tres","Cuatro"],correct:1}
+],
+gramatica:[
+{text:"¿Qué expresa el complemento circunstancial?",options:["Quién recibe la acción","Las circunstancias de la acción verbal","El destinatario de la acción","El sujeto de la oración"],correct:1},
+{text:"¿Cuál de estos es un CC de lugar?",options:["Mañana","Con mi madre","En la cocina","Demasiado"],correct:2},
+{text:"¿Cuál de estos es un CC de tiempo?",options:["En el parque","Ayer","Con unas tijeras","Bien"],correct:1},
+{text:"¿Cuál de estos es un CC de modo?",options:["Mucho","En casa","Correctamente","El lunes"],correct:2},
+{text:"¿Cuál de estos es un CC de instrumento?",options:["Mañana","Con mi padre","Con un rastrillo","En la playa"],correct:2},
+{text:"¿Cuál de estos es un CC de compañía?",options:["Con unas tijeras","En la estación","Con sus amigos","Demasiado"],correct:2},
+{text:"¿Qué puede funcionar como CC?",options:["Solo adverbios","Solo sintagmas nominales con preposición","Un sintagma nominal (con o sin preposición) o un adverbio","Solo pronombres"],correct:2},
+{text:"En «Nos sentamos en segunda fila», ¿cuál es el CC?",options:["Nos","sentamos","en segunda fila","Nos sentamos"],correct:2},
+{text:"¿Por qué adverbio se puede sustituir «en esta gaveta»?",options:["Hoy","Mucho","Aquí","Bien"],correct:2},
+{text:"En «La cantante presentará pronto a sus fans su último álbum», ¿qué es «pronto»?",options:["CD","CI","CC de tiempo","Sujeto"],correct:2}
+],
+literatura:[
+{text:"¿Qué es la personificación?",options:["Exagerar una cualidad","Atribuir facultades humanas a animales, plantas u objetos","Repetir estructuras en varios versos","Comparar dos cosas"],correct:1},
+{text:"¿Qué es la hipérbole?",options:["Atribuir cualidades humanas a objetos","Repetir estructuras en versos","Exagerar un suceso, cualidad o cantidad","Comparar usando «como»"],correct:2},
+{text:"¿Qué es el paralelismo?",options:["Exagerar una cualidad","Atribuir cualidades humanas","Repetir estructuras parecidas en varios versos u oraciones","Usar metáforas"],correct:2},
+{text:"«El sol de marzo camina sobre las huellas del frío.» ¿Qué recurso es?",options:["Hipérbole","Paralelismo","Personificación","Comparación"],correct:2},
+{text:"«La primavera para siempre se quedó.» ¿Qué recurso es?",options:["Personificación","Paralelismo","Hipérbole","Metáfora"],correct:2},
+{text:"«Que es mi barco mi tesoro, / que es mi Dios la libertad.» ¿Qué recurso es?",options:["Hipérbole","Personificación","Paralelismo","Comparación"],correct:2},
+{text:"«Este pan está más duro que una piedra.» ¿Qué recurso es?",options:["Personificación","Paralelismo","Metáfora","Hipérbole"],correct:3},
+{text:"«Mi tierra grita, / tu tierra calla.» ¿Qué dos recursos aparecen?",options:["Hipérbole y comparación","Personificación y paralelismo","Metáfora y comparación","Hipérbole y paralelismo"],correct:1},
+{text:"¿Qué aporta el paralelismo a los poemas?",options:["Tristeza","Ritmo y musicalidad","Exageración","Humor"],correct:1},
+{text:"«Los suspiros son aire y van al aire. / Las lágrimas son agua y van al mar.» ¿Qué recurso usa Bécquer?",options:["Hipérbole","Personificación","Paralelismo","Comparación"],correct:2}
+]
+};
+const QE={instances:{},create(id,qs){this.instances[id]={questions:qs,current:0,score:0,answered:false,completed:false};this.render(id)},get(id){return this.instances[id]},
+render(id){const s=this.get(id),c=document.getElementById('quiz-'+id);if(!c||s.completed)return;const q=s.questions[s.current];c.innerHTML='<div class="quiz-progress">Pregunta '+(s.current+1)+' de '+s.questions.length+'</div><div class="quiz-question">'+q.text+'</div><div class="quiz-options">'+q.options.map((o,i)=>'<button class="quiz-option" data-i="'+i+'">'+o+'</button>').join('')+'</div><div class="quiz-feedback" id="fb-'+id+'"></div>';c.querySelectorAll('.quiz-option').forEach(b=>{b.addEventListener('click',e=>{if(s.answered)return;this.answer(id,parseInt(e.currentTarget.dataset.i))})})},
+answer(id,si){const s=this.get(id);if(s.answered)return;s.answered=true;const q=s.questions[s.current],ok=si===q.correct;if(ok)s.score++;const fb=document.getElementById('fb-'+id);fb.textContent=ok?'✅ ¡Correcto!':'❌ Incorrecto. La respuesta era: '+q.options[q.correct];fb.className='quiz-feedback '+(ok?'correct':'wrong');document.getElementById('quiz-'+id).querySelectorAll('.quiz-option').forEach((b,i)=>{b.disabled=true;if(i===q.correct)b.classList.add('correct');else if(i===si&&!ok)b.classList.add('wrong')});setTimeout(()=>{s.current++;s.answered=false;if(s.current<s.questions.length)this.render(id);else this.showResult(id)},1500)},
+showResult(id){const s=this.get(id);s.completed=true;const p=Math.round(s.score/s.questions.length*100),c=document.getElementById('quiz-'+id);c.innerHTML='<div class="quiz-result"><div class="result-score">'+s.score+'/'+s.questions.length+'</div><div class="result-pct">'+p+'%</div><div class="result-msg">'+(p>=70?'🎉 ¡Muy bien! Has superado el quiz.':'📚 Repasa la sección e inténtalo de nuevo.')+'</div><button class="btn-retry" id="ret-'+id+'">🔄 Repetir quiz</button></div>';document.getElementById('ret-'+id).addEventListener('click',()=>{s.current=0;s.score=0;s.answered=false;s.completed=false;this.render(id)});ST.update(id,s.score,s.questions.length);const ch=document.getElementById('check-'+id);if(ch&&p>=70)ch.textContent=' ✅'}};
+const ST={scores:{},update(id,o,t){this.scores[id]={obtained:o,total:t};this.render()},render(){const e=Object.values(this.scores);if(!e.length)return;const o=e.reduce((s,x)=>s+x.obtained,0),t=e.reduce((s,x)=>s+x.total,0);const el=document.getElementById('global-score');if(el)el.textContent='Puntuación total: '+o+'/'+t}};
+Object.keys(Q).forEach(k=>{QE.create(k,Q[k])});
+});
+</script>
+</body>
+</html>

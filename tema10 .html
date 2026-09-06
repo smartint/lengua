@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 10 · Lengua 6.º Primaria</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f2fa;--surface:#fff;--surface-alt:#eeebf6;--accent:#7c5cbf;--accent-light:#ddd4f2;--accent-dark:#5a3e9a;--text:#1e1a2a;--text-muted:#6a6280;--border:#d4cce6;--success:#4caf82;--error:#e57373;--shadow:0 2px 14px rgba(60,40,100,.08);--tab-lectura:#e06858;--tab-informacion:#d4a030;--tab-ortografia:#5b8dee;--tab-gramatica:#3a9e6a}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Open Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+h1,h2,h3,h4{font-family:'Nunito',sans-serif}
+.header{background:linear-gradient(135deg,#7c5cbf,#6248a8);color:#fff;padding:28px 24px 22px;text-align:center;position:relative}
+.header h1{font-size:1.7rem;font-weight:800;letter-spacing:-.5px}
+.header .subtitle{font-size:.95rem;opacity:.9;margin-top:4px;font-family:'Open Sans',sans-serif}
+.header .tema-num{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.25);font-size:1.5rem;font-weight:800;margin-bottom:8px}
+#global-score{position:absolute;top:14px;right:20px;background:rgba(255,255,255,.2);padding:6px 14px;border-radius:20px;font-size:.82rem;font-weight:600}
+.nav-tabs{display:flex;flex-wrap:wrap;background:var(--surface);border-bottom:2px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.tab-btn{flex:1;min-width:110px;padding:14px 10px;border:none;background:transparent;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;color:var(--text-muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .25s}
+.tab-btn:hover{background:var(--surface-alt)}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);background:var(--accent-light)}
+.tab-btn[data-section="lectura"].active{color:var(--tab-lectura);border-bottom-color:var(--tab-lectura);background:#fde0dc}
+.tab-btn[data-section="informacion"].active{color:var(--tab-informacion);border-bottom-color:var(--tab-informacion);background:#fdf3d4}
+.tab-btn[data-section="ortografia"].active{color:var(--tab-ortografia);border-bottom-color:var(--tab-ortografia);background:#d6e4ff}
+.tab-btn[data-section="gramatica"].active{color:var(--tab-gramatica);border-bottom-color:var(--tab-gramatica);background:#d4f0e0}
+.tab-check{margin-left:4px;font-size:.8rem}
+.section{display:none;animation:fadeIn .35s ease;padding:24px 20px 40px;max-width:860px;margin:0 auto}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:var(--surface);border-radius:16px;padding:22px 24px;margin-bottom:18px;box-shadow:var(--shadow);border-left:5px solid var(--accent)}
+.card h3{font-size:1.1rem;margin-bottom:10px;color:var(--accent-dark)}
+.card p,.card li{line-height:1.7;font-size:.95rem}
+.card ul{padding-left:20px;margin-top:6px}
+.card ul li{margin-bottom:5px}
+.concepto{background:linear-gradient(135deg,var(--accent-light),var(--surface));border-left-color:var(--accent-dark)}
+.ejemplo-box{background:#faf8ff;border:1px dashed var(--border);border-radius:10px;padding:12px 16px;margin:10px 0;font-style:italic;color:var(--text-muted);font-size:.92rem}
+.section[data-color="lectura"] .card{border-left-color:var(--tab-lectura)}.section[data-color="lectura"] .card h3{color:var(--tab-lectura)}.section[data-color="lectura"] .concepto{background:linear-gradient(135deg,#fde0dc,var(--surface))}
+.section[data-color="informacion"] .card{border-left-color:var(--tab-informacion)}.section[data-color="informacion"] .card h3{color:#a07818}.section[data-color="informacion"] .concepto{background:linear-gradient(135deg,#fdf3d4,var(--surface))}
+.section[data-color="ortografia"] .card{border-left-color:var(--tab-ortografia)}.section[data-color="ortografia"] .card h3{color:var(--tab-ortografia)}.section[data-color="ortografia"] .concepto{background:linear-gradient(135deg,#d6e4ff,var(--surface))}
+.section[data-color="gramatica"] .card{border-left-color:var(--tab-gramatica)}.section[data-color="gramatica"] .card h3{color:var(--tab-gramatica)}.section[data-color="gramatica"] .concepto{background:linear-gradient(135deg,#d4f0e0,var(--surface))}
+.table-wrap{overflow-x:auto;margin:12px 0}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th{background:var(--accent-light);padding:10px 14px;text-align:left;font-weight:700;font-family:'Nunito',sans-serif}
+td{padding:9px 14px;border-bottom:1px solid var(--border)}
+tr:hover td{background:var(--surface-alt)}
+.quiz-wrap{margin-top:28px}.quiz-title{font-family:'Nunito',sans-serif;font-size:1.15rem;font-weight:800;margin-bottom:14px}
+.quiz-progress{font-size:.82rem;color:var(--text-muted);margin-bottom:8px;font-weight:600}
+.quiz-question{font-size:1.02rem;font-weight:600;margin-bottom:14px;line-height:1.6}
+.quiz-option{display:block;width:100%;padding:13px 18px;margin:7px 0;background:#f0edf6;border:2px solid var(--border);border-radius:12px;cursor:pointer;text-align:left;font-size:.93rem;font-family:'Open Sans',sans-serif;transition:background .2s,border-color .2s,transform .1s}
+.quiz-option:hover:not(:disabled){background:var(--accent-light);border-color:var(--accent);transform:translateX(3px)}
+.quiz-option.correct{background:#d4f7e0;border-color:#4caf82}.quiz-option.wrong{background:#ffe0e0;border-color:#e57373}
+.quiz-option:disabled{cursor:default;opacity:.85}
+.quiz-feedback{margin-top:10px;font-weight:700;min-height:24px;font-size:.95rem}
+.quiz-feedback.correct{color:#2e7d52}.quiz-feedback.wrong{color:#c62828}
+.quiz-result{text-align:center;padding:30px 20px}
+.result-score{font-size:2.8rem;font-weight:800;color:var(--accent)}
+.result-pct{font-size:1.1rem;color:var(--text-muted);margin:4px 0 10px}
+.result-msg{font-size:1.05rem;font-weight:700;margin-bottom:16px}
+.btn-retry{padding:11px 28px;border:none;border-radius:24px;background:var(--accent);color:#fff;font-weight:700;font-family:'Nunito',sans-serif;font-size:.95rem;cursor:pointer;transition:background .2s}
+.btn-retry:hover{background:var(--accent-dark)}
+@media(max-width:640px){.header h1{font-size:1.3rem}.tab-btn{font-size:.72rem;padding:11px 6px;min-width:0}.section{padding:16px 14px 30px}.card{padding:16px}#global-score{position:static;margin-top:10px;display:inline-block}}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="tema-num">10</div>
+  <h1>Lengua · Tema 10</h1>
+  <p class="subtitle">6.º Primaria — Santillana Canarias</p>
+  <div id="global-score">Puntuación total: —</div>
+</header>
+<nav class="nav-tabs">
+  <button class="tab-btn active" data-section="lectura">📢 Publicidad<span class="tab-check" id="check-lectura"></span></button>
+  <button class="tab-btn" data-section="informacion">🔎 Información<span class="tab-check" id="check-informacion"></span></button>
+  <button class="tab-btn" data-section="ortografia">✏️ Ortografía<span class="tab-check" id="check-ortografia"></span></button>
+  <button class="tab-btn" data-section="gramatica">🔧 Gramática<span class="tab-check" id="check-gramatica"></span></button>
+</nav>
+
+<!-- LECTURA -->
+<div class="section active" id="sec-lectura" data-color="lectura">
+  <div class="card concepto">
+    <h3>📢 Los textos publicitarios</h3>
+    <p>A diario recibimos mensajes que nos animan a comprar un producto, acudir a un lugar o actuar de una determinada manera. Son los <strong>textos publicitarios</strong>. Para conseguir su objetivo, intentan <strong>informarnos y convencernos</strong> a la vez.</p>
+    <p style="margin-top:8px">Aparecen en medios de comunicación (televisión, radio, prensa, internet…) y en espacios como vallas y escaparates.</p>
+  </div>
+  <div class="card">
+    <h3>📋 Los anuncios</h3>
+    <p>Entre los textos publicitarios más comunes están los <strong>anuncios</strong>, que combinan <strong>palabras e imágenes</strong>.</p>
+    <ul>
+      <li><strong>El eslogan:</strong> texto breve y fácil de recordar que usa juegos de palabras, asociaciones de ideas o frases hechas.</li>
+      <li><strong>Las imágenes:</strong> tratan de sugerir una determinada idea.</li>
+      <li><strong>La música y los efectos sonoros</strong> (en TV e internet) contribuyen a subrayar la idea del anuncio.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>🏝️ Anuncios del tema</h3>
+    <p>Los anuncios estudiados son campañas institucionales sobre alimentación saludable:</p>
+    <ul>
+      <li><strong>A:</strong> «Comiendo bien vivirá mejor» — Alimentación saludable (Gobierno de Canarias).</li>
+      <li><strong>B:</strong> «Come variado» — Alimentación variada (Gobierno de La Rioja).</li>
+      <li><strong>C:</strong> «Está en tu tierra, está en ti» — Productos locales (Diputación de Granada).</li>
+      <li><strong>D:</strong> «Elige comer sano. ¡Tú ganas!» — Más fruta y verdura (Gobierno Vasco).</li>
+    </ul>
+    <p style="margin-top:8px">Se dirigen a los consumidores y usan formas de <strong>imperativo</strong> y <strong>pronombres de segunda persona</strong> para dirigirse al destinatario.</p>
+  </div>
+  <div class="quiz-wrap"><div class="quiz-title">🧩 Quiz — Publicidad</div><div id="quiz-lectura"></div></div>
+</div>
+
+<!-- INFORMACIÓN -->
+<div class="section" id="sec-informacion" data-color="informacion">
+  <div class="card concepto">
+    <h3>🎣 ¿Qué pretende el texto?</h3>
+    <p>Las redes sociales facilitan la comunicación, pero es importante conocer la <strong>intención</strong> de quien transmite un mensaje: informar, convencer, conseguir seguidores…</p>
+  </div>
+  <div class="card">
+    <h3>⚠️ El ciberanzuelo (clickbait)</h3>
+    <p>Un <strong>ciberanzuelo</strong> es un contenido que trata de <strong>llamar la atención</strong> para que se haga clic sobre él. Se llama así porque, como un anzuelo, intenta «atrapar» al lector.</p>
+    <div class="ejemplo-box">
+      Titular riguroso: «Dieta mediterránea: qué es y cuáles son sus beneficios»<br><br>
+      Ciberanzuelo: «¡Por fin sabrás cómo perder grasa sin pasar hambre con la dieta mediterránea!»
+    </div>
+  </div>
+  <div class="card">
+    <h3>🔍 ¿Cómo distinguirlos?</h3>
+    <ul>
+      <li>Las <strong>noticias de medios fiables</strong> pretenden informar de forma objetiva.</li>
+      <li>Los <strong>ciberanzuelos</strong> usan titulares exagerados, promesas increíbles y llamadas urgentes a la acción.</li>
+      <li>Siempre hay que comprobar la <strong>fuente</strong> del texto y su <strong>intención real</strong>.</li>
+    </ul>
+  </div>
+  <div class="quiz-wrap"><div class="quiz-title">🧩 Quiz — Información y ciberanzuelos</div><div id="quiz-informacion"></div></div>
+</div>
+
+<!-- ORTOGRAFÍA -->
+<div class="section" id="sec-ortografia" data-color="ortografia">
+  <div class="card concepto">
+    <h3>➖ El guion</h3>
+    <p>Se escribe <strong>guion (-)</strong> para indicar que una palabra se ha dividido a final de línea y continúa en la línea siguiente. Las palabras se dividen <strong>por sílabas</strong>.</p>
+  </div>
+  <div class="card">
+    <h3>📏 Normas de división</h3>
+    <ul>
+      <li><strong>No se puede dejar una vocal sola</strong> al final de un renglón. → <em>acel-ga</em> ✅, pero <em>a-celga</em> ❌</li>
+      <li><strong>No se pueden separar vocales que van seguidas.</strong> → <em>barba-coa</em> ✅, pero <em>barbaco-a</em> ❌</li>
+      <li><strong>No se pueden separar los dígrafos ll, ch y rr.</strong> → <em>cuchi-llo</em> ✅, pero <em>cuchil-lo</em> ❌</li>
+      <li>El grupo <strong>cc</strong> sí puede dividirse porque cada c pertenece a una sílaba distinta. → <em>recolec-ción</em> ✅</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>📝 Ejemplos</h3>
+    <div class="table-wrap">
+    <table>
+      <tr><th>Palabra</th><th>Divisiones correctas</th></tr>
+      <tr><td>restaurante</td><td>res-taurante / restau-rante / restauran-te</td></tr>
+      <tr><td>quesadilla</td><td>que-sadilla / quesa-dilla / quesadi-lla</td></tr>
+      <tr><td>carretilla</td><td>ca-rretilla / carre-tilla / carreti-lla</td></tr>
+      <tr><td>cafetería</td><td>ca-fetería / cafe-tería / cafete-ría</td></tr>
+    </table>
+    </div>
+    <div class="ejemplo-box">
+      <strong>Palabras que NO se pueden dividir:</strong> amor, oro, eco, aún (dejaríamos una vocal sola o separaríamos vocales seguidas).
+    </div>
+  </div>
+  <div class="quiz-wrap"><div class="quiz-title">🧩 Quiz — Ortografía</div><div id="quiz-ortografia"></div></div>
+</div>
+
+<!-- GRAMÁTICA -->
+<div class="section" id="sec-gramatica" data-color="gramatica">
+  <div class="card concepto">
+    <h3>📌 El predicado y sus complementos</h3>
+    <p>El <strong>verbo</strong> es el núcleo del predicado. Lo más frecuente es que aparezca acompañado de <strong>complementos</strong>: el complemento directo (CD), el complemento indirecto (CI) y el complemento circunstancial (CC).</p>
+  </div>
+  <div class="card">
+    <h3>🎯 El complemento directo (CD)</h3>
+    <p>Nombra a la persona, animal o cosa que <strong>recibe la acción</strong> del verbo.</p>
+    <div class="ejemplo-box">El frutero <strong>vende</strong> <u>frutas y verduras</u>. → CD: frutas y verduras</div>
+    <ul>
+      <li>Si nombra a una persona, suele ir precedido de la preposición <strong>a</strong>. → <em>Mi hermana recibió <strong>a</strong> nuestros invitados.</em></li>
+      <li>Se puede sustituir por los pronombres <strong>lo, la, los, las</strong>. → <em>Preparamos un arroz → <strong>Lo</strong> preparamos.</em></li>
+      <li>Los pronombres átonos <strong>me, te, se, lo, la, nos, os, los, las</strong> también pueden funcionar como CD.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>🎁 El complemento indirecto (CI)</h3>
+    <p>Nombra al <strong>destinatario</strong> de la acción expresada por el verbo + CD.</p>
+    <div class="ejemplo-box">Los clientes <strong>pidieron</strong> <u>la carta</u> <u>al camarero</u>. → CD: la carta / CI: al camarero</div>
+    <ul>
+      <li>Lleva delante la preposición <strong>a</strong> y se puede sustituir por <strong>le</strong> o <strong>les</strong>. → <em>Entregó un paquete a mi vecina → <strong>Le</strong> entregó un paquete.</em></li>
+      <li>Los pronombres átonos <strong>me, te, le, nos, os, les, se</strong> también pueden funcionar como CI.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>⚠️ ¡No confundir CD de persona y CI!</h3>
+    <p>Ambos llevan la preposición <em>a</em>, pero cumplen funciones distintas:</p>
+    <div class="ejemplo-box">
+      <strong>Vio a un compañero.</strong> → CD (recibe la acción directamente, se sustituye por <em>lo</em>)<br>
+      <strong>Dio parte de la merienda a un compañero.</strong> → CI (destinatario, se sustituye por <em>le</em>)
+    </div>
+  </div>
+  <div class="quiz-wrap"><div class="quiz-title">🧩 Quiz — Gramática</div><div id="quiz-gramatica"></div></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+const tabs=document.querySelectorAll('.tab-btn'),sections=document.querySelectorAll('.section');
+tabs.forEach(b=>{b.addEventListener('click',()=>{const t=b.dataset.section;tabs.forEach(x=>x.classList.remove('active'));b.classList.add('active');sections.forEach(s=>{s.classList.remove('active');if(s.id==='sec-'+t)s.classList.add('active')});window.scrollTo({top:0,behavior:'smooth'})})});
+
+const Q={
+lectura:[
+{text:"¿Qué son los textos publicitarios?",options:["Textos informativos de un periódico","Mensajes que nos animan a comprar, actuar o acudir a un lugar","Textos literarios con rima","Instrucciones de uso de un producto"],correct:1},
+{text:"¿Cuál es el objetivo principal de los anuncios?",options:["Avisar de riesgos","Obligar a la gente","Convencer a los consumidores","Entretener a los niños"],correct:2},
+{text:"¿Qué es un eslogan?",options:["Un texto largo y detallado","Un texto breve y fácil de recordar","Una canción publicitaria","El precio del producto"],correct:1},
+{text:"¿Qué recursos se usan en los eslóganes?",options:["Datos estadísticos complejos","Juegos de palabras, asociaciones de ideas y frases hechas","Ecuaciones matemáticas","Definiciones de diccionario"],correct:1},
+{text:"¿Dónde pueden aparecer los textos publicitarios?",options:["Solo en televisión","Solo en internet","En medios de comunicación, vallas, escaparates…","Solo en periódicos"],correct:2},
+{text:"¿Qué campaña promovía el eslogan «Está en tu tierra, está en ti»?",options:["Alimentación saludable","Alimentación variada","Consumo de productos locales","Más fruta y verdura"],correct:2},
+{text:"¿Qué organismo patrocinó el anuncio «Comiendo bien vivirá mejor»?",options:["Gobierno de La Rioja","Gobierno Vasco","Diputación de Granada","Gobierno de Canarias"],correct:3},
+{text:"¿Qué formas verbales se usan mucho en los anuncios para dirigirse al público?",options:["Pasado simple","Imperativo y segunda persona","Subjuntivo y tercera persona","Infinitivo y primera persona"],correct:1},
+{text:"En los anuncios de TV, además de imágenes, ¿qué otros elementos son importantes?",options:["Solo el texto escrito","Música y efectos sonoros","El nombre del director","Los subtítulos"],correct:1},
+{text:"¿A quién se dirigen los anuncios sobre alimentación saludable del tema?",options:["Solo a niños","Solo a deportistas","A los consumidores en general","Solo a médicos"],correct:2}
+],
+informacion:[
+{text:"¿Qué es un ciberanzuelo o clickbait?",options:["Una noticia objetiva y contrastada","Un contenido que trata de llamar la atención para que se haga clic","Un tipo de virus informático","Una red social nueva"],correct:1},
+{text:"¿Por qué se llama «ciberanzuelo»?",options:["Porque es muy largo","Porque, como un anzuelo, intenta atrapar al lector","Porque siempre habla de pesca","Porque es muy fiable"],correct:1},
+{text:"¿Cuál de estos titulares parece un ciberanzuelo?",options:["Dieta mediterránea: qué es y cuáles son sus beneficios","¡Por fin sabrás cómo perder grasa sin pasar hambre!","Mitos y verdades en torno a la dieta mediterránea","Estudio sobre alimentación publicado por la OMS"],correct:1},
+{text:"¿Qué es importante conocer siempre que recibimos un texto?",options:["El tamaño de la letra","La intención de quien lo transmite","El número de palabras","El color del fondo"],correct:1},
+{text:"¿Qué intención tiene una noticia de un medio de comunicación fiable?",options:["Vender un producto","Informar de forma objetiva","Conseguir seguidores","Engañar al lector"],correct:1},
+{text:"¿Qué información es más fiable?",options:["Un mensaje anónimo en redes sociales","Una noticia de un medio de comunicación reconocido","Un ciberanzuelo con muchos emojis","Un titular con muchas exclamaciones"],correct:1},
+{text:"¿Para qué se crean los ciberanzuelos?",options:["Para informar con rigor","Para que la gente clique sobre ellos","Para educar a los niños","Para mejorar la ortografía"],correct:1},
+{text:"Las redes sociales son…",options:["Solo un medio de entretenimiento","Un medio de comunicación que también puede contener información no fiable","Siempre fuentes fiables","Solo para adultos"],correct:1},
+{text:"¿Qué debemos comprobar de un texto en redes sociales?",options:["Que tenga muchos «me gusta»","Su fuente y su intención real","Que sea largo","Que tenga imágenes bonitas"],correct:1},
+{text:"Un texto que dice «¡¡ENHORABUENA!! ¡Tú puedes ser el próximo ganador!» probablemente es…",options:["Una noticia objetiva","Un texto educativo","Un ciberanzuelo o contenido engañoso","Un artículo científico"],correct:2}
+],
+ortografia:[
+{text:"¿Para qué se usa el guion (-) a final de línea?",options:["Para indicar un diálogo","Para indicar que una palabra se divide y continúa en la siguiente línea","Para separar sujeto y predicado","Para señalar un título"],correct:1},
+{text:"¿Cómo se dividen las palabras a final de línea?",options:["Por letras","Por sílabas","Por la mitad exacta","De cualquier forma"],correct:1},
+{text:"¿Se puede dejar una vocal sola al final de un renglón?",options:["Sí, siempre","No, nunca","Solo si es la letra a","Solo en palabras largas"],correct:1},
+{text:"¿Se pueden separar vocales que van seguidas?",options:["Sí, siempre","No","Solo si son iguales","Solo en diptongos"],correct:1},
+{text:"¿Se pueden separar los dígrafos ll, ch y rr?",options:["Sí, siempre","Solo ll y ch","No, nunca","Solo rr"],correct:2},
+{text:"¿Cuál de estas divisiones es CORRECTA?",options:["a-celga","acel-ga","ac-elga","acelg-a"],correct:1},
+{text:"¿Cuál de estas divisiones es INCORRECTA?",options:["cuchi-llo","barba-coa","bombil-la","restau-rante"],correct:2},
+{text:"La palabra «área» NO se puede dividir a final de línea porque…",options:["Es muy corta","Dejaríamos una vocal sola o separaríamos vocales seguidas","Tiene un acento","Tiene tres sílabas"],correct:1},
+{text:"¿Puede dividirse el grupo «cc»?",options:["No, nunca","Sí, porque cada c pertenece a una sílaba distinta","Solo al final de palabra","Solo en palabras largas"],correct:1},
+{text:"¿Cuántas formas de dividir tiene «cafetería»?",options:["Una","Dos","Tres","No se puede dividir"],correct:2}
+],
+gramatica:[
+{text:"¿Qué es el complemento directo (CD)?",options:["El sujeto de la oración","La persona, animal o cosa que recibe la acción del verbo","El lugar donde ocurre la acción","El tiempo en que ocurre la acción"],correct:1},
+{text:"¿Por qué pronombres se puede sustituir el CD?",options:["Le, les","Me, te","Lo, la, los, las","Él, ella"],correct:2},
+{text:"En «Mi tío restauró un mueble antiguo», ¿cuál es el CD?",options:["Mi tío","restauró","un mueble antiguo","antiguo"],correct:2},
+{text:"¿Qué es el complemento indirecto (CI)?",options:["El que recibe la acción del verbo","El destinatario de la acción expresada por verbo + CD","El lugar de la acción","El que realiza la acción"],correct:1},
+{text:"¿Por qué pronombres se puede sustituir el CI?",options:["Lo, la, los, las","Le, les","Él, ella","Me, nos"],correct:1},
+{text:"En «Silvia contó una anécdota a Andrea», ¿cuál es el CI?",options:["Silvia","una anécdota","contó","a Andrea"],correct:3},
+{text:"En «Lucas saludó a su prima», ¿«a su prima» es CD o CI?",options:["CD (recibe la acción directamente)","CI (es la destinataria)","Sujeto","Complemento circunstancial"],correct:0},
+{text:"En «Vera pidió un vaso de agua al camarero», ¿«al camarero» es CD o CI?",options:["CD","CI","Sujeto","Complemento circunstancial"],correct:1},
+{text:"¿Cómo distinguir un CD de persona de un CI?",options:["El CD se sustituye por lo/la/los/las; el CI por le/les","No se pueden distinguir","El CI nunca lleva preposición","El CD siempre es un objeto"],correct:0},
+{text:"En «Clara me prestó su libro favorito», ¿qué función tiene «me»?",options:["Complemento directo","Sujeto","Complemento indirecto","Complemento circunstancial"],correct:2}
+]
+};
+
+const QE={instances:{},
+create(id,qs){this.instances[id]={questions:qs,current:0,score:0,answered:false,completed:false};this.render(id)},
+get(id){return this.instances[id]},
+render(id){const s=this.get(id),c=document.getElementById('quiz-'+id);if(!c||s.completed)return;const q=s.questions[s.current];
+c.innerHTML='<div class="quiz-progress">Pregunta '+(s.current+1)+' de '+s.questions.length+'</div><div class="quiz-question">'+q.text+'</div><div class="quiz-options">'+q.options.map((o,i)=>'<button class="quiz-option" data-i="'+i+'">'+o+'</button>').join('')+'</div><div class="quiz-feedback" id="fb-'+id+'"></div>';
+c.querySelectorAll('.quiz-option').forEach(b=>{b.addEventListener('click',e=>{if(s.answered)return;this.answer(id,parseInt(e.currentTarget.dataset.i))})})},
+answer(id,si){const s=this.get(id);if(s.answered)return;s.answered=true;const q=s.questions[s.current],ok=si===q.correct;if(ok)s.score++;
+const fb=document.getElementById('fb-'+id);fb.textContent=ok?'✅ ¡Correcto!':'❌ Incorrecto. La respuesta era: '+q.options[q.correct];fb.className='quiz-feedback '+(ok?'correct':'wrong');
+document.getElementById('quiz-'+id).querySelectorAll('.quiz-option').forEach((b,i)=>{b.disabled=true;if(i===q.correct)b.classList.add('correct');else if(i===si&&!ok)b.classList.add('wrong')});
+setTimeout(()=>{s.current++;s.answered=false;if(s.current<s.questions.length)this.render(id);else this.showResult(id)},1500)},
+showResult(id){const s=this.get(id);s.completed=true;const pct=Math.round(s.score/s.questions.length*100),c=document.getElementById('quiz-'+id);
+c.innerHTML='<div class="quiz-result"><div class="result-score">'+s.score+'/'+s.questions.length+'</div><div class="result-pct">'+pct+'%</div><div class="result-msg">'+(pct>=70?'🎉 ¡Muy bien! Has superado el quiz.':'📚 Repasa la sección e inténtalo de nuevo.')+'</div><button class="btn-retry" id="ret-'+id+'">🔄 Repetir quiz</button></div>';
+document.getElementById('ret-'+id).addEventListener('click',()=>{s.current=0;s.score=0;s.answered=false;s.completed=false;this.render(id)});
+ST.update(id,s.score,s.questions.length);const ch=document.getElementById('check-'+id);if(ch&&pct>=70)ch.textContent=' ✅'}
+};
+const ST={scores:{},update(id,o,t){this.scores[id]={obtained:o,total:t};this.render()},render(){const e=Object.values(this.scores);if(!e.length)return;const o=e.reduce((s,x)=>s+x.obtained,0),t=e.reduce((s,x)=>s+x.total,0);const el=document.getElementById('global-score');if(el)el.textContent='Puntuación total: '+o+'/'+t}};
+Object.keys(Q).forEach(k=>{QE.create(k,Q[k])});
+});
+</script>
+</body>
+</html>

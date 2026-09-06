@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tema 2 · lengua 6.º primaria</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f7ff;
+  --surface: #ffffff;
+  --surface-alt: #eef1fb;
+  --accent: #e35f3a;
+  --accent2: #f4a94a;
+  --accent3: #5b8dee;
+  --accent4: #4caf82;
+  --accent-light: #fde8e2;
+  --text: #1e2a3a;
+  --text-muted: #6b7a99;
+  --border: #dde3f0;
+  --success: #4caf82;
+  --error: #e57373;
+  --shadow: 0 2px 14px rgba(0,0,0,0.08);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+header {
+  background: linear-gradient(135deg, #4caf82 0%, #2e7d52 100%);
+  color: white;
+  padding: 20px 28px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 3px 16px rgba(76,175,130,0.3);
+}
+.header-icon { font-size: 2.4rem; }
+.header-text h1 { font-family: 'Nunito', sans-serif; font-size: 1.5rem; font-weight: 800; line-height: 1.2; }
+.header-text p { font-size: 0.88rem; opacity: 0.88; margin-top: 2px; }
+.global-score-wrap {
+  margin-left: auto;
+  background: rgba(255,255,255,0.22);
+  border-radius: 12px;
+  padding: 8px 16px;
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+}
+.global-score-wrap .label { font-size: 0.72rem; opacity: 0.85; }
+#global-score { font-size: 1.3rem; font-weight: 800; }
+
+/* ── NAV ── */
+nav {
+  background: var(--surface);
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  overflow-x: auto;
+  padding: 0 12px;
+  gap: 4px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+nav::-webkit-scrollbar { display: none; }
+.tab-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 12px 14px;
+  min-height: 48px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.tab-btn:hover { color: var(--accent4); }
+.tab-btn.active { color: var(--accent4); border-bottom-color: var(--accent4); }
+.tab-btn .check { color: var(--success); font-size: 0.75rem; }
+
+/* ── MAIN ── */
+main { max-width: 860px; margin: 0 auto; padding: 28px 20px 60px; }
+
+/* ── SECTIONS ── */
+.section { display: none; animation: fadeIn 0.3s ease; }
+.section.active { display: block; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+.section-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--accent4);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-title span { font-size: 1.6rem; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 20px 22px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--accent4);
+}
+.card.blue { border-left-color: var(--accent3); }
+.card.red { border-left-color: var(--accent); }
+.card.orange { border-left-color: var(--accent2); }
+.card h3 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.card p { font-size: 0.93rem; line-height: 1.65; color: var(--text); margin-bottom: 6px; }
+.card ul { padding-left: 18px; }
+.card li { font-size: 0.93rem; line-height: 1.7; }
+
+.concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 16px; }
+.concept-card {
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 16px 18px;
+  box-shadow: var(--shadow);
+  border-top: 4px solid var(--accent4);
+}
+.concept-card.blue { border-top-color: var(--accent3); }
+.concept-card.red { border-top-color: var(--accent); }
+.concept-card.orange { border-top-color: var(--accent2); }
+.concept-card .icon { font-size: 1.8rem; margin-bottom: 6px; }
+.concept-card h4 { font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 800; margin-bottom: 5px; }
+.concept-card p { font-size: 0.85rem; line-height: 1.55; color: var(--text-muted); }
+
+.highlight-box {
+  background: #e0f7ef;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 14px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  border-left: 4px solid var(--accent4);
+}
+.highlight-box.blue { background: #e6eeff; border-left-color: var(--accent3); }
+.highlight-box.red { background: var(--accent-light); border-left-color: var(--accent); }
+.highlight-box.orange { background: #fff4e0; border-left-color: var(--accent2); }
+
+.example-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0;
+}
+.tag {
+  background: var(--surface-alt);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.tag.red { background: var(--accent-light); border-color: #f5b5a0; color: #b84020; }
+.tag.blue { background: #e6eeff; border-color: #b3c8f8; color: #2a4da0; }
+.tag.green { background: #e0f7ef; border-color: #a0d8bc; color: #1e6645; }
+.tag.orange { background: #fff4e0; border-color: #f5d4a0; color: #7a4c00; }
+
+table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.88rem; }
+th { background: var(--surface-alt); padding: 9px 12px; text-align: left; font-family: 'Nunito', sans-serif; font-weight: 700; border-bottom: 2px solid var(--border); }
+td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+tr:last-child td { border-bottom: none; }
+
+/* ── QUIZ ── */
+.quiz-wrap {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 24px 24px 20px;
+  margin-top: 24px;
+  box-shadow: var(--shadow);
+  border-top: 4px solid var(--accent3);
+}
+.quiz-wrap h3 {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  margin-bottom: 16px;
+  color: var(--accent3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.quiz-progress { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; font-weight: 600; }
+.quiz-question { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 14px; line-height: 1.5; }
+.quiz-option {
+  display: block;
+  width: 100%;
+  padding: 14px 16px;
+  margin: 8px 0;
+  background: #f0f4ff;
+  border: 2px solid #c8d8f8;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.92rem;
+  font-family: 'Open Sans', sans-serif;
+  transition: background 0.18s, border-color 0.18s;
+  min-height: 48px; 
+}
+.quiz-option:hover:not(:disabled) { background: #ddeaff; border-color: #7aabf7; }
+.quiz-option.correct { background: #d4f7e0; border-color: #4caf82; }
+.quiz-option.wrong   { background: #ffe0e0; border-color: #e57373; }
+.quiz-feedback { margin-top: 10px; font-weight: 700; min-height: 22px; font-size: 0.93rem; }
+.quiz-feedback.correct { color: #2e7d52; }
+.quiz-feedback.wrong   { color: #c62828; }
+.quiz-result { text-align: center; padding: 20px 0 10px; }
+.result-score { font-family: 'Nunito', sans-serif; font-size: 2.8rem; font-weight: 800; color: var(--accent3); }
+.result-pct { font-size: 1.1rem; color: var(--text-muted); margin: 4px 0 10px; }
+.result-msg { font-size: 1rem; font-weight: 600; margin-bottom: 16px; }
+.btn-retry {
+  background: var(--accent3);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 24px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  min-height: 48px;
+}
+.btn-retry:hover { opacity: 0.88; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-icon">🌲</div>
+  <div class="header-text">
+    <h1>Tema 2 · Lengua 6.º Primaria</h1>
+    <p>Los bosques · Un árbol muy canario</p>
+  </div>
+  <div class="global-score-wrap">
+    <div class="label">Puntuación global</div>
+    <div id="global-score">–</div>
+  </div>
+</header>
+
+<nav id="main-nav">
+  <button class="tab-btn active" data-section="s1">🌲 La descripción</button>
+  <button class="tab-btn" data-section="s2">🔎 Contrastar información</button>
+  <button class="tab-btn" data-section="s3">✏️ Diptongos e hiatos</button>
+  <button class="tab-btn" data-section="s4">📝 Demostrativos y posesivos</button>
+  <button class="tab-btn" data-section="s5">🌿 Botánica canaria</button>
+  <button class="tab-btn" data-section="s6">🌟 Repaso final</button>
+</nav>
+
+<main>
+
+<section id="s1" class="section active">
+  <div class="section-title"><span>🌲</span> La descripción y el Pino Canario</div>
+
+  <div class="highlight-box">
+    <strong>Las descripciones</strong> son textos en los que se presentan los rasgos característicos de alguien o algo para que otras personas se hagan una idea de cómo es.
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card blue">
+      <div class="icon">📋</div>
+      <h4>Descripción Objetiva</h4>
+      <p>Intenta reflejar la realidad tal como es, sin expresar opiniones ni valoraciones personales.<br><em>Ej: El pájaro tiene el pico anaranjado.</em></p>
+    </div>
+    <div class="concept-card orange">
+      <div class="icon">🎨</div>
+      <h4>Descripción Subjetiva</h4>
+      <p>Intenta dar una visión personal. Selecciona los rasgos y añade la impresión o sentimientos que producen.<br><em>Ej: Es un pájaro extraordinariamente hermoso.</em></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>El pino canario (Pinus canariensis)</h3>
+    <p>Es un árbol exclusivo, resistente y que se adapta a todo. Representa más de la mitad de los árboles de Canarias y forma parte del paisaje y las tradiciones de las islas.</p>
+    <ul>
+      <li><strong>Altura y forma:</strong> Son esbeltos, crecen rápido (15-20 metros). De jóvenes tienen forma de cono, pero al envejecer adoptan la silueta de una sombrilla.</li>
+      <li><strong>El tronco:</strong> Liso y marrón claro al principio. Con el tiempo se vuelve rojizo, grueso y rugoso. Su gruesa corteza le permite <strong>sobrevivir a los incendios</strong>.</li>
+      <li><strong>Raíces:</strong> Son muy potentes y le permiten crecer en suelos pobres o rocosos. Prefiere los ambientes secos y soleados.</li>
+      <li><strong>Aprovechamiento:</strong> Sus piñones como alimento; sus hojas secas para colchones; y la <strong>tea</strong> (la parte interior de la madera) para vigas y balcones.</li>
+    </ul>
+  </div>
+
+  <div class="card red">
+    <h3>Un gigante de récord</h3>
+    <p>El <strong>Pino de las Dos Pernadas</strong> se encuentra en Vilaflor de Chasna (Tenerife). Es uno de los árboles más altos de toda España, ¡alcanza los 56 metros de altura!</p>
+  </div>
+
+  <div id="quiz-s1" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<section id="s2" class="section">
+  <div class="section-title"><span>🔎</span> Contrastar información: ¿Esto es cierto?</div>
+
+  <div class="highlight-box blue">
+    Muchos de los textos que leemos en internet, noticias o redes sociales contienen datos, cifras y fechas. Si la fuente es desconocida o poco fiable, <strong>debemos comprobar si los datos son correctos.</strong>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="icon">🕵️</div>
+      <h4>Evitar la desinformación</h4>
+      <p>Comprobar los datos en distintas fuentes evita que creamos noticias falsas y que las compartamos con los demás.</p>
+    </div>
+    <div class="concept-card red">
+      <div class="icon">🏛️</div>
+      <h4>Fuentes fiables</h4>
+      <p>Es importante acudir a páginas de instituciones académicas, organizaciones internacionales oficiales o revistas de prestigio.</p>
+    </div>
+    <div class="concept-card orange">
+      <div class="icon">🔗</div>
+      <h4>Citar las fuentes</h4>
+      <p>Cuando hacemos un trabajo de clase, siempre debemos mencionar (citar) de dónde hemos sacado la información.</p>
+    </div>
+  </div>
+
+  <div id="quiz-s2" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<section id="s3" class="section">
+  <div class="section-title"><span>✏️</span> Ortografía: Acentuación de diptongos e hiatos</div>
+
+  <div class="card blue">
+    <h3>Diptongos</h3>
+    <p>Las palabras con diptongo siguen las <strong>mismas normas de acentuación</strong> que el resto de las palabras (agudas, llanas, esdrújulas).</p>
+    <ul>
+      <li>Si llevan tilde, se coloca sobre la <strong>vocal abierta</strong> (a, e, o).<br><em>Ejemplo: bonsái, acuático, estiércol.</em></li>
+      <li>Si el diptongo está formado solo por vocales cerradas (i, u), la tilde se coloca sobre <strong>la segunda vocal</strong>.<br><em>Ejemplo: cuídate, interviú.</em></li>
+    </ul>
+  </div>
+
+  <div class="card red">
+    <h3>Hiatos</h3>
+    <p>Las palabras con hiato también siguen las normas generales, <strong>EXCEPTO en un caso especial:</strong></p>
+    <div class="highlight-box red">
+      Cuando el hiato está formado por una <strong>vocal cerrada tónica (i, u) y una abierta (a, e, o)</strong>, lleva SIEMPRE tilde sobre la vocal cerrada, sin importar las reglas.<br>
+      <em>Ejemplos: guía, sandía, vehículo, cacatúa, reír.</em>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Observa estos ejemplos</h3>
+    <table>
+      <tr><th>Palabra</th><th>Tipo</th><th>¿Por qué lleva tilde?</th></tr>
+      <tr><td><strong>huésped</strong></td><td>Diptongo (ue)</td><td>Es llana terminada en 'd'. Tilde en la vocal abierta (e).</td></tr>
+      <tr><td><strong>policía</strong></td><td>Hiato (ía)</td><td>Vocal cerrada tónica + abierta. Siempre lleva tilde.</td></tr>
+      <tr><td><strong>caótico</strong></td><td>Hiato (aó)</td><td>Son dos vocales abiertas, sigue las reglas. Es esdrújula.</td></tr>
+      <tr><td><strong>vehículo</strong></td><td>Hiato (ícu)</td><td>La 'h' intercalada no impide el hiato. Cerrada tónica + abierta.</td></tr>
+    </table>
+  </div>
+
+  <div id="quiz-s3" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<section id="s4" class="section">
+  <div class="section-title"><span>📝</span> Gramática: Demostrativos y posesivos</div>
+
+  <div class="concept-grid">
+    <div class="concept-card blue">
+      <div class="icon">📍</div>
+      <h4>Los Demostrativos</h4>
+      <p>Señalan seres u objetos y expresan la distancia: <strong>cercanía</strong> (este), <strong>distancia media</strong> (ese) o <strong>lejanía</strong> (aquel).</p>
+    </div>
+    <div class="concept-card orange">
+      <div class="icon">🎒</div>
+      <h4>Los Posesivos</h4>
+      <p>Expresan a quién pertenece algo (1.ª, 2.ª o 3.ª persona) y si hay <strong>un poseedor</strong> (mi, tu) o <strong>varios</strong> (nuestro).</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Funciones en el Sintagma Nominal</h3>
+    <p>Tanto demostrativos como posesivos pueden cumplir diferentes funciones según su posición respecto al sustantivo:</p>
+    <table>
+      <tr><th>Función</th><th>Posición</th><th>Ejemplo Demostrativo</th><th>Ejemplo Posesivo</th></tr>
+      <tr><td><strong>Determinante</strong></td><td>Delante del sustantivo</td><td><em><strong>esta</strong> montaña</em></td><td><em><strong>su</strong> cabaña</em></td></tr>
+      <tr><td><strong>Complemento</strong></td><td>Detrás del sustantivo</td><td><em>el pino <strong>aquel</strong></em></td><td><em>la cabaña <strong>suya</strong></em></td></tr>
+      <tr><td><strong>Núcleo</strong></td><td>Aparece solo</td><td><em><strong>Eso</strong> es fantástico.</em></td><td><em>-</em></td></tr>
+    </table>
+  </div>
+
+  <div class="highlight-box red">
+    <strong>¡Cuidado con la "a" tónica!</strong> Delante de sustantivos femeninos que empiezan por <em>a-</em> o <em>ha-</em> tónicas, debemos usar los demostrativos femeninos, no masculinos.<br>
+    ✅ <em><strong>esta</strong> agua, <strong>esa</strong> águila, <strong>aquella</strong> hacha</em><br>
+    ❌ <em>este agua, ese águila</em> (Incorrecto)
+  </div>
+
+  <div id="quiz-s4" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<section id="s5" class="section">
+  <div class="section-title"><span>🌿</span> Tarea: Atlas de Botánica Canaria</div>
+
+  <div class="highlight-box">
+    Las Islas Canarias poseen una flora única en el mundo. Al crear un atlas botánico, organizamos la información científica (nombre científico, hábitat, usos y características) junto a imágenes ilustrativas.
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="icon">🌵</div>
+      <h4>Cardón (Euforbio)</h4>
+      <p><em>Euphorbia canariensis</em>. Arbusto parecido a un cactus. Tiene tallos carnosos sin hojas que crecen verticalmente (2-4m) y frutos rojizos. Vive en casi todas las islas, desde la costa hasta los 600m.</p>
+    </div>
+    <div class="concept-card red">
+      <div class="icon">🐉</div>
+      <h4>El Drago</h4>
+      <p>Símbolo de la vegetación canaria. Su nombre viene del latín <em>drac</em> (dragón). Su resina roja es muy famosa y se conoce históricamente como «sangre de drago».</p>
+    </div>
+    <div class="concept-card blue">
+      <div class="icon">💧</div>
+      <h4>El Árbol Garoé</h4>
+      <p>Un tilo legendario de la isla de El Hierro. Era sagrado para los aborígenes bimbaches porque sus hojas recogían el agua de la niebla, evitando que pasaran sed.</p>
+    </div>
+  </div>
+
+  <div id="quiz-s5" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<section id="s6" class="section">
+  <div class="section-title"><span>🌟</span> Repaso final: Demuestra tus conocimientos</div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="icon">🌲</div>
+      <h4>La Descripción</h4>
+      <p>Objetiva vs Subjetiva. El resistente pino canario y su madera de tea.</p>
+    </div>
+    <div class="concept-card blue">
+      <div class="icon">✏️</div>
+      <h4>Ortografía</h4>
+      <p>Reglas de acentuación en diptongos y la excepción de los hiatos (cerrada tónica).</p>
+    </div>
+    <div class="concept-card green">
+      <div class="icon">📝</div>
+      <h4>Gramática</h4>
+      <p>Distancia de demostrativos y pertenencia de posesivos. Funciones en el S.N.</p>
+    </div>
+    <div class="concept-card orange">
+      <div class="icon">🌿</div>
+      <h4>Botánica</h4>
+      <p>Cardón, Drago, Garoé. Características y leyendas de la flora canaria.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>¡Último esfuerzo!</strong> Aquí tienes preguntas mezcladas de todo el Tema 2. Lee despacio y aplica todo lo que has repasado.
+  </div>
+
+  <div id="quiz-s6" class="quiz-wrap">
+    <h3>🏆 Quiz de repaso general</h3>
+  </div>
+</section>
+
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* ── DATOS DE LOS QUIZZES ── */
+  const QUESTIONS = {
+    s1: [
+      { text: '¿Qué es una descripción objetiva?', options: ['La que incluye las emociones y sentimientos del autor', 'La que refleja la realidad tal como es, sin valoraciones personales', 'La que inventa datos fantásticos', 'La que solo usa verbos'], correct: 1 },
+      { text: '¿Cuál de estas frases es un ejemplo de descripción subjetiva?', options: ['El pájaro tiene el pico amarillo.', 'El árbol mide 15 metros.', 'La exuberante y fascinante naturaleza de El Hierro.', 'El tronco es de color marrón.'], correct: 2 },
+      { text: '¿Qué cualidad del pino canario le permite sobrevivir a los incendios?', options: ['Sus raíces muy potentes', 'Sus hojas en forma de aguja', 'El grosor de su corteza', 'Su forma de sombrilla'], correct: 2 },
+      { text: '¿Dónde se encuentra el enorme Pino de las Dos Pernadas (56 metros)?', options: ['En Las Palmas de Gran Canaria', 'En Vilaflor de Chasna (Tenerife)', 'En la isla de El Hierro', 'En Moya'], correct: 1 },
+      { text: '¿Cómo se llama la parte interior de la madera del pino canario, muy apreciada para balcones?', options: ['Savia', 'Resina', 'Tea', 'Corteza'], correct: 2 },
+      { text: 'A medida que el pino canario envejece, su forma de cono cambia y su silueta recuerda a...', options: ['Un tobogán', 'Un triángulo', 'Un embudo', 'Una sombrilla'], correct: 3 }
+    ],
+    s2: [
+      { text: '¿Por qué debemos comprobar si los datos de un texto son ciertos?', options: ['Para leer menos', 'Para evitar la desinformación y no creer noticias falsas', 'Porque lo prohíbe la ley', 'Solo si el texto es muy largo'], correct: 1 },
+      { text: '¿Cuál de estas es una fuente de información fiable?', options: ['Un mensaje reenviado por un desconocido', 'La página oficial de una institución académica o científica', 'Un comentario sin nombre en un blog', 'Cualquier texto que aparezca primero en el buscador'], correct: 1 },
+      { text: 'Cuando hacemos un trabajo de clase utilizando internet, es importante...', options: ['Copiar y pegar sin leer', 'Inventar los datos que falten', 'Citar siempre las fuentes que hemos consultado', 'No poner ninguna imagen'], correct: 2 }
+    ],
+    s3: [
+      { text: '¿Qué regla siguen las palabras con diptongo?', options: ['Siempre llevan tilde', 'Nunca llevan tilde', 'Las mismas normas generales que el resto de palabras', 'Llevan tilde solo si son agudas'], correct: 2 },
+      { text: 'En un diptongo formado por dos vocales cerradas (i, u), ¿dónde se pone la tilde?', options: ['En la primera vocal', 'En la segunda vocal', 'Nunca llevan tilde', 'En la consonante'], correct: 1 },
+      { text: 'La palabra "vehículo" lleva tilde porque...', options: ['Las palabras con "h" siempre llevan tilde', 'Es un hiato formado por cerrada tónica y abierta', 'Es un diptongo', 'Es llana terminada en vocal'], correct: 1 },
+      { text: '¿Por qué lleva tilde "sandía"?', options: ['Porque es una fruta', 'Porque es aguda', 'Porque tiene un hiato de vocal cerrada tónica y vocal abierta', 'Porque es esdrújula'], correct: 2 },
+      { text: '¿Cuál de estas palabras está acentuada CORRECTAMENTE?', options: ['bonsái', 'huesped', 'cuídate', 'La 1 y la 3 son correctas'], correct: 3 },
+      { text: 'La palabra "caótico" lleva tilde en la "ó" porque...', options: ['Es un hiato de dos vocales abiertas y cumple la norma de ser esdrújula', 'Es un diptongo', 'Es aguda', 'Es una excepción'], correct: 0 }
+    ],
+    s4: [
+      { text: 'Los demostrativos "este, esta, estos, estas" expresan...', options: ['Distancia media', 'Lejanía', 'Cercanía', 'Pertenencia'], correct: 2 },
+      { text: 'En la oración "El pino aquel es inmenso", ¿qué función cumple el demostrativo "aquel"?', options: ['Núcleo', 'Determinante', 'Complemento', 'Verbo'], correct: 2 },
+      { text: '¿Cómo se debe decir correctamente?', options: ['Este agua está fría', 'Esta agua está fría', 'Ese águila vuela', 'Aquel hacha corta'], correct: 1 },
+      { text: 'Los posesivos "nuestro, vuestro" indican que hay...', options: ['Un solo poseedor', 'Varios poseedores', 'Distancia media', 'Lejanía'], correct: 1 },
+      { text: 'En el sintagma nominal "su cabaña", la palabra "su" funciona como...', options: ['Complemento', 'Determinante', 'Núcleo', 'Adjetivo'], correct: 1 },
+      { text: 'En la frase "Eso es fantástico", la palabra "Eso" funciona como...', options: ['Complemento', 'Determinante', 'Núcleo', 'Sustantivo plural'], correct: 2 }
+    ],
+    s5: [
+      { text: '¿Cuál es el nombre científico del Cardón?', options: ['Pinus canariensis', 'Euphorbia canariensis', 'Dracena draco', 'Tilo bimbache'], correct: 1 },
+      { text: 'La famosa resina del Drago se conoce históricamente como...', options: ['Agua de niebla', 'Tea', 'Sangre de drago', 'Zumo rojo'], correct: 2 },
+      { text: '¿Por qué era tan importante el árbol Garoé para los bimbaches en El Hierro?', options: ['Porque su madera servía para hacer casas', 'Porque sus hojas recogían agua y evitaba que pasaran sed', 'Porque daba unos frutos muy dulces', 'Porque era el más alto de España'], correct: 1 },
+      { text: 'El Cardón es una planta de aspecto parecido a...', options: ['Un pino gigante', 'Un rosal', 'Un cactus', 'Un helecho'], correct: 2 }
+    ],
+    s6: [
+      { text: 'La madera resistente del interior del pino canario se llama...', options: ['Tea', 'Resina', 'Savia', 'Corteza'], correct: 0 },
+      { text: 'En "esta montaña", ¿qué es "esta"?', options: ['Posesivo, núcleo', 'Demostrativo, complemento', 'Demostrativo, determinante', 'Posesivo, determinante'], correct: 2 },
+      { text: '¿Cuál de estas palabras contiene un hiato con tilde en la vocal cerrada?', options: ['Acuático', 'Estiércol', 'Policía', 'Bonsái'], correct: 2 },
+      { text: '¿Qué tipo de descripción expresa las impresiones y sentimientos del autor?', options: ['Objetiva', 'Subjetiva', 'Fantástica', 'Bimbache'], correct: 1 },
+      { text: 'Si la fuente de una noticia en internet es desconocida, debemos...', options: ['Creerla inmediatamente', 'Reenviarla a todos nuestros contactos', 'Contrastar y comprobar los datos', 'Inventarnos otro título'], correct: 2 },
+      { text: '¿Qué árbol canario legendario "lloraba" agua?', options: ['El Drago', 'El Pino de Dos Pernadas', 'El Cardón', 'El Árbol Garoé'], correct: 3 },
+      { text: 'En la palabra "cuídate" (diptongo de dos cerradas), la tilde va en...', options: ['La primera vocal (u)', 'La segunda vocal (i)', 'La vocal fuerte', 'No lleva tilde'], correct: 1 }
+    ]
+  };
+
+  /* ── QUIZ ENGINE ── */
+  const QuizEngine = {
+    instances: {},
+    create(id, questions) {
+      this.instances[id] = { questions, current: 0, score: 0, answered: false, completed: false };
+      this.render(id);
+    },
+    get(id) { return this.instances[id]; },
+    render(id) {
+      const s = this.get(id);
+      const container = document.getElementById(`quiz-${id}`);
+      if (!container || s.completed) return;
+      const q = s.questions[s.current];
+      const inner = document.createElement('div');
+      inner.innerHTML = `
+        <div class="quiz-progress">Pregunta ${s.current + 1} de ${s.questions.length}</div>
+        <div class="quiz-question">${q.text}</div>
+        <div class="quiz-options">
+          ${q.options.map((opt, i) => `<button class="quiz-option" data-index="${i}">${opt}</button>`).join('')}
+        </div>
+        <div class="quiz-feedback" id="feedback-${id}"></div>
+      `;
+      const h3 = container.querySelector('h3');
+      container.innerHTML = '';
+      if (h3) container.appendChild(h3);
+      container.appendChild(inner);
+      
+      inner.querySelectorAll('.quiz-option').forEach(btn => {
+        btn.addEventListener('click', e => {
+          if (s.answered) return;
+          this.answer(id, parseInt(e.currentTarget.dataset.index));
+        });
+      });
+    },
+    answer(id, sel) {
+      const s = this.get(id);
+      if (s.answered) return;
+      s.answered = true;
+      const q = s.questions[s.current];
+      const correct = sel === q.correct;
+      if (correct) s.score++;
+      
+      const fb = document.getElementById(`feedback-${id}`);
+      if (fb) {
+        fb.textContent = correct ? '✅ ¡Correcto!' : `❌ Incorrecto. La respuesta correcta era: ${q.options[q.correct]}`;
+        fb.className = `quiz-feedback ${correct ? 'correct' : 'wrong'}`;
+      }
+      
+      const container = document.getElementById(`quiz-${id}`);
+      container.querySelectorAll('.quiz-option').forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === q.correct) btn.classList.add('correct');
+        else if (i === sel) btn.classList.add('wrong');
+      });
+      
+      setTimeout(() => {
+        s.current++;
+        s.answered = false;
+        if (s.current < s.questions.length) {
+          this.render(id);
+        } else {
+          this.showResult(id);
+        }
+      }, 1800);
+    },
+    showResult(id) {
+      const s = this.get(id);
+      s.completed = true;
+      const pct = Math.round((s.score / s.questions.length) * 100);
+      const container = document.getElementById(`quiz-${id}`);
+      const h3 = container.querySelector('h3');
+      container.innerHTML = '';
+      if (h3) container.appendChild(h3);
+      
+      const res = document.createElement('div');
+      res.className = 'quiz-result';
+      const emoji = pct >= 80 ? '🎉' : pct >= 60 ? '👍' : '📚';
+      const msg = pct >= 80 ? '¡Excelente trabajo!' : pct >= 60 ? '¡Bien! Puedes mejorar.' : 'Repasa la sección e inténtalo de nuevo.';
+      res.innerHTML = `
+        <div class="result-score">${s.score}/${s.questions.length}</div>
+        <div class="result-pct">${pct}%</div>
+        <div class="result-msg">${emoji} ${msg}</div>
+        <button class="btn-retry" id="retry-${id}">🔄 Repetir quiz</button>
+      `;
+      container.appendChild(res);
+      
+      document.getElementById(`retry-${id}`).addEventListener('click', () => {
+        s.current = 0; s.score = 0; s.answered = false; s.completed = false;
+        this.render(id);
+      });
+      ScoreTracker.update(id, s.score, s.questions.length);
+      
+      const btn = document.querySelector(`.tab-btn[data-section="${id}"]`);
+      if (btn && !btn.querySelector('.check')) {
+        const chk = document.createElement('span');
+        chk.className = 'check'; chk.textContent = '✅';
+        btn.appendChild(chk);
+      }
+    }
+  };
+
+  /* ── SCORE TRACKER ── */
+  const ScoreTracker = {
+    scores: {},
+    update(id, got, tot) {
+      this.scores[id] = { got, tot };
+      const entries = Object.values(this.scores);
+      const totalGot = entries.reduce((a, e) => a + e.got, 0);
+      const totalTot = entries.reduce((a, e) => a + e.tot, 0);
+      document.getElementById('global-score').textContent = `${totalGot}/${totalTot}`;
+    }
+  };
+
+  /* ── NAV TABS ── */
+  const tabs = document.querySelectorAll('.tab-btn');
+  const sections = document.querySelectorAll('.section');
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(b => b.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.section).classList.add('active');
+      
+      const sid = btn.dataset.section;
+      if (!QuizEngine.instances[sid]) {
+        QuizEngine.create(sid, QUESTIONS[sid]);
+      }
+    });
+  });
+
+  /* ── INICIALIZAR PRIMERA SECCIÓN ── */
+  QuizEngine.create('s1', QUESTIONS['s1']);
+});
+</script>
+</body>
+</html>

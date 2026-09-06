@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lengua Tema 9 — La Educación · 6º Primaria</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fdf4ff;
+      --surface: #ffffff;
+      --surface-alt: #f3e8ff;
+      --a1: #7c3aed;   /* vocabulario */
+      --a2: #0e7490;   /* ortografía x */
+      --a3: #166534;   /* gramática */
+      --a4: #b45309;   /* escritura */
+      --a5: #be123c;   /* literatura */
+      --ar: #7c3aed;
+      --accent: #7c3aed;
+      --accent-light: #f3e8ff;
+      --text: #1e0b33;
+      --text-muted: #6b4d8a;
+      --border: #d8b4fe;
+      --success: #16a34a;
+      --error: #dc2626;
+      --shadow: 0 2px 14px rgba(124,58,237,0.09);
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Open Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    header {
+      background: linear-gradient(135deg, #7c3aed 0%, #be123c 100%);
+      color: #fff; padding: 28px 32px 22px;
+      display: flex; align-items: center; gap: 18px;
+      box-shadow: 0 4px 18px rgba(124,58,237,0.28);
+    }
+    .header-icon { font-size: 2.8rem; }
+    header h1 { font-family: 'Nunito', sans-serif; font-size: 1.65rem; font-weight: 800; line-height: 1.2; }
+    header p  { font-size: .92rem; opacity: .85; margin-top: 2px; }
+    .score-badge {
+      margin-left: auto; background: rgba(255,255,255,.18); border: 2px solid rgba(255,255,255,.35);
+      border-radius: 50px; padding: 8px 20px;
+      font-family: 'Nunito', sans-serif; font-weight: 700; font-size: .95rem; white-space: nowrap;
+    }
+
+    nav.main-nav {
+      background: var(--surface); border-bottom: 2px solid var(--border);
+      display: flex; gap: 4px; padding: 10px 16px; overflow-x: auto;
+      position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+    .tab-btn {
+      font-family: 'Nunito', sans-serif; font-weight: 700; font-size: .82rem;
+      padding: 7px 13px; border: 2px solid transparent; border-radius: 50px;
+      background: var(--surface-alt); color: var(--text-muted);
+      cursor: pointer; transition: all .2s; white-space: nowrap; display: flex; align-items: center; gap: 4px;
+    }
+    .tab-btn:hover { background: var(--accent-light); color: var(--accent); }
+    .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 3px 10px rgba(124,58,237,.30); }
+    .tab-btn[data-section="sr"].active { background: #5b21b6; border-color: #5b21b6; }
+    .tab-btn .check { display: none; }
+    .tab-btn.done .check { display: inline; }
+
+    main { max-width: 900px; margin: 0 auto; padding: 30px 20px 70px; }
+    .section { display: none; animation: fadeIn .3s ease; }
+    .section.active { display: block; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+
+    .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+    .section-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; flex-shrink: 0; }
+    .ic1{background:#f3e8ff;} .ic2{background:#cffafe;} .ic3{background:#dcfce7;}
+    .ic4{background:#fef3c7;} .ic5{background:#ffe4e6;} .icr{background:#ede9ff;}
+
+    .section-title { font-family: 'Nunito', sans-serif; font-size: 1.35rem; font-weight: 800; }
+    .section-sub   { font-size: .88rem; color: var(--text-muted); margin-top: 2px; }
+
+    .card { background: var(--surface); border-radius: var(--radius); padding: 22px 24px; margin-bottom: 18px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+    .card h3 { font-family: 'Nunito', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
+    .h1{color:var(--a1);} .h2{color:var(--a2);} .h3c{color:var(--a3);} .h4{color:var(--a4);} .h5{color:var(--a5);}
+    .card p { font-size: .93rem; line-height: 1.65; }
+    .card ul { padding-left: 20px; }
+    .card li { font-size: .93rem; line-height: 1.85; }
+
+    .hl { border-radius: 10px; padding: 13px 18px; margin: 12px 0; font-size: .93rem; line-height: 1.6; border-left: 4px solid; }
+    .hl1{background:#f3e8ff; border-color:var(--a1);}
+    .hl2{background:#cffafe; border-color:var(--a2);}
+    .hl3{background:#dcfce7; border-color:var(--a3);}
+    .hl4{background:#fef3c7; border-color:var(--a4);}
+    .hl5{background:#ffe4e6; border-color:var(--a5);}
+
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+    .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+    @media (max-width:620px) { .grid2,.grid3 { grid-template-columns:1fr; } }
+
+    .mini-card { background: var(--surface); border: 2px solid var(--border); border-radius: 14px; padding: 16px 18px; box-shadow: var(--shadow); }
+    .mini-card .emoji { font-size: 1.5rem; margin-bottom: 6px; }
+    .mini-card h4 { font-family: 'Nunito', sans-serif; font-size: .97rem; font-weight: 700; margin-bottom: 4px; }
+    .mini-card p  { font-size: .87rem; color: var(--text-muted); line-height: 1.55; }
+
+    /* Tarjetas de vocabulario */
+    .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin: 14px 0; }
+    .vocab-card {
+      background: linear-gradient(135deg, #f3e8ff, #ede9ff);
+      border: 2px solid #c4b5fd; border-radius: 12px;
+      padding: 12px 14px; text-align: center;
+    }
+    .vocab-card .word-en { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1rem; color: var(--a1); font-style: italic; }
+    .vocab-card .word-es { font-size: .85rem; color: var(--text-muted); margin-top: 4px; }
+
+    /* Tarjetas neologismos/arcaísmos */
+    .type-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 14px 0; }
+    @media (max-width:620px) { .type-grid { grid-template-columns: 1fr; } }
+    .type-card { border-radius: 14px; padding: 16px 14px; border: 2px solid; }
+    .type-card h4 { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: .95rem; margin-bottom: 8px; }
+    .type-card ul { padding-left: 16px; }
+    .type-card li { font-size: .85rem; line-height: 1.7; }
+    .tc-ext { background: #f3e8ff; border-color: #c4b5fd; }
+    .tc-ext h4 { color: var(--a1); }
+    .tc-arc { background: #fef3c7; border-color: #fbbf24; }
+    .tc-arc h4 { color: var(--a4); }
+    .tc-neo { background: #cffafe; border-color: #38bdf8; }
+    .tc-neo h4 { color: var(--a2); }
+
+    /* Regla ortografía x */
+    .rule-box {
+      background: var(--surface); border: 2px solid var(--a2); border-radius: 14px;
+      padding: 18px 20px; margin: 14px 0;
+    }
+    .rule-box h4 { font-family: 'Nunito', sans-serif; color: var(--a2); font-weight: 800; font-size: 1rem; margin-bottom: 10px; }
+    .rule-box p  { font-size: .93rem; line-height: 1.65; }
+    .word-x { color: var(--a2); font-weight: 800; font-size: 1.05rem; }
+
+    /* Análisis sintáctico */
+    .sintax-box {
+      background: #f0fdf4; border: 2px solid var(--a3); border-radius: 14px;
+      padding: 18px 20px; margin: 14px 0; font-size: .93rem; line-height: 1.7;
+    }
+    .sintax-box .oracion { font-family: 'Nunito', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--a3); margin-bottom: 10px; }
+    .tag { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: .78rem; font-weight: 700; margin: 2px; }
+    .tag-s  { background: #dbeafe; color: #1d4ed8; }
+    .tag-p  { background: #dcfce7; color: #166534; }
+    .tag-v  { background: #fef3c7; color: #b45309; }
+    .tag-at { background: #f3e8ff; color: #7c3aed; }
+
+    /* Literatura */
+    .lit-card {
+      background: linear-gradient(135deg, #fff1f2, #ffe4e6);
+      border: 2px solid #fda4af; border-radius: 14px;
+      padding: 18px 20px; margin: 12px 0;
+    }
+    .lit-card .lit-tipo { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: .85rem; color: var(--a5); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
+    .lit-card .lit-text { font-style: italic; font-size: 1rem; line-height: 1.65; color: var(--text); }
+    .lit-card .lit-exp  { font-size: .87rem; color: var(--text-muted); margin-top: 8px; }
+
+    .gregueria-box {
+      background: linear-gradient(135deg, #fdf4ff, #f3e8ff);
+      border: 2px solid #c4b5fd; border-radius: 14px;
+      padding: 16px 20px; margin: 10px 0;
+      font-family: 'Nunito', sans-serif; font-style: italic; font-size: 1rem; color: var(--a1); line-height: 1.6;
+    }
+
+    .step-list { counter-reset: step; padding: 0; list-style: none; }
+    .step-list li {
+      counter-increment: step; display: flex; gap: 12px; align-items: flex-start;
+      font-size: .93rem; line-height: 1.65; margin-bottom: 10px;
+    }
+    .step-list li::before {
+      content: counter(step); min-width: 26px; height: 26px;
+      background: var(--accent); color: #fff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Nunito', sans-serif; font-weight: 800; font-size: .85rem; flex-shrink: 0; margin-top: 1px;
+    }
+    .step-list.amber li::before { background: var(--a4); }
+    .step-list.rose  li::before { background: var(--a5); }
+
+    .quiz-divider { display: flex; align-items: center; gap: 14px; margin: 36px 0 24px; }
+    .quiz-divider::before,.quiz-divider::after { content:''; flex:1; height:2px; background:var(--border); border-radius:2px; }
+    .quiz-divider span { font-family:'Nunito',sans-serif; font-weight:800; font-size:1.1rem; color:var(--accent); white-space:nowrap; }
+
+    .quiz-box, .refuerzo-block {
+      background: var(--surface); border-radius: var(--radius); padding: 26px;
+      box-shadow: var(--shadow); border: 2px solid var(--accent-light); margin-bottom: 28px;
+    }
+    .refuerzo-block { border-color: #ede9ff; }
+
+    .q-header {
+      font-family: 'Nunito', sans-serif; font-size: .98rem; font-weight: 800;
+      padding-bottom: 10px; border-bottom-width: 2px; border-bottom-style: solid; margin-bottom: 16px;
+    }
+    .qh1{color:var(--a1); border-color:#f3e8ff;}
+    .qh2{color:var(--a2); border-color:#cffafe;}
+    .qh3{color:var(--a3); border-color:#dcfce7;}
+    .qh4{color:var(--a4); border-color:#fef3c7;}
+    .qh5{color:var(--a5); border-color:#ffe4e6;}
+
+    .quiz-progress { font-size:.82rem; color:var(--text-muted); font-weight:600; margin-bottom:8px; text-transform:uppercase; letter-spacing:.04em; }
+    .quiz-question { font-family:'Nunito',sans-serif; font-size:1.06rem; font-weight:700; margin-bottom:18px; line-height:1.45; }
+    .quiz-options  { display:flex; flex-direction:column; gap:8px; }
+    .quiz-option {
+      display:block; width:100%; padding:12px 18px;
+      background:var(--surface-alt); border:2px solid var(--border); border-radius:11px;
+      cursor:pointer; text-align:left; font-family:'Open Sans',sans-serif; font-size:.93rem; color:var(--text);
+      transition:background .18s, border-color .18s, transform .1s;
+    }
+    .quiz-option:hover:not(:disabled) { background:var(--accent-light); border-color:var(--accent); transform:translateX(3px); }
+    .quiz-option.correct { background:#d1fae5; border-color:var(--success); color:#14532d; font-weight:600; }
+    .quiz-option.wrong   { background:#fee2e2; border-color:var(--error);   color:#7f1d1d; font-weight:600; }
+    .quiz-option:disabled { cursor:default; }
+    .quiz-feedback { margin-top:14px; font-weight:700; font-size:.93rem; min-height:24px; padding:8px 14px; border-radius:8px; }
+    .quiz-feedback.correct { background:#d1fae5; color:#14532d; }
+    .quiz-feedback.wrong   { background:#fee2e2; color:#7f1d1d; }
+    .quiz-result  { text-align:center; padding:26px 16px; }
+    .result-emoji { font-size:3rem; margin-bottom:8px; }
+    .result-score { font-family:'Nunito',sans-serif; font-size:2.8rem; font-weight:800; color:var(--accent); }
+    .result-pct   { font-family:'Nunito',sans-serif; font-size:1.1rem; font-weight:700; color:var(--text-muted); margin-bottom:10px; }
+    .result-msg   { font-size:1rem; font-weight:600; margin-bottom:20px; }
+    .btn-retry {
+      font-family:'Nunito',sans-serif; font-weight:700; padding:11px 28px; border-radius:50px;
+      border:none; background:var(--accent); color:#fff; cursor:pointer; font-size:.95rem;
+      box-shadow:0 3px 10px rgba(124,58,237,.28); transition:transform .15s;
+    }
+    .btn-retry:hover { transform:translateY(-2px); }
+    .refuerzo-block .result-score { color:#5b21b6; }
+    .refuerzo-block .btn-retry { background:#5b21b6; }
+    .refuerzo-block .quiz-option:hover:not(:disabled) { background:#ede9ff; border-color:#5b21b6; }
+
+    .global-bar {
+      position:fixed; bottom:0; left:0; right:0;
+      background:var(--surface); border-top:2px solid var(--border);
+      padding:10px 24px; display:flex; align-items:center; justify-content:center; gap:12px;
+      box-shadow:0 -2px 12px rgba(0,0,0,.07); z-index:200;
+    }
+    .global-bar span { font-family:'Nunito',sans-serif; font-weight:700; font-size:.9rem; }
+    .progress-track { flex:1; max-width:300px; height:10px; background:var(--border); border-radius:99px; overflow:hidden; }
+    .progress-fill  { height:100%; background:linear-gradient(90deg,var(--a1),var(--a5)); border-radius:99px; transition:width .5s ease; width:0%; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-icon">📚</div>
+  <div>
+    <h1>Lengua · Tema 9 — La Educación</h1>
+    <p>Lengua Castellana y Literatura · 6º de Primaria</p>
+  </div>
+  <div class="score-badge" id="global-score">Puntuación: 0 / 0</div>
+</header>
+
+<nav class="main-nav">
+  <button class="tab-btn active" data-section="s1">📖 Texto: Malala <span class="check">✅</span></button>
+  <button class="tab-btn" data-section="s2">🌍 Vocabulario <span class="check">✅</span></button>
+  <button class="tab-btn" data-section="s3">✏️ Ortografía: X <span class="check">✅</span></button>
+  <button class="tab-btn" data-section="s4">🔍 Gramática: Predicado <span class="check">✅</span></button>
+  <button class="tab-btn" data-section="s5">🎨 Literatura <span class="check">✅</span></button>
+  <button class="tab-btn" data-section="sr">🔧 Refuerzo <span class="check">✅</span></button>
+</nav>
+
+<main>
+
+<!-- ══════════ S1: TEXTO MALALA ══════════ -->
+<section class="section active" id="s1">
+  <div class="section-header">
+    <div class="section-icon ic1">📖</div>
+    <div>
+      <div class="section-title">Leer y comprender: <em>Esta es mi historia</em></div>
+      <div class="section-sub">Texto narrativo · La historia de Malala Yousafzai</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="h1">¿Quién es Malala?</h3>
+    <p>Malala Yousafzai es una joven pakistaní que defendía con valentía el <strong>derecho de las niñas a la educación</strong>. El <strong>9 de octubre de 2012</strong> su vida cambió para siempre cuando recibió un disparo al volver del colegio en un vehículo <em>rickshaw</em>.</p>
+    <div class="hl hl1" style="margin-top:12px">El colegio <em>Khushal</em> donde estudiaba no tenía cartel en la puerta para no ser identificado, ya que había personas que creían que las niñas no debían estudiar.</div>
+  </div>
+
+  <div class="card">
+    <h3 class="h1">Resumen del texto</h3>
+    <div class="grid3">
+      <div class="mini-card"><div class="emoji">👧</div><h4>¿Quién es?</h4><p>Una joven pakistaní defensora del derecho a la educación de las niñas.</p></div>
+      <div class="mini-card"><div class="emoji">💔</div><h4>¿Qué le pasó?</h4><p>El 9 de octubre de 2012 recibió un disparo al volver del colegio.</p></div>
+      <div class="mini-card"><div class="emoji">✊</div><h4>¿Qué hizo?</h4><p>Sobrevivió y continuó su lucha. En 2014 ganó el Premio Nobel de la Paz.</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="h1">Palabras del tema: La educación</h3>
+    <div class="grid2">
+      <div>
+        <p style="font-size:.88rem; font-weight:700; color:var(--a1); margin-bottom:6px">👩‍🏫 Personas que ENSEÑAN</p>
+        <div class="hl hl1">profesora · maestro · docente · educadora · pedagogo</div>
+      </div>
+      <div>
+        <p style="font-size:.88rem; font-weight:700; color:var(--a1); margin-bottom:6px">👨‍🎓 Personas que APRENDEN</p>
+        <div class="hl hl1">estudiante · alumna · aprendiz · discípulo</div>
+      </div>
+    </div>
+    <div class="hl hl1" style="margin-top:8px">💬 <strong>Refrán:</strong> <em>"El saber no ocupa lugar"</em> → El conocimiento no estorba ni presenta inconvenientes.</div>
+  </div>
+
+  <div class="quiz-divider"><span>🧩 Pon a prueba lo que sabes</span></div>
+  <div class="quiz-box" id="quiz-s1"></div>
+</section>
+
+<!-- ══════════ S2: VOCABULARIO ══════════ -->
+<section class="section" id="s2">
+  <div class="section-header">
+    <div class="section-icon ic2">🌍</div>
+    <div>
+      <div class="section-title">Vocabulario: Extranjerismos, Arcaísmos y Neologismos</div>
+      <div class="section-sub">El viaje de las palabras a través del tiempo y las fronteras</div>
+    </div>
+  </div>
+
+  <div class="type-grid">
+    <div class="type-card tc-ext">
+      <h4>🌍 Extranjerismos</h4>
+      <p style="font-size:.85rem; margin-bottom:8px; line-height:1.5">Palabras tomadas de otras lenguas. Pueden adaptarse a nuestra ortografía.</p>
+      <ul>
+        <li>croissant → <strong>cruasán</strong></li>
+        <li>yogourt → <strong>yogur</strong></li>
+        <li>rock and roll → <strong>rocanrol</strong></li>
+        <li>standard → <strong>estándar</strong></li>
+        <li>slogan → <strong>eslogan</strong></li>
+        <li>stress → <strong>estrés</strong></li>
+      </ul>
+    </div>
+    <div class="type-card tc-arc">
+      <h4>⏳ Arcaísmos</h4>
+      <p style="font-size:.85rem; margin-bottom:8px; line-height:1.5">Palabras del español antiguo que ya no se usan.</p>
+      <ul>
+        <li>convidar → <strong>invitar</strong></li>
+        <li>dádiva → <strong>regalo</strong></li>
+        <li>anteojos → <strong>gafas</strong></li>
+        <li>afeite → <strong>cosmético</strong></li>
+        <li>haragán → <strong>vago</strong></li>
+      </ul>
+    </div>
+    <div class="type-card tc-neo">
+      <h4>🆕 Neologismos</h4>
+      <p style="font-size:.85rem; margin-bottom:8px; line-height:1.5">Palabras creadas recientemente para realidades nuevas.</p>
+      <ul>
+        <li><strong>criptomoneda</strong></li>
+        <li><strong>emoji</strong></li>
+        <li><strong>dron</strong></li>
+        <li><strong>selfie</strong></li>
+        <li><strong>podcast</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="h2">Extranjerismos y sus equivalentes en español</h3>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="word-en">fan</div><div class="word-es">admirador/a</div></div>
+      <div class="vocab-card"><div class="word-en">link</div><div class="word-es">enlace</div></div>
+      <div class="vocab-card"><div class="word-en">look</div><div class="word-es">apariencia</div></div>
+      <div class="vocab-card"><div class="word-en">bloc</div><div class="word-es">libreta</div></div>
+      <div class="vocab-card"><div class="word-en">jeans</div><div class="word-es">vaqueros</div></div>
+      <div class="vocab-card"><div class="word-en">hall</div><div class="word-es">recibidor</div></div>
+      <div class="vocab-card"><div class="word-en">baguette</div><div class="word-es">barra de pan</div></div>
+      <div class="vocab-card"><div class="word-en">souvenir</div><div class="word-es">recuerdo</div></div>
+    </div>
+  </div>
+
+  <div class="quiz-divider"><span>🧩 Pon a prueba lo que sabes</span></div>
+  <div class="quiz-box" id="quiz-s2"></div>
+</section>
+
+<!-- ══════════ S3: ORTOGRAFÍA X ══════════ -->
+<section class="section" id="s3">
+  <div class="section-header">
+    <div class="section-icon ic2">✏️</div>
+    <div>
+      <div class="section-title">Ortografía: Uso de la X</div>
+      <div class="section-sub">Prefijos ex-, extra- y palabras con x</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="rule-box">
+      <h4>📌 Regla 1: prefijo EX-</h4>
+      <p>Se escribe con <span class="word-x">x</span> las palabras que empiezan por el prefijo <strong>ex-</strong> (fuera de, que fue).</p>
+      <div class="hl hl2" style="margin-top:10px">
+        <strong>ex</strong>presidente · <strong>ex</strong>primidor<br>
+        <strong>ex</strong>tintor · olla <strong>ex</strong>prés · <strong>ex</strong>amen
+      </div>
+    </div>
+    <div class="rule-box">
+      <h4>📌 Regla 2: prefijo EXTRA-</h4>
+      <p>Se escribe con <span class="word-x">x</span> las palabras que empiezan por el prefijo <strong>extra-</strong> (fuera de, más allá).</p>
+      <div class="hl hl2" style="margin-top:10px">
+        <strong>extra</strong>plano · <strong>extra</strong>rradio<br>
+        <strong>extra</strong>terrestre · <strong>extra</strong>judicial
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="h2">¿X o S? Las palabras que confunden</h3>
+    <p style="margin-bottom:12px; font-size:.93rem">A veces pronunciamos la <strong>x</strong> como <strong>s</strong>. ¡Atención con estas palabras!</p>
+    <div class="grid2">
+      <div>
+        <p style="font-size:.85rem; font-weight:700; color:var(--a2); margin-bottom:6px">Se escriben con <strong>X</strong></p>
+        <div class="hl hl2">e<strong>x</strong>plorar · e<strong>x</strong>traño<br>e<strong>x</strong>cesivo · e<strong>x</strong>amen<br>sa<strong>x</strong>ofón · e<strong>x</strong>cursión</div>
+      </div>
+      <div>
+        <p style="font-size:.85rem; font-weight:700; color:var(--text-muted); margin-bottom:6px">Se escriben con <strong>S</strong></p>
+        <div class="hl hl2" style="background:#f8fafc; border-color:#94a3b8">e<strong>s</strong>pectáculo · e<strong>s</strong>pléndido<br>e<strong>s</strong>plendor · e<strong>s</strong>pectacular<br>e<strong>s</strong>pada · e<strong>s</strong>pejo</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="h2">Forma nuevas palabras con EX- o EXTRA-</h3>
+    <div class="vocab-grid">
+      <div class="vocab-card" style="background:linear-gradient(135deg,#cffafe,#e0f2fe); border-color:#38bdf8">
+        <div class="word-en" style="color:var(--a2)">radio</div>
+        <div class="word-es">extra<strong>rradio</strong></div>
+      </div>
+      <div class="vocab-card" style="background:linear-gradient(135deg,#cffafe,#e0f2fe); border-color:#38bdf8">
+        <div class="word-en" style="color:var(--a2)">terrestre</div>
+        <div class="word-es">extra<strong>terrestre</strong></div>
+      </div>
+      <div class="vocab-card" style="background:linear-gradient(135deg,#cffafe,#e0f2fe); border-color:#38bdf8">
+        <div class="word-en" style="color:var(--a2)">judicial</div>
+        <div class="word-es">extra<strong>judicial</strong></div>
+      </div>
+      <div class="vocab-card" style="background:linear-gradient(135deg,#cffafe,#e0f2fe); border-color:#38bdf8">
+        <div class="word-en" style="color:var(--a2)">plano</div>
+        <div class="word-es">extra<strong>plano</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz-divider"><span>🧩 Pon a prueba lo que sabes</span></div>
+  <div class="quiz-box" id="quiz-s3"></div>
+</section>
+
+<!-- ══════════ S4: GRAMÁTICA PREDICADO ══════════ -->
+<section class="section" id="s4">
+  <div class="section-header">
+    <div class="section-icon ic3">🔍</div>
+    <div>
+      <div class="section-title">Gramática: El Predicado</div>
+      <div class="section-sub">Verbos copulativos, predicativos y el atributo</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="h3c">¿Qué es el predicado?</h3>
+    <p>El <strong>predicado</strong> es la parte de la oración que expresa lo que se dice del sujeto. Su núcleo siempre es un <strong>verbo</strong>.</p>
+    <div class="sintax-box">
+      <div class="oracion">Varias alumnas expusieron su trabajo en clase.</div>
+      <span class="tag tag-s">Sujeto: Varias alumnas</span>
+      <span class="tag tag-p">Predicado: expusieron su trabajo en clase</span>
+      <span class="tag tag-v">Núcleo verbal: expusieron</span>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3 class="h3c">Verbos COPULATIVOS</h3>
+      <p style="margin-bottom:10px; font-size:.93rem">Solo son tres. Unen el sujeto con el atributo.</p>
+      <div class="hl hl3" style="text-align:center; font-size:1.2rem; font-weight:800; letter-spacing:.1em">SER · ESTAR · PARECER</div>
+      <p style="font-size:.88rem; margin-top:8px; color:var(--text-muted)">Ejemplos:<br>Este problema <strong>parece</strong> complicado.<br>El potaje <strong>está</strong> riquísimo.</p>
+    </div>
+    <div class="card">
+      <h3 class="h3c">Verbos PREDICATIVOS</h3>
+      <p style="margin-bottom:10px; font-size:.93rem">Todos los demás verbos. Expresan acciones o procesos.</p>
+      <div class="hl hl3">jugar · observar · llover<br>entrenar · correr · estudiar…</div>
+      <p style="font-size:.88rem; margin-top:8px; color:var(--text-muted)">Ejemplo:<br>Las atletas <strong>entrenaron</strong> durante dos horas.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="h3c">El Atributo</h3>
+    <p>El <strong>atributo</strong> aparece en predicados con verbo copulativo. Expresa una cualidad o estado del sujeto. Suele ser un adjetivo y <strong>concuerda en género y número con el sujeto</strong>.</p>
+    <div class="hl hl3" style="margin-top:10px">🔑 Truco: el atributo se puede sustituir por el pronombre <strong>"lo"</strong><br>
+    Ella es estudiosa → Ella <strong>lo</strong> es ✅</div>
+    <div class="sintax-box" style="margin-top:14px">
+      <div class="oracion">El mar parecía revuelto.</div>
+      <span class="tag tag-s">Suj: El mar</span>
+      <span class="tag tag-p">Pred: parecía revuelto</span>
+      <span class="tag tag-v">V.cop: parecía</span>
+      <span class="tag tag-at">Atrib: revuelto</span>
+    </div>
+    <div class="sintax-box" style="margin-top:10px">
+      <div class="oracion">Estos jardines son magníficos.</div>
+      <span class="tag tag-s">Suj: Estos jardines</span>
+      <span class="tag tag-p">Pred: son magníficos</span>
+      <span class="tag tag-v">V.cop: son</span>
+      <span class="tag tag-at">Atrib: magníficos</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="h3c">⚠️ Cuidado: SER vs ESTAR cambia el significado</h3>
+    <div class="grid2">
+      <div class="hl hl3">
+        Ser <strong>listo</strong> = inteligente<br>
+        Estar <strong>listo</strong> = preparado
+      </div>
+      <div class="hl hl3">
+        Ser <strong>abierto</strong> = extrovertido<br>
+        Estar <strong>abierto</strong> = no cerrado
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz-divider"><span>🧩 Pon a prueba lo que sabes</span></div>
+  <div class="quiz-box" id="quiz-s4"></div>
+</section>
+
+<!-- ══════════ S5: LITERATURA ══════════ -->
+<section class="section" id="s5">
+  <div class="section-header">
+    <div class="section-icon ic5">🎨</div>
+    <div>
+      <div class="section-title">Literatura: Metáforas, Comparaciones y Greguerías</div>
+      <div class="section-sub">Recursos estilísticos al servicio de la expresión</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3 class="h5">La Metáfora</h3>
+      <p>Identifica o <strong>sustituye</strong> un término real por otro imaginario, basándose en una semejanza.</p>
+      <div class="lit-card" style="margin-top:12px">
+        <div class="lit-tipo">🌸 Metáfora</div>
+        <div class="lit-text">«¡Amapola, sangre de la tierra!»</div>
+        <div class="lit-exp">El color rojo de la flor se identifica con la sangre → semejanza de color.</div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="h5">La Comparación</h3>
+      <p>Establece una semejanza directa usando un enlace, casi siempre la palabra <strong>"como"</strong>.</p>
+      <div class="lit-card" style="margin-top:12px">
+        <div class="lit-tipo">🍎 Comparación</div>
+        <div class="lit-text">«Y es una mañana tan coloradita <em>como</em> una manzana»</div>
+        <div class="lit-exp">Compara el color de la mañana con una manzana. Usa "como".</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="h5">Poema: ¡Qué bien sobre el mar…! (Josefina de la Torre)</h3>
+    <div class="lit-card">
+      <div class="lit-tipo">🌊 Comparación en poesía</div>
+      <div class="lit-text">«brazos <em>como</em> dos remos salados»</div>
+      <div class="lit-exp">Los brazos del marinero se comparan con remos (fuertes, mojados de mar).</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="h5">Las Greguerías — Ramón Gómez de la Serna</h3>
+    <p style="font-size:.93rem; margin-bottom:12px">Las <strong>greguerías</strong> son textos brevísimos (una frase) con comentarios ingeniosos y humorísticos sobre la realidad, apoyados en metáforas. Las creó Ramón Gómez de la Serna a principios del siglo XX.</p>
+    <div class="gregueria-box">«Los bostezos son oes que huyen.»</div>
+    <div class="gregueria-box">«La lagartija es el broche de las tapias.»</div>
+    <div class="gregueria-box">«Las ranas están siempre en pleno concurso de natación.»</div>
+    <div class="gregueria-box">«La A es la tienda de campaña del alfabeto.»</div>
+    <div class="gregueria-box">«La S es el anzuelo del abecedario.»</div>
+  </div>
+
+  <div class="quiz-divider"><span>🧩 Pon a prueba lo que sabes</span></div>
+  <div class="quiz-box" id="quiz-s5"></div>
+</section>
+
+<!-- ══════════ SR: REFUERZO ══════════ -->
+<section class="section" id="sr">
+  <div class="section-header">
+    <div class="section-icon icr">🔧</div>
+    <div>
+      <div class="section-title">Problemas de Refuerzo</div>
+      <div class="section-sub">10 actividades de aplicación por cada apartado</div>
+    </div>
+  </div>
+  <p style="font-size:.93rem; color:var(--text-muted); margin-bottom:24px; line-height:1.6">
+    Consolida lo aprendido en cada bloque con estas actividades de refuerzo. ¡Lee bien cada pregunta!
+  </p>
+
+  <div class="q-header qh1">📖 Refuerzo 1 — Texto y Vocabulario de la Educación</div>
+  <div class="refuerzo-block" id="quiz-r1"></div>
+
+  <div class="q-header qh2">🌍 Refuerzo 2 — Extranjerismos, Arcaísmos y Neologismos</div>
+  <div class="refuerzo-block" id="quiz-r2"></div>
+
+  <div class="q-header qh2" style="color:var(--a2); border-color:#cffafe">✏️ Refuerzo 3 — Ortografía: La X</div>
+  <div class="refuerzo-block" id="quiz-r3"></div>
+
+  <div class="q-header qh3">🔍 Refuerzo 4 — El Predicado</div>
+  <div class="refuerzo-block" id="quiz-r4"></div>
+
+  <div class="q-header qh5">🎨 Refuerzo 5 — Literatura: Metáforas y Greguerías</div>
+  <div class="refuerzo-block" id="quiz-r5"></div>
+</section>
+
+</main>
+
+<div class="global-bar">
+  <span>📊 Progreso:</span>
+  <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  <span id="global-score-bar">0 / 0</span>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  const QUESTIONS = {
+    s1: [
+      { text: '¿De qué trata el texto "Esta es mi historia"?', options: ['De una niña española que no podía ir al colegio', 'De Malala Yousafzai, una joven pakistaní defensora del derecho a la educación', 'De una profesora que fundó una escuela en África', 'De una niña que aprendió a leer sola'], correct: 1 },
+      { text: '¿Qué le ocurrió a Malala el 9 de octubre de 2012?', options: ['Ganó el Premio Nobel de la Paz', 'Fundó su propio colegio', 'Recibió un disparo al volver de la escuela', 'Se mudó a otro país para estudiar'], correct: 2 },
+      { text: '¿Por qué el colegio de Malala no tenía cartel en la puerta?', options: ['Porque era muy nuevo y no habían puesto el cartel todavía', 'Para no ser identificado por personas que creían que las niñas no debían estudiar', 'Porque estaba en obras', 'Por una ley local que lo prohibía'], correct: 1 },
+      { text: '¿En qué vehículo volvía Malala del colegio cuando fue atacada?', options: ['Autobús escolar', 'Bicicleta', 'Rickshaw', 'Metro'], correct: 2 },
+      { text: '¿Cómo se llama el colegio donde estudiaba Malala?', options: ['Colegio Peshawar', 'Colegio Khushal', 'Colegio Islamabad', 'Colegio Lahore'], correct: 1 },
+      { text: '¿Qué significa el refrán "El saber no ocupa lugar"?', options: ['Los libros ocupan demasiado espacio', 'El conocimiento no estorba ni presenta inconvenientes', 'Hay que saber mucho para ser feliz', 'La escuela está siempre llena'], correct: 1 },
+      { text: '¿Cómo se llama a las personas que se dedican a enseñar?', options: ['Aprendices', 'Discípulos', 'Docentes', 'Alumnos'], correct: 2 },
+      { text: '¿Cuál de estas palabras designa a alguien que aprende?', options: ['Pedagogo', 'Educadora', 'Aprendiz', 'Maestro'], correct: 2 },
+      { text: '¿Qué adjetivo describe a un buen estudiante?', options: ['Haragán', 'Aplicado', 'Distraído', 'Descuidado'], correct: 1 },
+      { text: 'La educación es reconocida internacionalmente como…', options: ['Un privilegio de los ricos', 'Una obligación solo para niños', 'Un derecho fundamental', 'Una actividad voluntaria'], correct: 2 },
+    ],
+    s2: [
+      { text: '¿Qué son los extranjerismos?', options: ['Palabras inventadas por escritores', 'Palabras tomadas de otras lenguas', 'Palabras del español antiguo', 'Palabras muy largas'], correct: 1 },
+      { text: '¿Cuál es la adaptación al español de "croissant"?', options: ['Croasán', 'Cruasán', 'Cruasan', 'Croisan'], correct: 1 },
+      { text: '¿Qué son los arcaísmos?', options: ['Palabras extranjeras', 'Palabras nuevas', 'Palabras del español antiguo que ya no se usan', 'Palabras técnicas'], correct: 2 },
+      { text: 'La palabra "anteojos" es un arcaísmo de…', options: ['Lentillas', 'Gafas', 'Telescopio', 'Lupa'], correct: 1 },
+      { text: '¿Qué son los neologismos?', options: ['Palabras tomadas del inglés', 'Palabras muy antiguas', 'Palabras creadas recientemente para nombrar realidades nuevas', 'Palabras de difícil pronunciación'], correct: 2 },
+      { text: '¿Cuál de estas palabras es un neologismo?', options: ['Anteojos', 'Dádiva', 'Emoji', 'Convidar'], correct: 2 },
+      { text: 'La palabra "fan" en español equivale a…', options: ['Enlace', 'Admirador', 'Apariencia', 'Recibidor'], correct: 1 },
+      { text: '"Link" en español se traduce como…', options: ['Moda', 'Enlace', 'Libreta', 'Recuerdo'], correct: 1 },
+      { text: '"Jeans" equivale en español a…', options: ['Zapatos', 'Abrigo', 'Vaqueros', 'Calcetines'], correct: 2 },
+      { text: '"Souvenir" significa en español…', options: ['Aventura', 'Mapa', 'Recuerdo de viaje', 'Billete'], correct: 2 },
+    ],
+    s3: [
+      { text: '¿Qué prefijo lleva x en las palabras que significan "fuera de" o "que fue"?', options: ['es-', 'ex-', 'em-', 'en-'], correct: 1 },
+      { text: '¿Qué prefijo también se escribe con x?', options: ['extra-', 'entre-', 'estra-', 'estos-'], correct: 0 },
+      { text: '"Extraterrestre" se escribe con x porque…', options: ['Todas las palabras largas llevan x', 'Lleva el prefijo extra-', 'La t va después de x siempre', 'Es una palabra extranjera'], correct: 1 },
+      { text: '¿Cuál de estas palabras se escribe con X?', options: ['Espléndido', 'Espectáculo', 'Explorar', 'Espada'], correct: 2 },
+      { text: '¿Cuál de estas palabras se escribe con S?', options: ['Examen', 'Excursión', 'Expresidente', 'Espejo'], correct: 3 },
+      { text: '"E_cesivo" se escribe con…', options: ['S (escessivo)', 'X (excesivo)', 'C (ececsivo)', 'Z (ezecesivo)'], correct: 1 },
+      { text: '"E_pléndido" se escribe con…', options: ['X (expléndido)', 'S (espléndido)', 'C (ecpléndido)', 'Z (ezpléndido)'], correct: 1 },
+      { text: '"Extra_radial" → la forma correcta es…', options: ['Estrarradio', 'Exstrarradio', 'Extrarradio', 'Estrarradial'], correct: 2 },
+      { text: '"E_traño" se escribe con…', options: ['S', 'X', 'C', 'Z'], correct: 1 },
+      { text: '"E_pectáculo" se escribe con…', options: ['X', 'S', 'C', 'Z'], correct: 1 },
+    ],
+    s4: [
+      { text: '¿Cuál es el núcleo del predicado?', options: ['El sujeto', 'El verbo', 'El atributo', 'El adjetivo'], correct: 1 },
+      { text: '¿Cuáles son los verbos copulativos?', options: ['Jugar, correr, saltar', 'Ser, estar, parecer', 'Pensar, decir, saber', 'Comer, beber, dormir'], correct: 1 },
+      { text: 'En "El mar parecía revuelto", ¿qué función tiene "parecía"?', options: ['Verbo predicativo', 'Atributo', 'Verbo copulativo', 'Sujeto'], correct: 2 },
+      { text: '¿Qué es el atributo?', options: ['El sujeto de la oración', 'El verbo principal', 'Un complemento que expresa una cualidad del sujeto con verbo copulativo', 'Un tipo de pronombre'], correct: 2 },
+      { text: '¿Por qué signo se puede sustituir el atributo?', options: ['Por el pronombre "se"', 'Por el pronombre "lo"', 'Por el pronombre "le"', 'Por el pronombre "me"'], correct: 1 },
+      { text: 'En "Esas galletas caseras parecen deliciosas", el atributo es…', options: ['Esas galletas caseras', 'Parecen', 'Deliciosas', 'Caseras'], correct: 2 },
+      { text: 'En "Las atletas entrenaron durante dos horas", el verbo es…', options: ['Copulativo', 'Predicativo', 'Atributivo', 'Auxiliar'], correct: 1 },
+      { text: '"Ser listo" significa inteligente, pero "estar listo" significa…', options: ['Muy inteligente', 'Tonto', 'Preparado', 'Cansado'], correct: 2 },
+      { text: '"Estos jardines son magníficos": ¿qué palabra es el atributo?', options: ['Estos', 'Jardines', 'Son', 'Magníficos'], correct: 3 },
+      { text: 'El atributo concuerda en género y número con…', options: ['El verbo', 'El predicado', 'El sujeto', 'El complemento directo'], correct: 2 },
+    ],
+    s5: [
+      { text: '¿Qué recurso literario identifica un término real con otro imaginario por semejanza?', options: ['La comparación', 'La metáfora', 'La greguería', 'La rima'], correct: 1 },
+      { text: '¿Qué recurso literario usa la palabra "como" para establecer la semejanza?', options: ['La metáfora', 'La aliteración', 'La comparación', 'La greguería'], correct: 2 },
+      { text: 'En "¡Amapola, sangre de la tierra!", ¿qué se compara con la sangre?', options: ['La tierra', 'El color rojo de la amapola', 'Los pétalos', 'El tallo de la flor'], correct: 1 },
+      { text: '"Brazos como dos remos salados" es una…', options: ['Metáfora', 'Greguería', 'Comparación', 'Rima'], correct: 2 },
+      { text: '¿Quién creó las greguerías?', options: ['Federico García Lorca', 'Miguel de Cervantes', 'Ramón Gómez de la Serna', 'Josefina de la Torre'], correct: 2 },
+      { text: '¿Qué son las greguerías?', options: ['Poemas largos con rima', 'Textos brevísimos e ingeniosos con metáforas', 'Cuentos populares', 'Canciones infantiles'], correct: 1 },
+      { text: '"Los bostezos son oes que huyen." ¿Qué recurso usa esta greguería?', options: ['Comparación con "como"', 'Metáfora', 'Rima', 'Enumeración'], correct: 1 },
+      { text: '"La A es la tienda de campaña del alfabeto." ¿Por qué?', options: ['Porque la A es la primera letra', 'Porque tiene forma de triángulo como una tienda', 'Porque la A es la más usada', 'Porque la A es difícil de escribir'], correct: 1 },
+      { text: 'La comparación siempre necesita un…', options: ['Verbo copulativo', 'Enlace comparativo (como, igual que…)', 'Adjetivo', 'Sujeto plural'], correct: 1 },
+      { text: 'La metáfora, a diferencia de la comparación…', options: ['Usa "como" o "igual que"', 'No necesita enlace: sustituye directamente el término real', 'Solo aparece en cuentos', 'Siempre rima'], correct: 1 },
+    ],
+  };
+
+  const REFUERZO = {
+    r1: [
+      { text: 'Malala Yousafzai es de…', options: ['India', 'Pakistán', 'Afganistán', 'Bangladesh'], correct: 1 },
+      { text: '¿En qué año recibió Malala el Premio Nobel de la Paz?', options: ['2012', '2013', '2014', '2015'], correct: 2 },
+      { text: '¿Qué defiende Malala?', options: ['El derecho al voto', 'El derecho de las niñas a la educación', 'La libertad de prensa', 'El medio ambiente'], correct: 1 },
+      { text: '"Pedagogo" es una persona que…', options: ['Aprende', 'Estudia', 'Se dedica a la educación', 'Escribe libros'], correct: 2 },
+      { text: '"Discípulo" es sinónimo de…', options: ['Maestro', 'Educador', 'Alumno o aprendiz', 'Director'], correct: 2 },
+      { text: '¿Qué cualidad NO describe a un buen estudiante?', options: ['Trabajador', 'Atento', 'Disciplinado', 'Haragán'], correct: 3 },
+      { text: '"Convidar" es un arcaísmo de…', options: ['Compartir', 'Invitar', 'Celebrar', 'Regalar'], correct: 1 },
+      { text: '"Dádiva" es un arcaísmo de…', options: ['Premio', 'Castigo', 'Regalo', 'Favor'], correct: 2 },
+      { text: 'El colegio de Malala no tenía cartel para…', options: ['Ahorrar dinero', 'No ser identificado por quienes se oponían a la educación femenina', 'Porque era un colegio secreto', 'Porque aún no habían puesto su nombre'], correct: 1 },
+      { text: '¿Qué tipo de texto es "Esta es mi historia"?', options: ['Texto poético', 'Texto instructivo', 'Texto narrativo', 'Texto descriptivo'], correct: 2 },
+    ],
+    r2: [
+      { text: '"Haragán" es un arcaísmo de…', options: ['Perezoso / vago', 'Listo', 'Estudiante', 'Nervioso'], correct: 0 },
+      { text: '"Afeite" es un arcaísmo de…', options: ['Peinado', 'Cosmético', 'Perfume', 'Jabón'], correct: 1 },
+      { text: '¿Cuál de estas palabras es un extranjerismo adaptado?', options: ['Dádiva', 'Yogur', 'Aprendiz', 'Criptomoneda'], correct: 1 },
+      { text: '"Eslogan" es la adaptación al español de…', options: ['slogan', 'eslogán', 'sloogan', 'eslogaan'], correct: 0 },
+      { text: '"Estrés" es la adaptación al español de…', options: ['estres', 'stress', 'estrees', 'strés'], correct: 1 },
+      { text: '"Dron" es un…', options: ['Arcaísmo', 'Extranjerismo adaptado y neologismo', 'Refrán', 'Comparación'], correct: 1 },
+      { text: 'La palabra "hall" en español equivale a…', options: ['Pasillo', 'Balcón', 'Recibidor', 'Salón'], correct: 2 },
+      { text: '"Bloc" en español equivale a…', options: ['Carpeta', 'Mochila', 'Estuche', 'Libreta'], correct: 3 },
+      { text: '"Selfie" es un…', options: ['Arcaísmo', 'Neologismo', 'Refrán', 'Comparación'], correct: 1 },
+      { text: '"Estándar" es la adaptación del extranjerismo…', options: ['standar', 'estandar', 'standard', 'standart'], correct: 2 },
+    ],
+    r3: [
+      { text: '"E_presidente" → ¿x o s?', options: ['Esresidente (s)', 'Expresidente (x)', 'Ecpresidente (c)', 'Ezpresidente (z)'], correct: 1 },
+      { text: '"E_traordinario" → ¿x o s?', options: ['Estraordinario (s)', 'Extraordinario (x)', 'Ectraordinario (c)', 'Eztraordinario (z)'], correct: 1 },
+      { text: '"E_plendor" → ¿x o s?', options: ['Explendor (x)', 'Esplendor (s)', 'Eplendor', 'Ezplendor (z)'], correct: 1 },
+      { text: '"E_pectacular" → ¿x o s?', options: ['Expectacular (x)', 'Espectacular (s)', 'Ecpectacular', 'Ezpectacular'], correct: 1 },
+      { text: '"E_amen" → ¿x o s?', options: ['Esamen (s)', 'Examen (x)', 'Ecamen', 'Ezamen'], correct: 1 },
+      { text: '"E_cursión" → ¿x o s?', options: ['Escursión (s)', 'Excursión (x)', 'Eccursión', 'Ezcursión'], correct: 1 },
+      { text: '"E_pada" → ¿x o s?', options: ['Expada (x)', 'Espada (s)', 'Ecpada', 'Ezpada'], correct: 1 },
+      { text: '"Sa_ofón" → ¿x o s?', options: ['Sasofón (s)', 'Saxofón (x)', 'Sacofón (c)', 'Sazofón (z)'], correct: 1 },
+      { text: '"E_tranjerismo" → ¿x o s?', options: ['Estranjerismo (s)', 'Extranjerismo (x)', 'Ectranjerismo (c)', 'Eztranjerismo (z)'], correct: 1 },
+      { text: '"E_pejo" → ¿x o s?', options: ['Expejo (x)', 'Espejo (s)', 'Ecpejo (c)', 'Ezpejo (z)'], correct: 1 },
+    ],
+    r4: [
+      { text: 'Identifica el verbo copulativo: "La película es emocionante."', options: ['Película', 'Es', 'Emocionante', 'La'], correct: 1 },
+      { text: 'En "Los niños juegan en el parque", el verbo es…', options: ['Copulativo', 'Predicativo', 'Atributivo', 'Auxiliar'], correct: 1 },
+      { text: 'En "María está cansada", el atributo es…', options: ['María', 'Está', 'Cansada', 'No tiene atributo'], correct: 2 },
+      { text: '"El pastel parece delicioso." Si sustituyo el atributo por "lo": …', options: ['El pastel lo parece ✅', 'El pastel lo está ✅', 'El pastel lo come ✅', 'El pastel lo juega ✅'], correct: 0 },
+      { text: '"Ser abierto" significa…', options: ['Estar sin cerrar', 'Ser extrovertido', 'Estar disponible', 'Ser sencillo'], correct: 1 },
+      { text: '"Estar abierto" significa…', options: ['Ser extrovertido', 'Ser honesto', 'No estar cerrado', 'Estar preparado'], correct: 2 },
+      { text: 'En "El cielo está nublado", ¿hay atributo?', options: ['No, porque no hay verbo', 'Sí: "nublado" es el atributo', 'No, porque "estar" no es copulativo', 'Sí: "el cielo" es el atributo'], correct: 1 },
+      { text: 'El atributo concuerda con el sujeto en…', options: ['Persona y tiempo', 'Género y número', 'Modo y aspecto', 'Número solo'], correct: 1 },
+      { text: 'En "Las flores parecen marchitas", el verbo copulativo es…', options: ['Flores', 'Marchitas', 'Parecen', 'Las'], correct: 2 },
+      { text: '"Las flores parecen marchitas": el atributo es…', options: ['Las', 'Flores', 'Parecen', 'Marchitas'], correct: 3 },
+    ],
+    r5: [
+      { text: '"Sus ojos son dos estrellas." ¿Qué recurso es?', options: ['Comparación', 'Greguería', 'Metáfora', 'Refrán'], correct: 2 },
+      { text: '"Rápido como el viento." ¿Qué recurso es?', options: ['Metáfora', 'Comparación', 'Greguería', 'Rima'], correct: 1 },
+      { text: '"La luna es una moneda de plata." ¿Qué recurso es?', options: ['Comparación con "como"', 'Greguería', 'Metáfora', 'Refrán'], correct: 2 },
+      { text: '¿Qué palabra indica que hay una comparación?', options: ['Es', 'Como', 'Pero', 'Aunque'], correct: 1 },
+      { text: '¿Quién inventó las greguerías?', options: ['Lorca', 'Cervantes', 'Gómez de la Serna', 'Quevedo'], correct: 2 },
+      { text: '"La S es el anzuelo del abecedario." ¿Qué recurso usa?', options: ['Comparación', 'Metáfora (greguería)', 'Refrán', 'Aliteración'], correct: 1 },
+      { text: '"Valiente como un león." ¿Qué recurso es?', options: ['Metáfora', 'Comparación', 'Greguería', 'Hipérbole'], correct: 1 },
+      { text: '"Las nubes son algodón de azúcar del cielo." ¿Qué recurso es?', options: ['Comparación', 'Refrán', 'Metáfora', 'Greguería'], correct: 2 },
+      { text: 'Una greguería siempre es…', options: ['Un texto muy largo', 'Un poema con rima', 'Un texto brevísimo con comentario ingenioso', 'Una frase hecha popular'], correct: 2 },
+      { text: '"Más lento que una tortuga" es una…', options: ['Metáfora', 'Greguería', 'Comparación', 'Personificación'], correct: 2 },
+    ],
+  };
+
+  const QuizEngine = {
+    instances: {},
+    create(id, questions) {
+      this.instances[id] = { questions, current: 0, score: 0, answered: false, completed: false };
+      this.render(id);
+    },
+    get(id) { return this.instances[id]; },
+    render(id) {
+      const state = this.get(id);
+      const el = document.getElementById(`quiz-${id}`);
+      if (!el || state.completed) return;
+      const q = state.questions[state.current];
+      el.innerHTML = `
+        <div class="quiz-progress">Pregunta ${state.current + 1} de ${state.questions.length}</div>
+        <div class="quiz-question">${q.text}</div>
+        <div class="quiz-options">
+          ${q.options.map((o, i) => `<button class="quiz-option" data-index="${i}">${o}</button>`).join('')}
+        </div>
+        <div class="quiz-feedback" id="fb-${id}"></div>
+      `;
+      el.querySelectorAll('.quiz-option').forEach(btn => {
+        btn.addEventListener('click', e => {
+          if (state.answered) return;
+          this.answer(id, parseInt(e.currentTarget.dataset.index));
+        });
+      });
+    },
+    answer(id, sel) {
+      const state = this.get(id);
+      if (state.answered) return;
+      state.answered = true;
+      const q = state.questions[state.current];
+      const ok = sel === q.correct;
+      if (ok) state.score++;
+      const fb = document.getElementById(`fb-${id}`);
+      fb.textContent = ok ? '✅ ¡Correcto!' : `❌ Incorrecto. La respuesta era: "${q.options[q.correct]}"`;
+      fb.className = `quiz-feedback ${ok ? 'correct' : 'wrong'}`;
+      document.getElementById(`quiz-${id}`).querySelectorAll('.quiz-option').forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === q.correct) btn.classList.add('correct');
+        else if (i === sel) btn.classList.add('wrong');
+      });
+      setTimeout(() => {
+        state.current++;
+        state.answered = false;
+        state.current < state.questions.length ? this.render(id) : this.showResult(id);
+      }, 1500);
+    },
+    showResult(id) {
+      const state = this.get(id);
+      state.completed = true;
+      const pct = Math.round(state.score / state.questions.length * 100);
+      const emoji = pct >= 90 ? '🏆' : pct >= 70 ? '🎉' : pct >= 50 ? '💪' : '📚';
+      const msg   = pct >= 90 ? '¡Excelente! Dominas este apartado.' :
+                    pct >= 70 ? '¡Muy bien! Sigue practicando.' :
+                    pct >= 50 ? 'Buen intento. Repasa e inténtalo de nuevo.' :
+                    'Repasa la sección con calma e inténtalo otra vez.';
+      document.getElementById(`quiz-${id}`).innerHTML = `
+        <div class="quiz-result">
+          <div class="result-emoji">${emoji}</div>
+          <div class="result-score">${state.score}/${state.questions.length}</div>
+          <div class="result-pct">${pct}%</div>
+          <div class="result-msg">${msg}</div>
+          <button class="btn-retry" id="retry-${id}">🔄 Repetir</button>
+        </div>`;
+      document.getElementById(`retry-${id}`).addEventListener('click', () => {
+        state.current = 0; state.score = 0; state.answered = false; state.completed = false;
+        this.render(id);
+        ScoreTracker.update(id, 0, state.questions.length);
+      });
+      ScoreTracker.update(id, state.score, state.questions.length);
+      const btn = document.querySelector(`.tab-btn[data-section="${id}"]`);
+      if (btn) btn.classList.add('done');
+    },
+  };
+
+  const ScoreTracker = {
+    scores: {},
+    update(id, obtained, total) {
+      this.scores[id] = { obtained, total };
+      const entries = Object.values(this.scores);
+      const tot = entries.reduce((s, e) => s + e.total, 0);
+      const obt = entries.reduce((s, e) => s + e.obtained, 0);
+      const pct = tot > 0 ? Math.round(obt / tot * 100) : 0;
+      document.getElementById('global-score').textContent = `Puntuación: ${obt} / ${tot}`;
+      document.getElementById('global-score-bar').textContent = `${obt} / ${tot}`;
+      document.getElementById('progress-fill').style.width = `${pct}%`;
+    },
+  };
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.section;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(target).classList.add('active');
+      if (QUESTIONS[target] && !QuizEngine.instances[target]) {
+        QuizEngine.create(target, QUESTIONS[target]);
+      }
+      if (target === 'sr') {
+        ['r1','r2','r3','r4','r5'].forEach(rk => {
+          if (!QuizEngine.instances[rk]) QuizEngine.create(rk, REFUERZO[rk]);
+        });
+      }
+    });
+  });
+
+  QuizEngine.create('s1', QUESTIONS['s1']);
+});
+</script>
+</body>
+</html>

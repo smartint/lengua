@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 7 · Lengua 6.º Primaria</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fcf4f4;
+  --surface: #ffffff;
+  --surface-alt: #f9eaea;
+  --accent: #c62828;      /* Rojo Teatro / Carmesí */
+  --accent2: #f9a825;     /* Dorado / Amarillo */
+  --accent3: #1565c0;     /* Azul contraste */
+  --accent4: #2e7d32;     /* Verde oscuro */
+  --accent-light: #ffcdd2;/* Rosa claro / Rojo deslavado */
+  --text: #2b1313;
+  --text-muted: #705353;
+  --border: #ef9a9a;
+  --success: #2e7d32;
+  --error: #d32f2f;
+  --shadow: 0 4px 16px rgba(198, 40, 40, 0.12);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+header {
+  background: linear-gradient(135deg, #c62828 0%, #b71c1c 100%);
+  color: white;
+  padding: 20px 28px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 4px 20px rgba(198, 40, 40, 0.3);
+  border-bottom: 4px solid var(--accent2);
+}
+.header-icon { font-size: 2.6rem; }
+.header-text h1 { font-family: 'Nunito', sans-serif; font-size: 1.55rem; font-weight: 800; line-height: 1.2; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+.header-text p { font-size: 0.9rem; opacity: 0.95; margin-top: 2px; }
+.global-score-wrap {
+  margin-left: auto;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 12px;
+  padding: 8px 16px;
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+}
+.global-score-wrap .label { font-size: 0.75rem; opacity: 0.9; color: #ffeb3b; font-weight: 700; }
+#global-score { font-size: 1.35rem; font-weight: 800; }
+
+/* ── NAV ── */
+nav {
+  background: var(--surface);
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  overflow-x: auto;
+  padding: 0 12px;
+  gap: 4px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+nav::-webkit-scrollbar { display: none; }
+.tab-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 12px 16px;
+  min-height: 54px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tab-btn:hover { color: var(--accent); background-color: var(--surface-alt); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); background-color: var(--surface-alt); }
+.tab-btn .check { color: var(--success); font-size: 0.8rem; }
+
+/* ── MAIN ── */
+main { max-width: 900px; margin: 0 auto; padding: 28px 20px 60px; }
+
+/* ── SECTIONS ── */
+.section { display: none; animation: fadeIn 0.35s ease-out; }
+.section.active { display: block; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+.section-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-title span { font-size: 1.8rem; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 22px 24px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+  border-left: 5px solid var(--accent);
+}
+.card.gold { border-left-color: var(--accent2); }
+.card.blue { border-left-color: var(--accent3); }
+.card.green { border-left-color: var(--accent4); }
+.card h3 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+.card p { font-size: 0.95rem; line-height: 1.65; color: var(--text); margin-bottom: 8px; }
+.card ul { padding-left: 20px; margin-bottom: 8px; }
+.card li { font-size: 0.95rem; line-height: 1.7; }
+
+.concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 18px; }
+.concept-card {
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
+  border-top: 4px solid var(--accent);
+}
+.concept-card.gold { border-top-color: var(--accent2); }
+.concept-card.blue { border-top-color: var(--accent3); }
+.concept-card.green { border-top-color: var(--accent4); }
+.concept-card .icon { font-size: 2rem; margin-bottom: 8px; }
+.concept-card h4 { font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 6px; }
+.concept-card p { font-size: 0.9rem; line-height: 1.55; color: var(--text-muted); }
+
+.highlight-box {
+  background: var(--accent-light);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  border-left: 4px solid var(--accent);
+}
+.highlight-box.gold { background: #fffde7; border-left-color: var(--accent2); }
+.highlight-box.blue { background: #e3f2fd; border-left-color: var(--accent3); }
+.highlight-box.green { background: #e8f5e9; border-left-color: var(--accent4); }
+
+.example-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0;
+}
+.tag {
+  background: var(--surface-alt);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.tag.red { background: var(--accent-light); border-color: #ef9a9a; color: #c62828; }
+.tag.gold { background: #fffde7; border-color: #fff59d; color: #f57f17; }
+.tag.blue { background: #e3f2fd; border-color: #90caf9; color: #1565c0; }
+
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9rem; }
+th { background: var(--surface-alt); padding: 10px 14px; text-align: left; font-family: 'Nunito', sans-serif; font-weight: 800; border-bottom: 2px solid var(--border); color: var(--accent); }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+tr:last-child td { border-bottom: none; }
+
+/* ── IFRAME APP TEMA 7 ── */
+.file-input-wrapper {
+  background: var(--surface);
+  border: 2px dashed var(--accent2);
+  padding: 20px;
+  text-align: center;
+  border-radius: 12px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.file-input-wrapper input[type="file"] {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  color: var(--text);
+  cursor: pointer;
+}
+.app-container {
+  width: 100%;
+  height: 800px;
+  border: 3px solid var(--accent2);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(249, 168, 37, 0.2);
+  background: #fff;
+  margin-top: 15px;
+}
+
+/* ── QUIZ ── */
+.quiz-wrap {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 26px;
+  margin-top: 26px;
+  box-shadow: var(--shadow);
+  border-top: 5px solid var(--accent3);
+}
+.quiz-wrap h3 {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 1.15rem;
+  margin-bottom: 18px;
+  color: var(--accent3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.quiz-progress { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;}
+.quiz-question { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 16px; line-height: 1.5; color: var(--text); }
+.quiz-option {
+  display: block;
+  width: 100%;
+  padding: 14px 18px;
+  margin: 8px 0;
+  background: #fdfbfb;
+  border: 2px solid #efdcdc;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-family: 'Open Sans', sans-serif;
+  transition: all 0.2s ease;
+  min-height: 52px; 
+}
+.quiz-option:hover:not(:disabled) { background: #ffebee; border-color: #ef9a9a; transform: translateY(-1px); }
+.quiz-option.correct { background: #e8f5e9; border-color: #43a047; color: #1b5e20; font-weight: 700; }
+.quiz-option.wrong   { background: #ffebee; border-color: #e53935; color: #b71c1c; }
+.quiz-feedback { margin-top: 12px; font-weight: 700; min-height: 24px; font-size: 0.95rem; }
+.quiz-feedback.correct { color: #2e7d32; }
+.quiz-feedback.wrong   { color: #c62828; }
+.quiz-result { text-align: center; padding: 24px 0 12px; }
+.result-score { font-family: 'Nunito', sans-serif; font-size: 3rem; font-weight: 800; color: var(--accent3); }
+.result-pct { font-size: 1.15rem; color: var(--text-muted); margin: 6px 0 14px; font-weight: 600; }
+.result-msg { font-size: 1.05rem; font-weight: 700; margin-bottom: 20px; }
+.btn-retry {
+  background: var(--accent3);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 28px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+  min-height: 50px;
+  box-shadow: 0 4px 12px rgba(21, 101, 192, 0.3);
+}
+.btn-retry:hover { opacity: 0.9; transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-icon">🎭</div>
+  <div class="header-text">
+    <h1>Tema 7 · Lengua 6.º Primaria</h1>
+    <p>Sobre el escenario · Un valioso regalo</p>
+  </div>
+  <div class="global-score-wrap">
+    <div class="label">Puntuación global</div>
+    <div id="global-score">–</div>
+  </div>
+</header>
+
+<nav id="main-nav">
+  <button class="tab-btn active" data-section="s1">🎭 El Teatro</button>
+  <button class="tab-btn" data-section="s2">🔤 Vocabulario</button>
+  <button class="tab-btn" data-section="s3">✏️ Uso de la H</button>
+  <button class="tab-btn" data-section="s4">📝 La Oración</button>
+  <button class="tab-btn" data-section="s5">🌟 Repaso final</button>
+  <button class="tab-btn" data-section="s6" style="color: var(--accent); background: var(--surface-alt); border-bottom: 3px solid var(--accent2);">📲 App: Un valioso regalo</button>
+</nav>
+
+<main>
+
+<!-- ══════════════════════════════════════ S1 EL TEATRO ══════════════════════════════════════ -->
+<section id="s1" class="section active">
+  <div class="section-title"><span>🎭</span> Literatura: Sobre el escenario</div>
+
+  <div class="highlight-box gold">
+    Las <strong>obras teatrales</strong> son textos literarios creados para ser representados ante un público. En ellas <strong>no hay un narrador</strong> que cuente la historia, sino que son los propios personajes los que nos muestran lo que ocurre mediante sus diálogos.
+  </div>
+
+  <div class="card">
+    <h3>Partes de una obra teatral</h3>
+    <ul>
+      <li><strong>Los diálogos:</strong> Es lo que dicen los personajes. Cada intervención va precedida del nombre del personaje que habla.</li>
+      <li><strong>Las acotaciones:</strong> Son las indicaciones o aclaraciones que da el autor sobre cómo debe representarse la obra (decorados, movimientos de los actores, tono de voz...). Suelen ir <em>entre paréntesis</em> y en cursiva.</li>
+    </ul>
+    <p style="margin-top: 10px;">Para organizar la historia, las obras de teatro se dividen en <strong>actos</strong> (que equivalen a los capítulos de una novela) y estos, a su vez, se dividen en <strong>escenas</strong>.</p>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card blue">
+      <div class="icon">😂</div>
+      <h4>Las Comedias</h4>
+      <p>Son obras teatrales que tratan temas divertidos y entretenidos, y que generalmente tienen un <strong>final feliz</strong>.</p>
+    </div>
+    <div class="concept-card red">
+      <div class="icon">😭</div>
+      <h4>Las Tragedias</h4>
+      <p>Son obras que plantean conflictos graves y dolorosos, protagonizados por personajes que no pueden evitar un <strong>final desdichado</strong>.</p>
+    </div>
+  </div>
+
+  <div class="card gold">
+    <h3>Lectura: Un valioso regalo</h3>
+    <p>La leyenda cuenta la historia de los <strong>iroqueses</strong>, un pueblo que vivía en cabañas y se organizaba en clanes. Las mujeres estaban al frente y tomaban las decisiones. Un día llegó a la aldea un anciano de aspecto débil buscando comida y alojamiento. El único que le ayudó fue un cazador compasivo, y a cambio, el anciano le reveló los <strong>remedios curativos</strong> para las enfermedades de su pueblo.</p>
+  </div>
+
+  <div id="quiz-s1" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S2 VOCABULARIO ══════════════════════════════════════ -->
+<section id="s2" class="section">
+  <div class="section-title"><span>🔤</span> Vocabulario: Palabras homónimas y parónimas</div>
+
+  <div class="concept-grid">
+    <div class="concept-card red">
+      <div class="icon">🗣️</div>
+      <h4>Palabras Homónimas</h4>
+      <p>Son palabras que <strong>suenan igual</strong>, pero tienen un origen y un significado completamente distintos. Pueden escribirse exactamente igual (<em>vino</em> de bebida / <em>vino</em> de venir) o de forma parecida (<em>hola</em> / <em>ola</em>).</p>
+    </div>
+    <div class="concept-card gold">
+      <div class="icon">👯</div>
+      <h4>Palabras Parónimas</h4>
+      <p>Son palabras que <strong>se pronuncian y se escriben de forma muy parecida</strong>, pero no igual, y sus significados son diferentes (ej. <em>sanar</em> / <em>sanear</em>).</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Ejemplos de Homónimas (suenan igual)</h3>
+    <div class="example-row">
+      <span class="tag red">valla (cerca) / vaya (verbo ir)</span>
+      <span class="tag red">hola (saludo) / ola (mar)</span>
+      <span class="tag red">tubo (cilindro) / tuvo (verbo tener)</span>
+      <span class="tag red">bota (calzado) / vota (elecciones)</span>
+    </div>
+  </div>
+
+  <div class="card blue">
+    <h3>Ejemplos de Parónimas (se parecen mucho)</h3>
+    <div class="example-row">
+      <span class="tag blue">sanar (curar) / sanear (limpiar)</span>
+      <span class="tag blue">abeja (insecto) / oveja (mamífero)</span>
+      <span class="tag blue">aptitud (habilidad) / actitud (comportamiento)</span>
+      <span class="tag blue">absolver (perdonar) / absorber (chupar)</span>
+    </div>
+  </div>
+
+  <div id="quiz-s2" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S3 ORTOGRAFÍA ══════════════════════════════════════ -->
+<section id="s3" class="section">
+  <div class="section-title"><span>✏️</span> Ortografía: El uso de la letra H</div>
+
+  <div class="highlight-box red">
+    La <strong>letra H</strong> no se pronuncia en español, pero es fundamental conocer sus reglas ortográficas para escribir correctamente y distinguir palabras (como "ha" del verbo haber y "a" de preposición).
+  </div>
+
+  <div class="card">
+    <h3>Reglas principales de la H</h3>
+    <ul>
+      <li>Se escriben con H las palabras que empiezan por los diptongos <strong>hue-, hie-, hui-, hia-</strong>.<br><em>Ejemplos: <strong>hue</strong>so, <strong>hie</strong>lo, <strong>hui</strong>da, <strong>hia</strong>to.</em></li>
+      <li>Se escriben con H todas las formas de los verbos <strong>haber, hacer, hallar, hablar y habitar</strong>.<br><em>Ejemplos: he hablado, hicieron, hallaron, habito.</em></li>
+      <li>Se escriben con H las palabras que empiezan por los prefijos <strong>hecto-</strong> (cien), <strong>hepta-</strong> (siete), <strong>hexa-</strong> (seis), <strong>hemi-</strong> (mitad), <strong>hiper-</strong> (exceso) e <strong>hipo-</strong> (debajo de o escasez).<br><em>Ejemplos: <strong>hectó</strong>metro, <strong>hexá</strong>gono, <strong>hiper</strong>mercado, <strong>hipo</strong>termia.</em></li>
+    </ul>
+  </div>
+
+  <div class="card gold">
+    <h3>Encuentra el error</h3>
+    <p>Presta atención a estas oraciones, ¿sabrías cuál está bien escrita?</p>
+    <div class="example-row">
+      <span class="tag">✅ Tomó aceitunas sin hueso.</span>
+      <span class="tag">❌ Tomó aceitunas sin ueso.</span>
+      <span class="tag">✅ El queso está ahumado.</span>
+      <span class="tag">❌ El queso está aumado.</span>
+    </div>
+  </div>
+
+  <div id="quiz-s3" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S4 GRAMÁTICA ══════════════════════════════════════ -->
+<section id="s4" class="section">
+  <div class="section-title"><span>📝</span> Gramática: La oración y sus clases</div>
+
+  <div class="highlight-box blue">
+    <strong>Una oración</strong> es un conjunto de palabras que tiene un sentido completo y que contiene, al menos, <strong>un verbo</strong> (una forma verbal conjugada).
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="icon">💬</div>
+      <h4>Clases según la intención del hablante</h4>
+      <p>
+        • <strong>Enunciativas:</strong> Afirman o niegan algo (<em>Hoy llueve</em>).<br>
+        • <strong>Interrogativas:</strong> Hacen una pregunta (<em>¿Qué hora es?</em>).<br>
+        • <strong>Exclamativas:</strong> Expresan emoción o sorpresa (<em>¡Qué frío!</em>).
+      </p>
+    </div>
+    <div class="concept-card">
+      <div class="icon">🗣️</div>
+      <h4>Más intenciones...</h4>
+      <p>
+        • <strong>Imperativas/Exhortativas:</strong> Dan órdenes o ruegos (<em>Cierra la puerta</em>).<br>
+        • <strong>Optativas/Desiderativas:</strong> Expresan un deseo (<em>¡Ojalá ganemos!</em>).<br>
+        • <strong>Dubitativas:</strong> Expresan duda (<em>Quizás vayamos al cine</em>).
+      </p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Clases según el número de verbos</h3>
+    <table>
+      <tr>
+        <th>Oraciones Simples</th>
+        <th>Oraciones Compuestas</th>
+      </tr>
+      <tr>
+        <td>Tienen <strong>un solo verbo</strong> o forma verbal conjugada.</td>
+        <td>Tienen <strong>más de un verbo</strong> (dos o más formas verbales conjugadas).</td>
+      </tr>
+      <tr>
+        <td><em>La mujer <strong>habló</strong> con el anciano.</em></td>
+        <td><em>La aldea <strong>estaba</strong> formada por cabañas que <strong>pertenecían</strong> al clan.</em></td>
+      </tr>
+      <tr>
+        <td><em>Las águilas <strong>vuelan</strong> muy alto.</em></td>
+        <td><em><strong>Cogió</strong> el paraguas porque <strong>llovía</strong> mucho.</em></td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="quiz-s4" class="quiz-wrap">
+    <h3>🧠 Comprueba lo que sabes</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S5 REPASO FINAL ══════════════════════════════════════ -->
+<section id="s5" class="section">
+  <div class="section-title"><span>🌟</span> Repaso final: Demuestra tus conocimientos</div>
+
+  <div class="concept-grid">
+    <div class="concept-card red">
+      <div class="icon">🎭</div>
+      <h4>El Teatro</h4>
+      <p>No hay narrador, hay diálogos, acotaciones, actos y escenas. Comedias (felices) y tragedias (desdichadas).</p>
+    </div>
+    <div class="concept-card gold">
+      <div class="icon">🔤</div>
+      <h4>Vocabulario</h4>
+      <p>Homónimas (suenan igual: hola/ola) y Parónimas (se parecen: sanar/sanear).</p>
+    </div>
+    <div class="concept-card blue">
+      <div class="icon">✏️</div>
+      <h4>Ortografía de la H</h4>
+      <p>Prefijos (hiper-, hemi-, hecto-), comienzos en hue-, hie-, hui- y verbos como hacer y haber.</p>
+    </div>
+    <div class="concept-card green">
+      <div class="icon">📝</div>
+      <h4>La Oración</h4>
+      <p>Debe tener verbo. Clases por intención (enunciativa, desiderativa...) y por número de verbos (simple/compuesta).</p>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>¡El gran reto del Tema 7!</strong> Aquí encontrarás preguntas mezcladas de todas las secciones anteriores.
+  </div>
+
+  <div id="quiz-s5" class="quiz-wrap">
+    <h3>🏆 Quiz de repaso general</h3>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ S6 APP ADJUNTA ══════════════════════════════════════ -->
+<section id="s6" class="section">
+  <div class="section-title" style="color: var(--text);"><span>📲</span> App Interactiva: Un valioso regalo</div>
+  
+  <div class="highlight-box gold">
+    <strong>Carga tu aplicación interactiva aquí:</strong> Haz clic en el botón inferior y selecciona el archivo <code>app_un_valioso_regalo_tema7.html</code> que tienes guardado en tu ordenador. Se fusionará y funcionará al instante dentro de este recuadro.
+  </div>
+
+  <div class="file-input-wrapper">
+    <input type="file" id="html-loader" accept=".html" />
+  </div>
+
+  <!-- El iframe se mostrará cuando se cargue el archivo local -->
+  <div class="app-container" id="iframe-container" style="display:none;">
+    <iframe id="app-iframe" width="100%" height="100%" frameborder="0" title="App interactiva Un valioso regalo"></iframe>
+  </div>
+  
+  <!-- Fallback inicial si lo cargan desde el mismo servidor -->
+  <div class="app-container" id="iframe-default">
+    <iframe src="app_un_valioso_regalo_tema7.html" width="100%" height="100%" frameborder="0" onerror="this.parentElement.style.display='none'"></iframe>
+  </div>
+
+</section>
+
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* ── CARGADOR DE ARCHIVO HTML LOCAL (APP ADJUNTA) ── */
+  const htmlLoader = document.getElementById('html-loader');
+  const iframeContainer = document.getElementById('iframe-container');
+  const appIframe = document.getElementById('app-iframe');
+  const iframeDefault = document.getElementById('iframe-default');
+
+  if (htmlLoader) {
+    htmlLoader.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        // Ocultar el iframe por defecto
+        if(iframeDefault) iframeDefault.style.display = 'none';
+        
+        // Inyectar el HTML cargado directamente en el iframe local
+        appIframe.srcdoc = event.target.result;
+        iframeContainer.style.display = 'block';
+      };
+      reader.readAsText(file);
+    });
+  }
+
+  /* ── DATOS DE LOS QUIZZES ── */
+  const QUESTIONS = {
+    s1: [
+      { text: '¿Qué rasgo principal diferencia a una obra teatral de una novela?', options: ['Que la obra teatral es siempre triste', 'Que no tiene diálogos', 'Que no hay narrador y los personajes cuentan la historia mediante diálogos', 'Que solo la leen los actores'], correct: 2 },
+      { text: '¿Qué son las "acotaciones" en un texto teatral?', options: ['Los títulos de los capítulos', 'Indicaciones del autor sobre el decorado, gestos o tonos de voz de los actores', 'Los saludos del público', 'El precio de las entradas'], correct: 1 },
+      { text: '¿Cómo se divide generalmente una obra de teatro para organizarla?', options: ['En párrafos y versos', 'En viñetas y bocadillos', 'En actos y escenas', 'En estrofas y rimas'], correct: 2 },
+      { text: '¿Cómo se llaman las obras teatrales que plantean conflictos graves con un final desdichado?', options: ['Comedias', 'Chistes', 'Leyendas', 'Tragedias'], correct: 3 },
+      { text: 'En el texto "Un valioso regalo", ¿quiénes estaban al frente de los clanes iroqueses y tomaban las decisiones?', options: ['Los niños', 'Los cazadores extranjeros', 'Las mujeres', 'El anciano débil'], correct: 2 }
+    ],
+    s2: [
+      { text: 'Las palabras que suenan igual pero tienen distinto significado (como "hola" y "ola") se llaman...', options: ['Parónimas', 'Sinónimas', 'Homónimas', 'Antónimas'], correct: 2 },
+      { text: 'Las palabras "sanear" y "sanar" se pronuncian y escriben de forma parecida pero no igual. Por tanto, son...', options: ['Homónimas', 'Parónimas', 'Sinónimas', 'Variables'], correct: 1 },
+      { text: 'Elige el par de palabras que sean HOMÓNIMAS:', options: ['Actitud / Aptitud', 'Oveja / Abeja', 'Tubo / Tuvo', 'Entrar / Salir'], correct: 2 },
+      { text: 'Completa correctamente: "El agricultor saltó la _____ para coger las manzanas."', options: ['Vaya (verbo ir)', 'Balla', 'Baya (fruto)', 'Valla (cerca/muro)'], correct: 3 },
+      { text: 'Elige el par de palabras que sean PARÓNIMAS:', options: ['Bota / Vota', 'Hola / Ola', 'Absolver / Absorber', 'Haya / Aya'], correct: 2 }
+    ],
+    s3: [
+      { text: '¿Qué regla de la H siguen palabras como hueso, hielo o huida?', options: ['Son formas del verbo hacer', 'Llevan el prefijo hipo-', 'Empiezan por los diptongos hue-, hie-, hui-', 'Son excepciones'], correct: 2 },
+      { text: '¿Cuál de estas palabras está MAL escrita?', options: ['Habitaba', 'Allaron (verbo encontrar)', 'Hicieron', 'He hablado'], correct: 1 },
+      { text: 'El prefijo "hemi-", que significa "mitad" (como en hemisferio), se escribe siempre...', options: ['Con H', 'Sin H', 'Depende de la palabra siguiente', 'Con G'], correct: 0 },
+      { text: 'Completa la oración correctamente: "Ayer me dieron unas aceitunas sin _______ y un trozo de queso _______."', options: ['hueso / aumado', 'ueso / aumado', 'hueso / ahumado', 'ueso / ahumado'], correct: 2 },
+      { text: '¿Por qué "hipermercado" se escribe con H?', options: ['Porque empieza por el diptongo hie-', 'Porque proviene del verbo hablar', 'Porque empieza por el prefijo hiper- (que significa exceso o muy grande)', 'Porque es una palabra aguda'], correct: 2 }
+    ],
+    s4: [
+      { text: 'Para que un conjunto de palabras sea una ORACIÓN, tiene que contener obligatoriamente...', options: ['Al menos un sustantivo propio', 'Al menos un verbo conjugado', 'Un adverbio de lugar', 'Signos de exclamación'], correct: 1 },
+      { text: '¿Qué tipo de oración es "¡Ojalá apruebe el examen!"?', options: ['Imperativa (da una orden)', 'Enunciativa (afirma algo)', 'Optativa o Desiderativa (expresa un deseo)', 'Dubitativa (expresa duda)'], correct: 2 },
+      { text: 'Si le dices a tu hermano "Recoge los juguetes ahora mismo", estás usando una oración...', options: ['Interrogativa', 'Dubitativa', 'Imperativa o Exhortativa', 'Enunciativa'], correct: 2 },
+      { text: 'Las oraciones que tienen MÁS DE UN verbo conjugado se llaman...', options: ['Oraciones Simples', 'Oraciones Interrogativas', 'Oraciones Compuestas', 'Oraciones Complejas'], correct: 2 },
+      { text: 'Identifica si la siguiente oración es simple o compuesta: "Ana secó a su hermano con una toalla."', options: ['Es simple, porque solo tiene un verbo (secó)', 'Es compuesta, porque tiene un verbo (secó)', 'Es simple, porque no tiene verbos', 'Es compuesta, porque tiene un verbo (secó) y un sujeto (Ana)'], correct: 0 }
+    ],
+    s5: [
+      { text: 'En una obra de teatro, las indicaciones sobre el escenario o los gestos que van entre paréntesis se llaman...', options: ['Escenas', 'Acotaciones', 'Diálogos', 'Tragedias'], correct: 1 },
+      { text: 'Las palabras "ola" (del mar) y "hola" (saludo) son...', options: ['Antónimas', 'Sinónimas', 'Parónimas', 'Homónimas'], correct: 3 },
+      { text: 'Señala la opción en la que las dos palabras están bien escritas:', options: ['Hierba / Uevo', 'Ielo / Huida', 'Hierba / Hueso', 'Ierba / Ueso'], correct: 2 },
+      { text: '¿Qué tipo de oración es: "Tal vez vayamos al cine esta tarde"?', options: ['Imperativa', 'Dubitativa (expresa duda)', 'Interrogativa', 'Desiderativa'], correct: 1 },
+      { text: 'El anciano del texto "Un valioso regalo" entregó al cazador a cambio de su ayuda...', options: ['Oro y plata', 'Caballos y tierras', 'Un mapa del tesoro', 'Los remedios para curar enfermedades'], correct: 3 },
+      { text: 'Las palabras "actitud" y "aptitud" se escriben y suenan parecido, pero no igual. Son palabras...', options: ['Homónimas', 'Parónimas', 'Invariables', 'Preposiciones'], correct: 1 },
+      { text: '¿Es simple o compuesta la oración "Cogió el paraguas porque llovía mucho"?', options: ['Simple', 'Compuesta, porque tiene dos verbos (cogió y llovía)', 'Simple, porque solo hay un sujeto', 'Compuesta, porque tiene un sustantivo (paraguas)'], correct: 1 }
+    ]
+  };
+
+  /* ── QUIZ ENGINE ── */
+  const QuizEngine = {
+    instances: {},
+    create(id, questions) {
+      this.instances[id] = { questions, current: 0, score: 0, answered: false, completed: false };
+      this.render(id);
+    },
+    get(id) { return this.instances[id]; },
+    render(id) {
+      const s = this.get(id);
+      const container = document.getElementById(`quiz-${id}`);
+      if (!container || s.completed) return;
+      const q = s.questions[s.current];
+      const inner = document.createElement('div');
+      inner.innerHTML = `
+        <div class="quiz-progress">Pregunta ${s.current + 1} de ${s.questions.length}</div>
+        <div class="quiz-question">${q.text}</div>
+        <div class="quiz-options">
+          ${q.options.map((opt, i) => `<button class="quiz-option" data-index="${i}">${opt}</button>`).join('')}
+        </div>
+        <div class="quiz-feedback" id="feedback-${id}"></div>
+      `;
+      const h3 = container.querySelector('h3');
+      container.innerHTML = '';
+      if (h3) container.appendChild(h3);
+      container.appendChild(inner);
+      
+      inner.querySelectorAll('.quiz-option').forEach(btn => {
+        btn.addEventListener('click', e => {
+          if (s.answered) return;
+          this.answer(id, parseInt(e.currentTarget.dataset.index));
+        });
+      });
+    },
+    answer(id, sel) {
+      const s = this.get(id);
+      if (s.answered) return;
+      s.answered = true;
+      const q = s.questions[s.current];
+      const correct = sel === q.correct;
+      if (correct) s.score++;
+      
+      const fb = document.getElementById(`feedback-${id}`);
+      if (fb) {
+        fb.textContent = correct ? '✅ ¡Respuesta correcta!' : `❌ Incorrecto. La respuesta era: ${q.options[q.correct]}`;
+        fb.className = `quiz-feedback ${correct ? 'correct' : 'wrong'}`;
+      }
+      
+      const container = document.getElementById(`quiz-${id}`);
+      container.querySelectorAll('.quiz-option').forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === q.correct) btn.classList.add('correct');
+        else if (i === sel) btn.classList.add('wrong');
+      });
+      
+      setTimeout(() => {
+        s.current++;
+        s.answered = false;
+        if (s.current < s.questions.length) {
+          this.render(id);
+        } else {
+          this.showResult(id);
+        }
+      }, 1800);
+    },
+    showResult(id) {
+      const s = this.get(id);
+      s.completed = true;
+      const pct = Math.round((s.score / s.questions.length) * 100);
+      const container = document.getElementById(`quiz-${id}`);
+      const h3 = container.querySelector('h3');
+      container.innerHTML = '';
+      if (h3) container.appendChild(h3);
+      
+      const res = document.createElement('div');
+      res.className = 'quiz-result';
+      const emoji = pct >= 80 ? '🎭' : pct >= 60 ? '👍' : '📖';
+      const msg = pct >= 80 ? '¡Excelente actuación, todo un experto!' : pct >= 60 ? '¡Muy bien! Tienes buena aptitud.' : '¡No te desanimes! Repasa el telón y vuelve a intentarlo.';
+      res.innerHTML = `
+        <div class="result-score">${s.score}/${s.questions.length}</div>
+        <div class="result-pct">${pct}% de aciertos</div>
+        <div class="result-msg">${emoji} ${msg}</div>
+        <button class="btn-retry" id="retry-${id}">🔄 Repetir test</button>
+      `;
+      container.appendChild(res);
+      
+      document.getElementById(`retry-${id}`).addEventListener('click', () => {
+        s.current = 0; s.score = 0; s.answered = false; s.completed = false;
+        this.render(id);
+      });
+      ScoreTracker.update(id, s.score, s.questions.length);
+      
+      const btn = document.querySelector(`.tab-btn[data-section="${id}"]`);
+      if (btn && !btn.querySelector('.check')) {
+        const chk = document.createElement('span');
+        chk.className = 'check'; chk.textContent = '✅';
+        btn.appendChild(chk);
+      }
+    }
+  };
+
+  /* ── SCORE TRACKER ── */
+  const ScoreTracker = {
+    scores: {},
+    update(id, got, tot) {
+      this.scores[id] = { got, tot };
+      const entries = Object.values(this.scores);
+      const totalGot = entries.reduce((a, e) => a + e.got, 0);
+      const totalTot = entries.reduce((a, e) => a + e.tot, 0);
+      document.getElementById('global-score').textContent = `${totalGot}/${totalTot}`;
+    }
+  };
+
+  /* ── NAV TABS ── */
+  const tabs = document.querySelectorAll('.tab-btn');
+  const sections = document.querySelectorAll('.section');
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(b => b.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+      
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.section).classList.add('active');
+      
+      const sid = btn.dataset.section;
+      if (sid !== 's6' && !QuizEngine.instances[sid]) {
+        QuizEngine.create(sid, QUESTIONS[sid]);
+      }
+    });
+  });
+
+  /* ── INICIALIZAR PRIMERA SECCIÓN ── */
+  QuizEngine.create('s1', QUESTIONS['s1']);
+});
+</script>
+</body>
+</html>
